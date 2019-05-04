@@ -1,0 +1,7 @@
+D:\PROGRAMS\Diplom\Server\Server\bin\Debug\Server.exe.config
+D:\PROGRAMS\Diplom\Server\Server\bin\Debug\Server.exe
+D:\PROGRAMS\Diplom\Server\Server\bin\Debug\Server.pdb
+D:\PROGRAMS\Diplom\Server\Server\obj\Debug\Server.csprojAssemblyReference.cache
+D:\PROGRAMS\Diplom\Server\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+D:\PROGRAMS\Diplom\Server\Server\obj\Debug\Server.exe
+D:\PROGRAMS\Diplom\Server\Server\obj\Debug\Server.pdb
