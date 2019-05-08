@@ -11,9 +11,8 @@ public class Exhibit
     private int _Xcoord, _Ycoord;       // Exponat's coord in out Schem
 
     public Exhibit()                    // For download from server
-	{
-        ResiveExhibit();
-	}
+	{ }
+
     public Exhibit(string name, string description, List<string> links, int Xcoord, int Ycoord)
     {
         _id = Speaker.GetNextExhibitId();
@@ -25,6 +24,7 @@ public class Exhibit
 }
 
     public void ResiveExhibit() { }
+    public void ResiveExhibit(int ExhibitId) { }
     public void SendExhibit() { }
 
     public bool ChangeDescription(string NEWDescription)
