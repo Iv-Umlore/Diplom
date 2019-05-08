@@ -7,21 +7,71 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SocketTcpClient;
 
 namespace Client
 {
     public partial class Form1 : Form
     {
+        Bridge bridge;
         public Form1()
         {
+            bridge = new Bridge();
             InitializeComponent();
+        }        
+
+        private void ShowFloor_Click(object sender, EventArgs e)
+        {
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ShowExponat_Click(object sender, EventArgs e)
         {
-            string mess = Message.Text;
-            Speaker.Send(mess);
+
+        }
+
+        private void Autorization_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddExponat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteExponat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ChangeExponat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SetExponat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ResetExponat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ChangeFloor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddExponatPoint_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteExponatPoint_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

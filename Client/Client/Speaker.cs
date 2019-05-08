@@ -11,13 +11,20 @@ namespace SocketTcpClient
     class Speaker
     {
         // адрес и порт сервера, к которому будем подключаться
-        static int port = 1024; // порт сервера
-        static string address = "127.0.0.1"; // адрес сервера
-        static public void Send(string args)
+        private int _port; // порт сервера
+        private string _address; // адрес сервера
+
+        public Speaker(int port, string address)
+        {
+            _port = port;
+            _address = address;
+        }
+
+        public void Send(string args)
         {
             try
             {
-                IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
+                IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(_address), _port);
 
                 Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 // подключаемся к удаленному хосту
