@@ -11,20 +11,19 @@ namespace SocketTcpClient
     class Speaker
     {
         // адрес и порт сервера, к которому будем подключаться
-        private int _port; // порт сервера
-        private string _address; // адрес сервера
+        static int port = 1024; // порт сервера
+        static string address = "127.0.0.1"; // адрес сервера
 
-        public Speaker(int port, string address)
+        public static int GetNextExhibitId()
         {
-            _port = port;
-            _address = address;
+            return 1;
         }
 
-        public void Send(string args)
+        static public void Send(string args)
         {
             try
             {
-                IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(_address), _port);
+                IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
 
                 Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 // подключаемся к удаленному хосту
@@ -32,7 +31,7 @@ namespace SocketTcpClient
                 Console.Write("Введите сообщение:");
                 byte[] data = Encoding.Unicode.GetBytes(args);
                 socket.Send(data);
-
+                
                 // получаем ответ
                 data = new byte[256]; // буфер для ответа
                 StringBuilder builder = new StringBuilder();

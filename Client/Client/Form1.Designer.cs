@@ -39,11 +39,13 @@
             this.ChangeFloor = new System.Windows.Forms.Button();
             this.AddExponatPoint = new System.Windows.Forms.Button();
             this.DeleteExponatPoint = new System.Windows.Forms.Button();
+            this.AddFloor = new System.Windows.Forms.Button();
+            this.DeleteFloor = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // DeleteExponat
             // 
-            this.DeleteExponat.Location = new System.Drawing.Point(135, 41);
+            this.DeleteExponat.Location = new System.Drawing.Point(12, 41);
             this.DeleteExponat.Name = "DeleteExponat";
             this.DeleteExponat.Size = new System.Drawing.Size(143, 23);
             this.DeleteExponat.TabIndex = 0;
@@ -53,7 +55,7 @@
             // 
             // AddExponat
             // 
-            this.AddExponat.Location = new System.Drawing.Point(135, 11);
+            this.AddExponat.Location = new System.Drawing.Point(12, 12);
             this.AddExponat.Name = "AddExponat";
             this.AddExponat.Size = new System.Drawing.Size(143, 23);
             this.AddExponat.TabIndex = 1;
@@ -63,7 +65,7 @@
             // 
             // Autorization
             // 
-            this.Autorization.Location = new System.Drawing.Point(12, 70);
+            this.Autorization.Location = new System.Drawing.Point(12, 160);
             this.Autorization.Name = "Autorization";
             this.Autorization.Size = new System.Drawing.Size(117, 23);
             this.Autorization.TabIndex = 2;
@@ -73,7 +75,7 @@
             // 
             // ShowExponat
             // 
-            this.ShowExponat.Location = new System.Drawing.Point(12, 41);
+            this.ShowExponat.Location = new System.Drawing.Point(301, 12);
             this.ShowExponat.Name = "ShowExponat";
             this.ShowExponat.Size = new System.Drawing.Size(117, 23);
             this.ShowExponat.TabIndex = 3;
@@ -83,7 +85,7 @@
             // 
             // ShowFloor
             // 
-            this.ShowFloor.Location = new System.Drawing.Point(12, 12);
+            this.ShowFloor.Location = new System.Drawing.Point(296, 131);
             this.ShowFloor.Name = "ShowFloor";
             this.ShowFloor.Size = new System.Drawing.Size(117, 23);
             this.ShowFloor.TabIndex = 4;
@@ -93,7 +95,7 @@
             // 
             // ChangeExponat
             // 
-            this.ChangeExponat.Location = new System.Drawing.Point(135, 70);
+            this.ChangeExponat.Location = new System.Drawing.Point(12, 69);
             this.ChangeExponat.Name = "ChangeExponat";
             this.ChangeExponat.Size = new System.Drawing.Size(143, 23);
             this.ChangeExponat.TabIndex = 5;
@@ -103,7 +105,7 @@
             // 
             // SetExponat
             // 
-            this.SetExponat.Location = new System.Drawing.Point(284, 11);
+            this.SetExponat.Location = new System.Drawing.Point(161, 11);
             this.SetExponat.Name = "SetExponat";
             this.SetExponat.Size = new System.Drawing.Size(134, 23);
             this.SetExponat.TabIndex = 6;
@@ -113,7 +115,7 @@
             // 
             // ResetExponat
             // 
-            this.ResetExponat.Location = new System.Drawing.Point(284, 40);
+            this.ResetExponat.Location = new System.Drawing.Point(161, 41);
             this.ResetExponat.Name = "ResetExponat";
             this.ResetExponat.Size = new System.Drawing.Size(134, 23);
             this.ResetExponat.TabIndex = 7;
@@ -123,7 +125,7 @@
             // 
             // ChangeFloor
             // 
-            this.ChangeFloor.Location = new System.Drawing.Point(284, 69);
+            this.ChangeFloor.Location = new System.Drawing.Point(419, 131);
             this.ChangeFloor.Name = "ChangeFloor";
             this.ChangeFloor.Size = new System.Drawing.Size(134, 23);
             this.ChangeFloor.TabIndex = 8;
@@ -151,11 +153,33 @@
             this.DeleteExponatPoint.UseVisualStyleBackColor = true;
             this.DeleteExponatPoint.Click += new System.EventHandler(this.DeleteExponatPoint_Click);
             // 
+            // AddFloor
+            // 
+            this.AddFloor.Location = new System.Drawing.Point(296, 159);
+            this.AddFloor.Name = "AddFloor";
+            this.AddFloor.Size = new System.Drawing.Size(114, 23);
+            this.AddFloor.TabIndex = 11;
+            this.AddFloor.Text = "Добавить этаж";
+            this.AddFloor.UseVisualStyleBackColor = true;
+            this.AddFloor.Click += new System.EventHandler(this.AddFloor_Click);
+            // 
+            // DeleteFloor
+            // 
+            this.DeleteFloor.Location = new System.Drawing.Point(419, 160);
+            this.DeleteFloor.Name = "DeleteFloor";
+            this.DeleteFloor.Size = new System.Drawing.Size(134, 23);
+            this.DeleteFloor.TabIndex = 12;
+            this.DeleteFloor.Text = "Удалить этаж";
+            this.DeleteFloor.UseVisualStyleBackColor = true;
+            this.DeleteFloor.Click += new System.EventHandler(this.DeleteFloor_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(560, 119);
+            this.ClientSize = new System.Drawing.Size(560, 195);
+            this.Controls.Add(this.DeleteFloor);
+            this.Controls.Add(this.AddFloor);
             this.Controls.Add(this.DeleteExponatPoint);
             this.Controls.Add(this.AddExponatPoint);
             this.Controls.Add(this.ChangeFloor);
@@ -186,6 +210,8 @@
         private System.Windows.Forms.Button ChangeFloor;
         private System.Windows.Forms.Button AddExponatPoint;
         private System.Windows.Forms.Button DeleteExponatPoint;
+        private System.Windows.Forms.Button AddFloor;
+        private System.Windows.Forms.Button DeleteFloor;
     }
 }
 

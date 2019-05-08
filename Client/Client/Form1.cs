@@ -73,5 +73,15 @@ namespace Client
         {
 
         }
+
+        private void AddFloor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteFloor_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
