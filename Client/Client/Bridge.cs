@@ -5,22 +5,62 @@ using SocketTcpClient;
 public class Bridge
 {
     public Floor floor;
-    public Bridge() {
-        floor = new Floor(); 
+    static public char[] separator = { '&','*','&'};
+
+    static public string[] ParseStr(string str, char[] sep)
+    {
+        return str.Split(sep);
     }
 
-    public void DownloadFloor(int FloorNumber)
+    static public int GetNextExhibitId()                    // Выдать свободный id Экспоната
     {
-        Console.Write("Запрашиваю этаж номер: " + FloorNumber);
-        floor = new Floor(FloorNumber);
+        return 1;
+    }
+
+    static public int GetNextExhibitSpaceId()               // Выдать свободный id точки расположения
+    {
+        return 1;
+    }
+
+    static public int GetNextFloorId()                      // Выдать свободный id Этажа
+    {
+        return 1;
+    }
+
+    static public string GetCorrectComandStrings(int code, string[] parameters)
+    {
+        string result = "";
+        result += code;
+        for (int i = 0; i < parameters.Length; i++)
+        {
+            result += "&*&" + parameters[i];
+        }
+        return result;
+    }
+
+    public Bridge() {
+        floor = new Floor();
+        separator = new char[3];
+        separator[0] = separator[2] = '&';
+        separator[0] = '*';
+    }
+
+    public void DownloadFloor(int FloorNumber = 1)
+    {
+        Console.Write("Запрашиваю этаж номер: " + FloorNumber + "\n");
+        string[] parameters = new string[1];
+        parameters[0] = FloorNumber.ToString();
+
+        string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GetFloor, parameters));
+
+        floor = new Floor(answer.Split(separator));
         Console.Write("Этаж получен.\n");
     }
 
     public Exhibit GetExhibitAt(int ExhibitId)
     {
-        Console.Write("Запрашиваю экспонат номер: " + ExhibitId);
-        Exhibit res = new Exhibit();
-        res.ResiveExhibit(ExhibitId);
+        Console.Write("Запрашиваю экспонат номер: " + ExhibitId + "\n");
+        Exhibit res = new Exhibit(ExhibitId);
         Console.Write("Экспонат получен.\n");
         return res;
 
@@ -29,7 +69,7 @@ public class Bridge
     public int Autorization(string login, string pass)
     {
         Console.Write("Авторизация...\n");
-        Console.Write("Авторизирован...");
+        Console.Write("Авторизирован..." + "\n");
         return 2;
     }
 
@@ -49,11 +89,11 @@ public class Bridge
         Console.Write("Отправлено.\n");
     }
 
-    public void ChangeDescription(Exhibit exh, string NEWdescription)
+    public void ChangeExhibit(Exhibit exh)
     {
-        Console.Write("Меняю...");
-        exh.ChangeDescription(NEWdescription);
-        Console.Write("Сменил.");
+        Console.Write("Меняю..." + "\n");
+        exh.SendExhibit();
+        Console.Write("Сменил." + "\n");
     }
 
     

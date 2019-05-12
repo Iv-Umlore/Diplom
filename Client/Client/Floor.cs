@@ -1,42 +1,36 @@
 ﻿using System;
-using SocketTcpClient;
 using System.Collections.Generic;
 
 // Целый этаж
 
 public class Floor
 {
-    private int HowManyExhibit;                         // количество экспонатов на этаже
-    private List<Exhibit> floore;                       // Список экспонатов
-	public Floor(int NumberOfFloore = 1)
+    private int id;
+    string FloorName;
+    private List<ExhibitSpace> floor;                  // Список точек экспонатов
+    private int _NumberOfFloor;                         // Номер текущего этажа
+	public Floor(string[] answer = null)
 	{
-        HowManyExhibit = Speaker.GetExhibitCountAt(NumberOfFloore);     // сколько экспонатов на этаже
+        id = int.Parse(answer[0]);
+        FloorName = answer[1];
+        int HowManyExhibitSpace = int.Parse(answer[2]);
         int count = 0;
-        while (count != HowManyExhibit)                                 // запрашиваем экспонаты
+        int position = 3;
+        floor = new List<ExhibitSpace>();
+        while (count != HowManyExhibitSpace)                                 // запрашиваем экспонаты
         {
-            Exhibit exh = new Exhibit();
-            floore.Add(exh);
-            count++;
+            ExhibitSpace ES = new ExhibitSpace(int.Parse(answer[position]));
+            floor.Add(ES);
+            position++;
         }
 	}
 
-    public void ChangeFloor(int NumberOfFloore = 1)     // сменить этаж
+    public List<ExhibitSpace> GetFloore()
     {
-
-        HowManyExhibit = Speaker.GetExhibitCountAt(NumberOfFloore);
-        int count = 0;
-        floore.Clear();
-        while (count != HowManyExhibit)
-        {
-            Exhibit exh = new Exhibit();
-            floore.Add(exh);
-            count++;
-        }
+        return floor;
     }
 
-    public List<Exhibit> GetFloore()
-    {
-        return floore;
-    }
+    // Добавить к этажу новую точку
+    // Удалить её 
 
 }

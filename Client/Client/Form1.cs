@@ -23,12 +23,14 @@ namespace Client
         private void ShowFloor_Click(object sender, EventArgs e)
         {
             bridge.DownloadFloor(1);
+            
             // ChangeCurrentFloor
             Console.Write("Завершено.\n");
         }
 
         private void ShowExponat_Click(object sender, EventArgs e)
         {
+            // Вне сервера
             Exhibit CurrentExhib = bridge.GetExhibitAt(1);
             // ShowThisExponat
             Console.Write("Завершено.\n");
@@ -63,13 +65,19 @@ namespace Client
         {
             Exhibit exb = new Exhibit();
             string descr = "Новое описание для экспоната";
-            bridge.ChangeDescription(exb, descr);
+            List<string> links = exb.GetLinks();
+            string link = "https:\\new.ru";
+            links.Add(link);
+            exb.ChangeName("new name");
+            exb.ChangeLinks(links);
+            exb.ChangeDescription(descr);
+            bridge.ChangeExhibit(exb);
             Console.Write("Завершено.\n");
         }
 
         private void SetExponat_Click(object sender, EventArgs e)
         {
-            /*
+            /* Повесить экспонат
              * Здесь будет реализация
              * 
             */
@@ -78,7 +86,7 @@ namespace Client
 
         private void ResetExponat_Click(object sender, EventArgs e)
         {
-            /*
+            /* Снять экспонат
              * Здесь будет реализация
              * 
             */
@@ -97,7 +105,7 @@ namespace Client
 
         private void AddExponatPoint_Click(object sender, EventArgs e)
         {
-            /*
+            /* Создание нового экспоната и отправка его на сервер
              * Здесь будет реализация
              * 
             */
@@ -106,7 +114,7 @@ namespace Client
 
         private void DeleteExponatPoint_Click(object sender, EventArgs e)
         {
-            /*
+            /* Удалить конкретный существующий экспонат
              * Здесь будет реализация
              * 
             */
@@ -115,7 +123,7 @@ namespace Client
 
         private void AddFloor_Click(object sender, EventArgs e)
         {
-            /*
+            /* Создать новую схему этажа
              * Здесь будет реализация
              * 
             */
@@ -124,11 +132,30 @@ namespace Client
 
         private void DeleteFloor_Click(object sender, EventArgs e)
         {
-            /*
+            /* удалить существующий этаж из бд
              * Здесь будет реализация
              * 
             */
             Console.Write("Завершено.\n");
         }
+        // Добавление и удаление этажей из списка доступных
+        /* private void AddFloorToSheme_Click(object sender, EventArgs e)
+         {
+             /* Добавить схему этажа
+              * Здесь будет реализация
+              * 
+             *//*
+             Console.Write("Завершено.\n");
+         }*/
+
+        /* private void AddFloorToSheme_Click(object sender, EventArgs e)
+        {
+            /* Добавить схему этажа
+             * Здесь будет реализация
+             * 
+            *//*
+            Console.Write("Завершено.\n");
+        }*/
+
     }
 }

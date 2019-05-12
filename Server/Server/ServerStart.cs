@@ -11,6 +11,7 @@ namespace SocketTcpServer
     class Server
     {
         static int port = 1024; // порт для приема входящих запросов
+        const int BufferSize = 1024;
 
         static void Main(string[] args)
         {
@@ -35,7 +36,7 @@ namespace SocketTcpServer
                     // получаем сообщение
                     StringBuilder builder = new StringBuilder();
                     int bytes = 0; // количество полученных байтов
-                    byte[] data = new byte[256]; // буфер для получаемых данных
+                    byte[] data = new byte[BufferSize]; // буфер для получаемых данных
 
                     do
                     {
@@ -44,7 +45,7 @@ namespace SocketTcpServer
                     }
                     while (handler.Available > 0);
 
-                    Console.WriteLine(DateTime.Now.ToShortTimeString() + ": " + builder.ToString());
+                    // builder.ToString() - наша строка
 
                     // отправляем ответ
                     string message = "Ваше сообщение доставлено";
