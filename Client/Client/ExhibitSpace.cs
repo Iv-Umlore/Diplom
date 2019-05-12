@@ -12,10 +12,13 @@ public class ExhibitSpace
         pointID = id;
         _exhibits = new List<Exhibit>();
         string[] res = ResiveExhibitSpace(id);
-        
+        XCoord = int.Parse(res[0]);
+        YCoord = int.Parse(res[1]);        
+        int HowManyExhibit = int.Parse(res[2]);
+
         int count = 0;
-        int position = 1;
-        int HowManyExhibit = int.Parse(res[0]);
+        int position = 3;
+
         while (count != HowManyExhibit)                                 // запрашиваем экспонаты
         {
             Exhibit exb = new Exhibit(int.Parse(res[position]));

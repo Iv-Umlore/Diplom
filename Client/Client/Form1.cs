@@ -63,7 +63,7 @@ namespace Client
 
         private void ChangeExponat_Click(object sender, EventArgs e)
         {
-            Exhibit exb = new Exhibit();
+            Exhibit exb = new Exhibit(1);
             string descr = "Новое описание для экспоната";
             List<string> links = exb.GetLinks();
             string link = "https:\\new.ru";

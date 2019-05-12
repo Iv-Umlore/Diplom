@@ -30,7 +30,7 @@ namespace SocketTcpClient
         // адрес и порт сервера, к которому будем подключаться
         static int port = 1024;                         // порт сервера
         static string address = "127.0.0.1";            // адрес сервера
-        const int BufferSize = 1024;                    // Размер буфера обмена
+        const int BufferSize = 256;                    // Размер буфера обмена
         
         static public string Send(string args)
         {            
@@ -63,6 +63,7 @@ namespace SocketTcpClient
                 socket.Close();
 
                 answer = builder.ToString();
+                Console.Write(answer);
             }
             catch (Exception ex)
             {

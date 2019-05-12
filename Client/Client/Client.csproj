@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Bridge.cs" />
     <Compile Include="Exhibit.cs" />
+    <Compile Include="ExhibitSpace.cs" />
     <Compile Include="Floor.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

@@ -9,7 +9,7 @@ public class Bridge
 
     static public string[] ParseStr(string str, char[] sep)
     {
-        return str.Split(sep);
+        return str.Split(sep,StringSplitOptions.RemoveEmptyEntries);
     }
 
     static public int GetNextExhibitId()                    // Выдать свободный id Экспоната
@@ -35,6 +35,7 @@ public class Bridge
         {
             result += "&*&" + parameters[i];
         }
+        //result += '\0';
         return result;
     }
 

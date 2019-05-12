@@ -8,7 +8,7 @@ public class Exhibit
     private string _name;               // Exponat name
     private string _description;        // Exponat description
     private List<string> _links;        // may be it's image (Bitmap)
-
+    
     public Exhibit(int id)                    // For download from server
 	{
         _id = id;
@@ -43,7 +43,7 @@ public class Exhibit
 
         command = Speaker.Send(command);    // получаем этот экспонат
 
-        string[] res = command.Split(Bridge.separator);
+        string[] res = Bridge.ParseStr(command, Bridge.separator);//command.Split(Bridge.separator);
         return res;
     }
     public void SendExhibit() { }

@@ -9,7 +9,8 @@ public class Floor
     string FloorName;
     private List<ExhibitSpace> floor;                  // Список точек экспонатов
     private int _NumberOfFloor;                         // Номер текущего этажа
-	public Floor(string[] answer = null)
+    public Floor() { }
+	public Floor(string[] answer)
 	{
         id = int.Parse(answer[0]);
         FloorName = answer[1];
