@@ -17,7 +17,10 @@ namespace Client
         public Form1()
         {
             bridge = new Bridge();
+            Client client = new Client();
+            
             InitializeComponent();
+            client.Activate();
         }        
 
         private void ShowFloor_Click(object sender, EventArgs e)

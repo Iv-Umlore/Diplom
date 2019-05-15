@@ -8,3 +8,4 @@ D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.exe
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.pdb
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.Form1.resources
+D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.Client.resources
