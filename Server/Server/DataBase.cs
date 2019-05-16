@@ -41,4 +41,125 @@ public class DataBase
         return res;
     }
 
+    /*static Bitmap GetImage(int ImageID)
+    {
+        return
+    }*/
+
+    static public int Autorization(string login, string pass)
+    {
+        return 1;
+    }
+
+    static public bool AddExponatToDataBase(string[] Exhib)
+    {
+        return true;
+    }
+
+    static public bool DeleteExhibitFromDataBase(int ExhID)
+    {
+        return true;
+    }
+
+    static public bool ChangeExhibit(string[] Exhib)
+    {
+        return true;
+    }
+
+    static public bool SetExhibit(int ExhibSpaceID, int ExhibID)
+    {
+        return true;
+    }
+
+    static public bool ResetExhibit(int ExhibID)
+    {
+        return true;
+    }
+
+    /*static public bool ChangeSchem(Bitmap BM)
+    {
+
+    }*/
+    static public bool AddNewExhibitSpace(int ExhibSpaceID, int x, int y)
+    {
+        return true;
+    }
+
+    static public bool DeleteExhibitSpace(int ExhibSpaceID)
+    {
+        return true;
+    }
+
+    /*static public bool AddNewSchem(Bitmap BM)
+    {
+
+    }*/
+
+    static public bool DeleteSchem(int SchemeID)
+    {
+        return true;
+    }
+
+    static public int GiveFreeExhibitID()
+    {
+        return 1;
+    }
+
+    static public int GiveFreeExhibitSpaceID()
+    {
+        return 1;
+    }
+
+    static public int GiveFreeFloorID()
+    {
+        return 1;
+    }
+
+    static public string[] GiveAllValidFloor()
+    {
+        string[] res = new string[1];
+        return res;
+    }
+
+    static public string[] GiveAllFloor()
+    {
+        string[] res = new string[1];
+        return res;
+    }
+
+    static public bool CreateManager(string login, string pass)
+    {
+        return true;
+    }
+    static public string[] GiveAllManager()
+    {
+        string[] res = new string[1];
+        return res;
+    }
+
+    /*static public Bitmap DownloadSheme(int SchemeID)
+    {
+
+    }*/
+
+    static public bool AddFloorToValid(int FloorID)
+    {
+        return true;
+    }
+
+    static public bool DeleteFloorFromValid(int FloorID)
+    {
+        return true;
+    }
+
+    static public bool DeleteManager(string login)
+    {
+        return true;
+    }
+
+    static public bool ChangePassword(string login, string pass)
+    {
+        return true;
+    }
+
 }

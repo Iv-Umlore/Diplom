@@ -35,6 +35,8 @@
             this.Autorization = new System.Windows.Forms.Button();
             this.GoToNextFloor = new System.Windows.Forms.Button();
             this.ManagerPanel = new System.Windows.Forms.Panel();
+            this.AllFloorList = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.CreateNewExhibit = new System.Windows.Forms.Button();
             this.ChangePass = new System.Windows.Forms.Button();
             this.AddExhibitSpase = new System.Windows.Forms.Button();
@@ -46,8 +48,7 @@
             this.DeleteManager = new System.Windows.Forms.Button();
             this.CreateManager = new System.Windows.Forms.Button();
             this.GoodFloorList = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.AllFloorList = new System.Windows.Forms.ComboBox();
+            this.Exit = new System.Windows.Forms.Button();
             this.Scheme_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Floore_Scheme)).BeginInit();
             this.ManagerPanel.SuspendLayout();
@@ -101,6 +102,7 @@
             // 
             // ManagerPanel
             // 
+            this.ManagerPanel.Controls.Add(this.Exit);
             this.ManagerPanel.Controls.Add(this.AllFloorList);
             this.ManagerPanel.Controls.Add(this.label1);
             this.ManagerPanel.Controls.Add(this.CreateNewExhibit);
@@ -113,6 +115,24 @@
             this.ManagerPanel.Name = "ManagerPanel";
             this.ManagerPanel.Size = new System.Drawing.Size(178, 271);
             this.ManagerPanel.TabIndex = 5;
+            // 
+            // AllFloorList
+            // 
+            this.AllFloorList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AllFloorList.FormattingEnabled = true;
+            this.AllFloorList.Location = new System.Drawing.Point(4, 129);
+            this.AllFloorList.Name = "AllFloorList";
+            this.AllFloorList.Size = new System.Drawing.Size(169, 21);
+            this.AllFloorList.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(32, 75);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Управление музеем";
             // 
             // CreateNewExhibit
             // 
@@ -215,23 +235,14 @@
             this.GoodFloorList.Size = new System.Drawing.Size(121, 21);
             this.GoodFloorList.TabIndex = 7;
             // 
-            // label1
+            // Exit
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 75);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Управление музеем";
-            // 
-            // AllFloorList
-            // 
-            this.AllFloorList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.AllFloorList.FormattingEnabled = true;
-            this.AllFloorList.Location = new System.Drawing.Point(4, 129);
-            this.AllFloorList.Name = "AllFloorList";
-            this.AllFloorList.Size = new System.Drawing.Size(169, 21);
-            this.AllFloorList.TabIndex = 8;
+            this.Exit.Location = new System.Drawing.Point(4, 35);
+            this.Exit.Name = "Exit";
+            this.Exit.Size = new System.Drawing.Size(169, 23);
+            this.Exit.TabIndex = 9;
+            this.Exit.Text = "Выйти из учётной записи";
+            this.Exit.UseVisualStyleBackColor = true;
             // 
             // Client
             // 
@@ -279,5 +290,6 @@
         private System.Windows.Forms.ComboBox GoodFloorList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox AllFloorList;
+        private System.Windows.Forms.Button Exit;
     }
 }
