@@ -33,20 +33,21 @@
             this.Floore_Scheme = new System.Windows.Forms.PictureBox();
             this.Floor_Name = new System.Windows.Forms.Label();
             this.Autorization = new System.Windows.Forms.Button();
-            this.GoodFloorList = new System.Windows.Forms.ListBox();
             this.GoToNextFloor = new System.Windows.Forms.Button();
             this.ManagerPanel = new System.Windows.Forms.Panel();
-            this.AdministratorPanel = new System.Windows.Forms.Panel();
-            this.CreateNewFloor = new System.Windows.Forms.Button();
-            this.ShowThisFloor = new System.Windows.Forms.Button();
-            this.AllFloorList = new System.Windows.Forms.ListBox();
-            this.EditFloor = new System.Windows.Forms.Button();
-            this.AddExhibitSpase = new System.Windows.Forms.Button();
-            this.ChangePass = new System.Windows.Forms.Button();
-            this.CreateManager = new System.Windows.Forms.Button();
-            this.DeleteManager = new System.Windows.Forms.Button();
-            this.DeleteFloor = new System.Windows.Forms.Button();
             this.CreateNewExhibit = new System.Windows.Forms.Button();
+            this.ChangePass = new System.Windows.Forms.Button();
+            this.AddExhibitSpase = new System.Windows.Forms.Button();
+            this.EditFloor = new System.Windows.Forms.Button();
+            this.ShowThisFloor = new System.Windows.Forms.Button();
+            this.CreateNewFloor = new System.Windows.Forms.Button();
+            this.AdministratorPanel = new System.Windows.Forms.Panel();
+            this.DeleteFloor = new System.Windows.Forms.Button();
+            this.DeleteManager = new System.Windows.Forms.Button();
+            this.CreateManager = new System.Windows.Forms.Button();
+            this.GoodFloorList = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.AllFloorList = new System.Windows.Forms.ComboBox();
             this.Scheme_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Floore_Scheme)).BeginInit();
             this.ManagerPanel.SuspendLayout();
@@ -89,14 +90,6 @@
             this.Autorization.UseVisualStyleBackColor = true;
             this.Autorization.Click += new System.EventHandler(this.Autorization_Click);
             // 
-            // GoodFloorList
-            // 
-            this.GoodFloorList.FormattingEnabled = true;
-            this.GoodFloorList.Location = new System.Drawing.Point(13, 421);
-            this.GoodFloorList.Name = "GoodFloorList";
-            this.GoodFloorList.Size = new System.Drawing.Size(120, 17);
-            this.GoodFloorList.TabIndex = 3;
-            // 
             // GoToNextFloor
             // 
             this.GoToNextFloor.Location = new System.Drawing.Point(528, 412);
@@ -108,17 +101,72 @@
             // 
             // ManagerPanel
             // 
+            this.ManagerPanel.Controls.Add(this.AllFloorList);
+            this.ManagerPanel.Controls.Add(this.label1);
             this.ManagerPanel.Controls.Add(this.CreateNewExhibit);
             this.ManagerPanel.Controls.Add(this.ChangePass);
             this.ManagerPanel.Controls.Add(this.AddExhibitSpase);
             this.ManagerPanel.Controls.Add(this.EditFloor);
-            this.ManagerPanel.Controls.Add(this.AllFloorList);
             this.ManagerPanel.Controls.Add(this.ShowThisFloor);
             this.ManagerPanel.Controls.Add(this.CreateNewFloor);
             this.ManagerPanel.Location = new System.Drawing.Point(610, 8);
             this.ManagerPanel.Name = "ManagerPanel";
             this.ManagerPanel.Size = new System.Drawing.Size(178, 271);
             this.ManagerPanel.TabIndex = 5;
+            // 
+            // CreateNewExhibit
+            // 
+            this.CreateNewExhibit.Location = new System.Drawing.Point(3, 243);
+            this.CreateNewExhibit.Name = "CreateNewExhibit";
+            this.CreateNewExhibit.Size = new System.Drawing.Size(170, 25);
+            this.CreateNewExhibit.TabIndex = 6;
+            this.CreateNewExhibit.Text = "Создать новый экспонат";
+            this.CreateNewExhibit.UseVisualStyleBackColor = true;
+            // 
+            // ChangePass
+            // 
+            this.ChangePass.Location = new System.Drawing.Point(3, 5);
+            this.ChangePass.Name = "ChangePass";
+            this.ChangePass.Size = new System.Drawing.Size(172, 23);
+            this.ChangePass.TabIndex = 5;
+            this.ChangePass.Text = "Изменить пароль";
+            this.ChangePass.UseVisualStyleBackColor = true;
+            // 
+            // AddExhibitSpase
+            // 
+            this.AddExhibitSpase.Location = new System.Drawing.Point(3, 214);
+            this.AddExhibitSpase.Name = "AddExhibitSpase";
+            this.AddExhibitSpase.Size = new System.Drawing.Size(170, 23);
+            this.AddExhibitSpase.TabIndex = 4;
+            this.AddExhibitSpase.Text = "Добавить точку экспонатов";
+            this.AddExhibitSpase.UseVisualStyleBackColor = true;
+            // 
+            // EditFloor
+            // 
+            this.EditFloor.Location = new System.Drawing.Point(3, 185);
+            this.EditFloor.Name = "EditFloor";
+            this.EditFloor.Size = new System.Drawing.Size(170, 23);
+            this.EditFloor.TabIndex = 3;
+            this.EditFloor.Text = "Редактировать этаж";
+            this.EditFloor.UseVisualStyleBackColor = true;
+            // 
+            // ShowThisFloor
+            // 
+            this.ShowThisFloor.Location = new System.Drawing.Point(3, 156);
+            this.ShowThisFloor.Name = "ShowThisFloor";
+            this.ShowThisFloor.Size = new System.Drawing.Size(171, 23);
+            this.ShowThisFloor.TabIndex = 1;
+            this.ShowThisFloor.Text = "Показать этаж";
+            this.ShowThisFloor.UseVisualStyleBackColor = true;
+            // 
+            // CreateNewFloor
+            // 
+            this.CreateNewFloor.Location = new System.Drawing.Point(3, 104);
+            this.CreateNewFloor.Name = "CreateNewFloor";
+            this.CreateNewFloor.Size = new System.Drawing.Size(172, 23);
+            this.CreateNewFloor.TabIndex = 0;
+            this.CreateNewFloor.Text = "Создать новый этаж";
+            this.CreateNewFloor.UseVisualStyleBackColor = true;
             // 
             // AdministratorPanel
             // 
@@ -130,77 +178,6 @@
             this.AdministratorPanel.Size = new System.Drawing.Size(178, 153);
             this.AdministratorPanel.TabIndex = 6;
             // 
-            // CreateNewFloor
-            // 
-            this.CreateNewFloor.Location = new System.Drawing.Point(3, 5);
-            this.CreateNewFloor.Name = "CreateNewFloor";
-            this.CreateNewFloor.Size = new System.Drawing.Size(172, 23);
-            this.CreateNewFloor.TabIndex = 0;
-            this.CreateNewFloor.Text = "Создать новый этаж";
-            this.CreateNewFloor.UseVisualStyleBackColor = true;
-            // 
-            // ShowThisFloor
-            // 
-            this.ShowThisFloor.Location = new System.Drawing.Point(3, 57);
-            this.ShowThisFloor.Name = "ShowThisFloor";
-            this.ShowThisFloor.Size = new System.Drawing.Size(171, 23);
-            this.ShowThisFloor.TabIndex = 1;
-            this.ShowThisFloor.Text = "Показать этаж";
-            this.ShowThisFloor.UseVisualStyleBackColor = true;
-            // 
-            // AllFloorList
-            // 
-            this.AllFloorList.FormattingEnabled = true;
-            this.AllFloorList.Location = new System.Drawing.Point(4, 34);
-            this.AllFloorList.Name = "AllFloorList";
-            this.AllFloorList.Size = new System.Drawing.Size(170, 17);
-            this.AllFloorList.TabIndex = 2;
-            // 
-            // EditFloor
-            // 
-            this.EditFloor.Location = new System.Drawing.Point(4, 86);
-            this.EditFloor.Name = "EditFloor";
-            this.EditFloor.Size = new System.Drawing.Size(170, 23);
-            this.EditFloor.TabIndex = 3;
-            this.EditFloor.Text = "Редактировать этаж";
-            this.EditFloor.UseVisualStyleBackColor = true;
-            // 
-            // AddExhibitSpase
-            // 
-            this.AddExhibitSpase.Location = new System.Drawing.Point(4, 116);
-            this.AddExhibitSpase.Name = "AddExhibitSpase";
-            this.AddExhibitSpase.Size = new System.Drawing.Size(170, 23);
-            this.AddExhibitSpase.TabIndex = 4;
-            this.AddExhibitSpase.Text = "Добавить точку экспонатов";
-            this.AddExhibitSpase.UseVisualStyleBackColor = true;
-            // 
-            // ChangePass
-            // 
-            this.ChangePass.Location = new System.Drawing.Point(4, 245);
-            this.ChangePass.Name = "ChangePass";
-            this.ChangePass.Size = new System.Drawing.Size(170, 23);
-            this.ChangePass.TabIndex = 5;
-            this.ChangePass.Text = "Изменить пароль";
-            this.ChangePass.UseVisualStyleBackColor = true;
-            // 
-            // CreateManager
-            // 
-            this.CreateManager.Location = new System.Drawing.Point(3, 13);
-            this.CreateManager.Name = "CreateManager";
-            this.CreateManager.Size = new System.Drawing.Size(172, 23);
-            this.CreateManager.TabIndex = 0;
-            this.CreateManager.Text = "Создать нового менеджера";
-            this.CreateManager.UseVisualStyleBackColor = true;
-            // 
-            // DeleteManager
-            // 
-            this.DeleteManager.Location = new System.Drawing.Point(4, 42);
-            this.DeleteManager.Name = "DeleteManager";
-            this.DeleteManager.Size = new System.Drawing.Size(170, 23);
-            this.DeleteManager.TabIndex = 1;
-            this.DeleteManager.Text = "Удалить менеджера";
-            this.DeleteManager.UseVisualStyleBackColor = true;
-            // 
             // DeleteFloor
             // 
             this.DeleteFloor.Location = new System.Drawing.Point(4, 123);
@@ -211,24 +188,60 @@
             this.DeleteFloor.UseVisualStyleBackColor = true;
             this.DeleteFloor.Click += new System.EventHandler(this.DeleteFloor_Click);
             // 
-            // CreateNewExhibit
+            // DeleteManager
             // 
-            this.CreateNewExhibit.Location = new System.Drawing.Point(4, 146);
-            this.CreateNewExhibit.Name = "CreateNewExhibit";
-            this.CreateNewExhibit.Size = new System.Drawing.Size(170, 25);
-            this.CreateNewExhibit.TabIndex = 6;
-            this.CreateNewExhibit.Text = "Создать новый экспонат";
-            this.CreateNewExhibit.UseVisualStyleBackColor = true;
+            this.DeleteManager.Location = new System.Drawing.Point(4, 42);
+            this.DeleteManager.Name = "DeleteManager";
+            this.DeleteManager.Size = new System.Drawing.Size(170, 23);
+            this.DeleteManager.TabIndex = 1;
+            this.DeleteManager.Text = "Удалить менеджера";
+            this.DeleteManager.UseVisualStyleBackColor = true;
+            // 
+            // CreateManager
+            // 
+            this.CreateManager.Location = new System.Drawing.Point(3, 13);
+            this.CreateManager.Name = "CreateManager";
+            this.CreateManager.Size = new System.Drawing.Size(172, 23);
+            this.CreateManager.TabIndex = 0;
+            this.CreateManager.Text = "Создать нового менеджера";
+            this.CreateManager.UseVisualStyleBackColor = true;
+            // 
+            // GoodFloorList
+            // 
+            this.GoodFloorList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GoodFloorList.FormattingEnabled = true;
+            this.GoodFloorList.Location = new System.Drawing.Point(13, 416);
+            this.GoodFloorList.Name = "GoodFloorList";
+            this.GoodFloorList.Size = new System.Drawing.Size(121, 21);
+            this.GoodFloorList.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(32, 75);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Управление музеем";
+            // 
+            // AllFloorList
+            // 
+            this.AllFloorList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AllFloorList.FormattingEnabled = true;
+            this.AllFloorList.Location = new System.Drawing.Point(4, 129);
+            this.AllFloorList.Name = "AllFloorList";
+            this.AllFloorList.Size = new System.Drawing.Size(169, 21);
+            this.AllFloorList.TabIndex = 8;
             // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.GoodFloorList);
             this.Controls.Add(this.AdministratorPanel);
             this.Controls.Add(this.ManagerPanel);
             this.Controls.Add(this.GoToNextFloor);
-            this.Controls.Add(this.GoodFloorList);
             this.Controls.Add(this.Autorization);
             this.Controls.Add(this.Floor_Name);
             this.Controls.Add(this.Scheme_Panel);
@@ -237,6 +250,7 @@
             this.Scheme_Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Floore_Scheme)).EndInit();
             this.ManagerPanel.ResumeLayout(false);
+            this.ManagerPanel.PerformLayout();
             this.AdministratorPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -250,19 +264,20 @@
         private System.Windows.Forms.PictureBox Floore_Scheme;
         private System.Windows.Forms.Label Floor_Name;
         private System.Windows.Forms.Button Autorization;
-        private System.Windows.Forms.ListBox GoodFloorList;
         private System.Windows.Forms.Button GoToNextFloor;
         private System.Windows.Forms.Panel ManagerPanel;
         private System.Windows.Forms.Button CreateNewExhibit;
         private System.Windows.Forms.Button ChangePass;
         private System.Windows.Forms.Button AddExhibitSpase;
         private System.Windows.Forms.Button EditFloor;
-        private System.Windows.Forms.ListBox AllFloorList;
         private System.Windows.Forms.Button ShowThisFloor;
         private System.Windows.Forms.Button CreateNewFloor;
         private System.Windows.Forms.Panel AdministratorPanel;
         private System.Windows.Forms.Button DeleteFloor;
         private System.Windows.Forms.Button DeleteManager;
         private System.Windows.Forms.Button CreateManager;
+        private System.Windows.Forms.ComboBox GoodFloorList;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox AllFloorList;
     }
 }

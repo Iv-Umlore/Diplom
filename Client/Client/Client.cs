@@ -15,11 +15,16 @@ namespace Client
         public Client()
         {
             InitializeComponent();
+            ManagerPanel.Hide();
+            AdministratorPanel.Hide();
+            GoodFloorList.Items.Add("тестовая строка");
+            
         }
 
         private void Autorization_Click(object sender, EventArgs e)
         {
-
+            AdministratorPanel.Show();
+            ManagerPanel.Show();
         }
 
         private void DeleteFloor_Click(object sender, EventArgs e)

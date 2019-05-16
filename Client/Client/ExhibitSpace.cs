@@ -29,6 +29,13 @@ public class ExhibitSpace
 
     }
 
+    public ExhibitSpace(int x, int y)
+    {
+        pointID = Bridge.GetNextExhibitSpaceId();
+        XCoord = x;
+        YCoord = y;
+    }
+
     private string[] ResiveExhibitSpace(int ExhibitSpaceId)
     {
         string[] parameters = new string[1];
@@ -38,9 +45,12 @@ public class ExhibitSpace
         string[] res = Bridge.ParseStr(answ, Bridge.separator);
         return res;
     }
-    public void SendExhibitSpace() { }
-
-    // Добавить к точке новый экспонат
-    // Удалить его
+    public void SendExhibitSpace() {
+        string[] parameters = new string[2];
+        parameters[0] = XCoord.ToString();
+        parameters[1] = YCoord.ToString();
+        Speaker.Send(Bridge.GetCorrectComandStrings((int)Commands.AddNewExhibitSpace, parameters));
+        // true/false
+    }    
 
 }

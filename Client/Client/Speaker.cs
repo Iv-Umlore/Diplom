@@ -5,21 +5,33 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 
-enum Commands { GetFloor = 1,   
-    GetESpace = 2,              
-    GetExhibit = 3,             
-    Autorization = 4,           
-    AddExponatToDataBase = 5,       
-    DeleteExhibitFromDataBase = 6,  
-    ChangeExhibit = 7,          
-    SetExhibit = 8,             // Повесить экспонат
-    ResetExhibit = 9,           // Снять экспонат
-    ChangeSchem = 10,           // Изменить схему
-    EddNewExhibitSpace = 11,    // Добавть новую точку
-    DeleteExhibitSpace = 12,    // Удалить точку
-    CreateNewSchem = 13,        // Создать новую схему этажа
-    DeleteSchem = 14,           // Удалить
-    GiveFreeExhibitID = 15,     // Выдать свободный id экспоната
+enum Commands { GetFloor = 1,   //                                      | +
+    GetESpace = 2,              //                                      | +
+    GetExhibit = 3,             //                                      | +
+    GetImage = 4,               //                                      | ???
+    Autorization = 5,           //                                      | +   
+    AddExponatToDataBase = 6,   //                                      | +                          
+    DeleteExhibitFromDataBase = 7, //                                   | +
+    ChangeExhibit = 8,          //                                      | +
+    SetExhibit = 9,             // Повесить экспонат                    | +
+    ResetExhibit = 10,          // Снять экспонат                       | +
+    ChangeSchem = 11,           // Изменить схему                       | ???
+    AddNewExhibitSpace = 12,    // Добавть новую точку                  | +
+    DeleteExhibitSpace = 13,    // Удалить точку                        | +
+    AddNewSchem = 14,        // Создать новую схему этажа               | ???
+    DeleteSchem = 15,           // Удалить                              | +
+    GiveFreeExhibitID = 16,     // Выдать свободный id экспоната        | +
+    GiveFreeExhibitSpaceID = 17,//                                      | +
+    GiveFreeFloorID = 18,       //                                      | +
+    GiveAllValidFloor = 19,     // Выдать все действующие этажи         | +
+    GiveAllFloor = 20,          // Выдать все этажи                     | +
+    CreateManager = 21,         // Запись нового менеджера в БД         | +
+    GiveAllManager = 22,        // Показать список менеджеров           | +
+    DownloadSheme = 23,         // Загрузить схему этажа                | ???
+    AddFloorToValid = 24,       // Добавить этаж как действующий        | +
+    DeleteFloorFromValid = 25,  // Удалить                              | +
+    DeleteManager = 26,         // Удалить менеджера                    | +
+    ChangePassword = 27         // изменить пароль учётной записи       | +
 };
 
 namespace SocketTcpClient
