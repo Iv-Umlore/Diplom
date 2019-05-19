@@ -1,42 +1,195 @@
 ﻿using System;
+using System.Collections.Generic;
+using Npgsql;
 
 public class DataBase
 {
-	static public string[] GetFloor(int number)
+    private string conn_param;
+    private NpgsqlConnection conn;
+
+    public DataBase()
     {
+        conn_param = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=rjnt98xz;Database=Museum;";
+        conn = new NpgsqlConnection(conn_param);
+    }
+
+	public string[] GetFloor(int number)
+    {
+        string sql = "SELECT * FROM floors WHERE id_floor = " + number + ";";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        conn.Open();
+        NpgsqlDataReader reader;
+        reader = comm.ExecuteReader();
         // Здесь будет обращение к БД
-        string[] res = new string[3];
-        int id = 5;
-        res[0] = id.ToString();
-        res[1] = "Floor Name";
-        id = 2;
-        res[2] = id.ToString();
+        List<string> answer = new List<string>();
+        while (reader.Read())
+        {
+            try
+            {
+                answer.Add(reader.GetInt32(0).ToString());  // id
+                answer.Add(reader.GetString(1));            // name
+                answer.Add(reader.GetInt32(2).ToString());  // scheme_id
+            }
+            catch
+            {
+                answer.Add("-1");
+                answer.Add("Ошибка");
+                answer.Add("-1");
+            }
+        }
+
+        sql = "SELECT id FROM exhibitspace WHERE floor_id = " + number + ";";
+        comm = new NpgsqlCommand(sql, conn);
+        reader = comm.ExecuteReader();
+
+        while (reader.Read())
+        {
+            try
+            {
+                answer.Add(reader.GetInt32(0).ToString());    // id_space
+            }
+            catch
+            {
+                answer.Add("-1");
+            }
+        }
+
+        string[] res = new string[answer.Count];
+
+        for (int i = 0; i < answer.Count; i++)
+        {
+            res[i] = answer[i];
+        }
+
+        conn.Close();
         Console.Write("Выдаю этаж\n");
         return res;
     }
 
-    static public string[] GetESpace(int number)
+    public string[] GetESpace(int number)
     {
+
+        string sql = "SELECT x, y FROM exhibitspace WHERE id = " + number + ";";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        conn.Open();
+        NpgsqlDataReader reader;
+        reader = comm.ExecuteReader();
+
         // Здесь будет обращение к БД
-        string[] res = new string[3];
-        int id = 2;
-        res[0] = id.ToString();
-        res[1] = id.ToString();
-        id = 3;
-        res[2] = id.ToString();
+        List<string> answer = new List<string>();
+        while (reader.Read())
+        {
+            try
+            {
+                answer.Add(reader.GetInt32(0).ToString());      // x
+                answer.Add(reader.GetInt32(1).ToString());      // y
+            }
+            catch
+            {
+                answer.Add("-1");
+                answer.Add("-1");
+            }
+        }
+
+        List<int> hisExhib = new List<int>();
+        sql = "SELECT id_exhib FROM existingexhibits WHERE id_point = " + number.ToString() + ";";
+        comm = new NpgsqlCommand(sql, conn);
+        reader = comm.ExecuteReader();
+
+        while (reader.Read())
+        {
+            try
+            {
+                hisExhib.Add(reader.GetInt32(0));       // all id
+            }
+            catch
+            {
+                hisExhib.Add(0);
+            }
+        }
+        if (hisExhib.Count == 0) hisExhib.Add(0);
+
+        sql = "SELECT id, name FROM exhibits WHERE id = " + hisExhib[0];
+        for (int pos = 1; pos < hisExhib.Count; pos++)           
+            sql += "OR id = " + hisExhib[pos];
+                sql += ";";
+        comm = new NpgsqlCommand(sql, conn);
+        reader = comm.ExecuteReader();
+
+        while (reader.Read())
+        {
+            try
+            {
+                answer.Add(reader.GetInt32(0).ToString());  // id
+                answer.Add(reader.GetString(1));            // name
+            }
+            catch
+            {
+                answer.Add("0");
+                answer.Add("Ошибка");
+            }
+        }
+
+        string[] res = new string[answer.Count];
+
+        for (int i = 0; i < answer.Count; i++)
+        {
+            res[i] = answer[i];
+        }
+
+        conn.Close();
         Console.Write("Выдаю Точку\n");
         return res;
     }
 
-    static public string[] GetExhibit(int number)
+    public string[] GetExhibit(int number)
     {
+        string sql = "SELECT * FROM exhibits WHERE id = " + number.ToString() + ";";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        conn.Open();
+        NpgsqlDataReader reader;
+        reader = comm.ExecuteReader();
         // Здесь будет обращение к БД
-        string[] res = new string[4];
-        int id = 2;
-        res[0] = "Имя Экспоната";
-        res[1] = "Описание этого экспоната может быть достаточно большим";
-        res[2] = id.ToString();     // число ссылок на фотографии
-        res[3] = "https:\\a.ru|||https:\\b.ru"; // ссылки поочерёдно, разделяя |||
+        string[] res = new string[3];
+        while (reader.Read())
+        {
+            try
+            {
+                res[0] = reader.GetString(1);
+                res[1] = reader.GetString(2);
+            }
+            catch
+            {
+                res[0] = "Ошибка";
+                res[1] = "Ошибка";
+            };
+        }
+        sql = "select id_image from image where exhib_id = " + number.ToString() + ";";
+        comm = new NpgsqlCommand(sql, conn);
+        reader = comm.ExecuteReader();
+        string AllImage = "";
+        bool flag = false;
+        while (reader.Read())
+        {
+            try
+            {
+                if (flag)
+                {
+                    AllImage += "|||" + reader.GetString(0);
+                }
+                else
+                {
+                    AllImage += reader.GetString(0);
+                }
+            }
+            catch {
+                AllImage = "0";
+            };
+        }
+        if (AllImage.Equals("")) AllImage = "0";
+        res[2] = AllImage;
+
+        conn.Close();
         Console.Write("Выдаю экспонат\n");
         return res;
     }
@@ -46,32 +199,55 @@ public class DataBase
         return
     }*/
 
-    static public int Autorization(string login, string pass)
+    public int Autorization(string login, string pass)
     {
-        return 1;
+
+        string sql = "SELECT * FROM users WHERE login = '" + login + "';";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        conn.Open();
+        NpgsqlDataReader reader;
+        reader = comm.ExecuteReader();
+        bool flag = false;
+        int root = 0;
+        while (reader.Read())
+        {
+            try
+            {
+                flag = true;
+                if (pass.Equals(reader.GetString(1))) root = reader.GetInt32(2);
+            }
+            catch
+            {
+                return -1;      // Error
+            }
+        }
+
+        if (!flag) return -2;   // login is not correct
+
+        return root;
     }
 
-    static public bool AddExponatToDataBase(string[] Exhib)
+    public bool AddExponatToDataBase(string[] Exhib)
     {
         return true;
     }
 
-    static public bool DeleteExhibitFromDataBase(int ExhID)
+    public bool DeleteExhibitFromDataBase(int ExhID)
     {
         return true;
     }
 
-    static public bool ChangeExhibit(string[] Exhib)
+    public bool ChangeExhibit(string[] Exhib)
     {
         return true;
     }
 
-    static public bool SetExhibit(int ExhibSpaceID, int ExhibID)
+    public bool SetExhibit(int ExhibSpaceID, int ExhibID)
     {
         return true;
     }
 
-    static public bool ResetExhibit(int ExhibID)
+    public bool ResetExhibit(int ExhibID)
     {
         return true;
     }
@@ -80,12 +256,12 @@ public class DataBase
     {
 
     }*/
-    static public bool AddNewExhibitSpace(int ExhibSpaceID, int x, int y)
+    public bool AddNewExhibitSpace(int ExhibSpaceID, int x, int y)
     {
         return true;
     }
 
-    static public bool DeleteExhibitSpace(int ExhibSpaceID)
+    public bool DeleteExhibitSpace(int ExhibSpaceID)
     {
         return true;
     }
@@ -95,43 +271,43 @@ public class DataBase
 
     }*/
 
-    static public bool DeleteSchem(int SchemeID)
+    public bool DeleteSchem(int SchemeID)
     {
         return true;
     }
 
-    static public int GiveFreeExhibitID()
+    /*public int GiveFreeExhibitID()
     {
         return 1;
-    }
+    }*/
 
-    static public int GiveFreeExhibitSpaceID()
+    /*public int GiveFreeExhibitSpaceID()
     {
         return 1;
-    }
+    }*/
 
-    static public int GiveFreeFloorID()
+    /*public int GiveFreeFloorID()
     {
         return 1;
-    }
+    }*/
 
-    static public string[] GiveAllValidFloor()
+    public string[] GiveAllValidFloor()
     {
         string[] res = new string[1];
         return res;
     }
 
-    static public string[] GiveAllFloor()
+    public string[] GiveAllFloor()
     {
         string[] res = new string[1];
         return res;
     }
 
-    static public bool CreateManager(string login, string pass)
+    public bool CreateManager(string login, string pass)
     {
         return true;
     }
-    static public string[] GiveAllManager()
+    public string[] GiveAllManager()
     {
         string[] res = new string[1];
         return res;
@@ -142,22 +318,22 @@ public class DataBase
 
     }*/
 
-    static public bool AddFloorToValid(int FloorID)
+    public bool AddFloorToValid(int FloorID)
     {
         return true;
     }
 
-    static public bool DeleteFloorFromValid(int FloorID)
+    public bool DeleteFloorFromValid(int FloorID)
     {
         return true;
     }
 
-    static public bool DeleteManager(string login)
+    public bool DeleteManager(string login)
     {
         return true;
     }
 
-    static public bool ChangePassword(string login, string pass)
+    public bool ChangePassword(string login, string pass)
     {
         return true;
     }

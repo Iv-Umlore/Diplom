@@ -7,7 +7,7 @@ public class Exhibit
     private int _id;                    // Exponat id
     private string _name;               // Exponat name
     private string _description;        // Exponat description
-    private List<string> _links;        // may be it's image (Bitmap)
+    private List<int> images_id;        // may be it's image (Bitmap)
     
     public Exhibit(int id)                    // For download from server
 	{
@@ -18,22 +18,22 @@ public class Exhibit
 
         char[] sep = new char[3];
         sep[0] = sep[1] = sep[2] = '|';
-        string[] link = Bridge.ParseStr(exh[2], sep);
+        string[] image_id = Bridge.ParseStr(exh[2], sep);
 
-        _links = new List<string>();
-        for (int count = 0; count < link.Length; count++)
+        images_id = new List<int>();
+        for (int count = 0; count < image_id.Length; count++)
         {
-            _links.Add(link[count]);
+            if (int.Parse(image_id[count]) == 0) break;
+            images_id.Add(int.Parse(image_id[count]));
         }       
        
     }
 
-    public Exhibit(string name, string description, List<string> links, int Xcoord, int Ycoord)
+    public Exhibit(string name, string description)
     {
-        _id = Bridge.GetNextExhibitId();
+        //_id = Bridge.GetNextExhibitId();
         _name = name;                   // Exponat name
         _description = description;     // Exponat description
-        _links = links;                 // may be it's image (Bitmap)
 }
     
     public string[] ResiveExhibit(int ExhibitId) {
@@ -43,31 +43,39 @@ public class Exhibit
 
         command = Speaker.Send(command);    // получаем этот экспонат
 
-        string[] res = Bridge.ParseStr(command, Bridge.separator);//command.Split(Bridge.separator);
+        string[] res = Bridge.ParseStr(command, Bridge.separator);
         return res;
     }
-    public void SendExhibit() { }
 
-    public List<string> GetLinks()
-    {
-        return _links;
+    public void SendExhibit() {
+        string[] parameters = new string[2];
+        parameters[0] = _name;
+        parameters[1] = _description;
+        Speaker.Send(Bridge.GetCorrectComandStrings((int)Commands.AddNewExhibitSpace, parameters));
     }
 
-    public bool ChangeDescription(string NEWDescription)
+    public void ChangeExhibit()
+    {
+        string[] parameters = new string[3];
+        parameters[0] = _id.ToString();
+        parameters[1] = _name;
+        parameters[2] = _description;
+        Speaker.Send(Bridge.GetCorrectComandStrings((int)Commands.AddNewExhibitSpace, parameters));
+    }
+
+    public List<int> GetImagesID()
+    {
+        return images_id;
+    }
+
+    public void ChangeDescription(string NEWDescription)
     {
         _description = NEWDescription;
-        SendExhibit();
-        return true;
     }
 
     public void ChangeName(string NEWname)
     {
         _name = NEWname;
     }
-
-    public void ChangeLinks(List<string> NEWLinks)
-    {
-        _links = NEWLinks;
-    }
-
+    
 }

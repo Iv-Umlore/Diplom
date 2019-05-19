@@ -23,8 +23,7 @@ namespace SocketTcpServer
 
             // Создание объекта для общения с БД
             Bridge bridge = new Bridge();
-            //while (true)
-            //{
+            
                 try
                 {
                     // связываем сокет с локальной точкой, по которой будем принимать данные
@@ -68,7 +67,7 @@ namespace SocketTcpServer
                 {
                     Console.WriteLine(ex.Message);
                 }
-           // }
+            
         }
     }
 }

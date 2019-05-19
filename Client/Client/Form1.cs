@@ -54,7 +54,7 @@ namespace Client
             links.Add(link);
             string name = "Экспонат 1";
             string description = "Это тестовый экспонат, чтобы протестировать работоспособность приложения";
-            bridge.AddExhibit(name, description, links, 10, 10);
+            bridge.AddExhibit(name, description);
             Console.Write("Завершено.\n");
         }
 
@@ -66,13 +66,10 @@ namespace Client
 
         private void ChangeExponat_Click(object sender, EventArgs e)
         {
+            // Нужно взять id старого экспоната и по нему изменить его
             Exhibit exb = new Exhibit(1);
             string descr = "Новое описание для экспоната";
-            List<string> links = exb.GetLinks();
-            string link = "https:\\new.ru";
-            links.Add(link);
             exb.ChangeName("new name");
-            exb.ChangeLinks(links);
             exb.ChangeDescription(descr);
             bridge.ChangeExhibit(exb);
             Console.Write("Завершено.\n");

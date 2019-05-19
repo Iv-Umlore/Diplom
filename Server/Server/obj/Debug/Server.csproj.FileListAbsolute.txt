@@ -5,3 +5,6 @@ D:\PROGRAMS\Diplom\Server\Server\obj\Debug\Server.csprojAssemblyReference.cache
 D:\PROGRAMS\Diplom\Server\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 D:\PROGRAMS\Diplom\Server\Server\obj\Debug\Server.exe
 D:\PROGRAMS\Diplom\Server\Server\obj\Debug\Server.pdb
+D:\PROGRAMS\Diplom\Server\Server\bin\Debug\Mono.Security.dll
+D:\PROGRAMS\Diplom\Server\Server\bin\Debug\Npgsql.dll
+D:\PROGRAMS\Diplom\Server\Server\obj\Debug\Server.csproj.CopyComplete

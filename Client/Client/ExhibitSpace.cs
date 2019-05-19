@@ -5,33 +5,33 @@ using System.Collections.Generic;
 public class ExhibitSpace
 {
     int pointID;
-    List<Exhibit> _exhibits;
+    List<int> _exhibit_ids;
+    List<string> _exhibit_names;
     int XCoord, YCoord;
 	public ExhibitSpace(int id)
 	{
         pointID = id;
-        _exhibits = new List<Exhibit>();
+        _exhibit_ids = new List<int>();
+        _exhibit_names = new List<string>();
         string[] res = ResiveExhibitSpace(id);
         XCoord = int.Parse(res[0]);
-        YCoord = int.Parse(res[1]);        
-        int HowManyExhibit = int.Parse(res[2]);
+        YCoord = int.Parse(res[1]);
+        
+        int position = 2;
 
-        int count = 0;
-        int position = 3;
-
-        while (count != HowManyExhibit)                                 // запрашиваем экспонаты
+        while (position < res.Length )                                 // запрашиваем экспонаты
         {
-            Exhibit exb = new Exhibit(int.Parse(res[position]));
-            _exhibits.Add(exb);
+            if (int.Parse(res[position]) == 0) break;
+            _exhibit_ids.Add(int.Parse(res[position]));
+            position++;
+            _exhibit_names.Add(res[position]);
             position++;
         }
-
 
     }
 
     public ExhibitSpace(int x, int y)
     {
-        pointID = Bridge.GetNextExhibitSpaceId();
         XCoord = x;
         YCoord = y;
     }
@@ -46,10 +46,10 @@ public class ExhibitSpace
         return res;
     }
     public void SendExhibitSpace() {
-        string[] parameters = new string[2];
-        parameters[0] = XCoord.ToString();
-        parameters[1] = YCoord.ToString();
-        Speaker.Send(Bridge.GetCorrectComandStrings((int)Commands.AddNewExhibitSpace, parameters));
+            string[] parameters = new string[2];
+            parameters[0] = XCoord.ToString();
+            parameters[1] = YCoord.ToString();
+            Speaker.Send(Bridge.GetCorrectComandStrings((int)Commands.AddNewExhibitSpace, parameters));
         // true/false
     }    
 

@@ -26,23 +26,23 @@ public class Bridge
         return result;
     }
 
-    static public int GetNextExhibitId()                    // Выдать свободный id Экспоната
+    /*static public int GetNextExhibitId()                    // Выдать свободный id Экспоната
     {
         string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GiveFreeExhibitID, null));
         return int.Parse(answer);
-    }
+    }*/
 
-    static public int GetNextExhibitSpaceId()               // Выдать свободный id точки расположения
+   /* static public int GetNextExhibitSpaceId()               // Выдать свободный id точки расположения
     {
         string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GiveFreeExhibitSpaceID, null));
         return int.Parse(answer);
-    }
+    }*/
 
-    static public int GetNextFloorId()                      // Выдать свободный id Этажа
+    /*static public int GetNextFloorId()                      // Выдать свободный id Этажа
     {
         string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GiveFreeFloorID, null));
         return int.Parse(answer);
-    }
+    }*/
 
     
 
@@ -60,8 +60,8 @@ public class Bridge
         parameters[0] = FloorNumber.ToString();
 
         string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GetFloor, parameters));
-
-        floor = new Floor(answer.Split(separator));
+        
+        floor = new Floor(ParseStr(answer));
         Console.Write("Этаж получен.\n");
         return floor;
     }
@@ -99,10 +99,10 @@ public class Bridge
         return int.Parse(answer);
     }
 
-    public void AddExhibit(string name, string description, List<string> links, int Xcoord, int Ycoord)
+    public void AddExhibit(string name, string description)
     {
         Console.Write("Создаю используя полученные параметры...\n");
-        Exhibit exh = new Exhibit(name, description, links, Xcoord, Ycoord);
+        Exhibit exh = new Exhibit(name, description);
         Console.Write("Создано. Идёт отправка...\n");
         exh.SendExhibit();
         Console.Write("Отправлено.\n");
@@ -119,7 +119,7 @@ public class Bridge
         // true/false
     }
 
-    public void ChangeExhibit(Exhibit exh)
+    public void ChangeExhibit(Exhibit exh)      // уже изменённый
     {
         Console.Write("Меняю..." + "\n");
         exh.SendExhibit();
