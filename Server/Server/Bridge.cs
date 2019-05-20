@@ -7,7 +7,7 @@ enum Commands
     GetExhibit = 3,             //                                      | + | + |
     GetImage = 4,               //                                      | ???
     Autorization = 5,           //                                      | + | + |
-    AddExponatToDataBase = 6,   //                                      | +                          
+    AddExponatToDataBase = 6,   //                                      | +                         
     DeleteExhibitFromDataBase = 7, //                                   | +
     ChangeExhibit = 8,          //                                      | +
     SetExhibit = 9,             // Повесить экспонат                    | +
@@ -20,10 +20,10 @@ enum Commands
     //GiveFreeExhibitID = 16,     // Выдать свободный id экспоната      | +
     //GiveFreeExhibitSpaceID = 17,//                                    | +
     //GiveFreeFloorID = 18,       //                                    | +
-    GiveAllValidFloor = 19,     // Выдать все действующие этажи         | +
-    GiveAllFloor = 20,          // Выдать все этажи                     | +
+    GiveAllValidFloor = 19,     // Выдать все действующие этажи         | + | ? |
+    GiveAllFloor = 20,          // Выдать все этажи                     | + | ? |
     CreateManager = 21,         // Запись нового менеджера в БД         | +
-    GiveAllManager = 22,        // Показать список менеджеров           | +
+    GiveAllManager = 22,        // Показать список менеджеров           | + | ? |
     DownloadSheme = 23,         // Загрузить схему этажа                | ???
     AddFloorToValid = 24,       // Добавить этаж как действующий        | +
     DeleteFloorFromValid = 25,  // Удалить                              | +

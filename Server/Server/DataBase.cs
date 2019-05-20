@@ -229,6 +229,11 @@ public class DataBase
 
     public bool AddExponatToDataBase(string[] Exhib)
     {
+        /*string sql = "INSERT INTO exhibits (name, description, isused) AS (" + Exhib[1] + ", " + Exhib[2] + ", " + "FALSE)" + ";";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        conn.Open();
+        NpgsqlDataReader reader;
+        reader = comm.ExecuteReader();*/
         return true;
     }
 
@@ -293,13 +298,66 @@ public class DataBase
 
     public string[] GiveAllValidFloor()
     {
-        string[] res = new string[1];
+
+        string sql = "SELECT id_floor, name FROM floors WHERE isused = TRUE;";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        conn.Open();
+        NpgsqlDataReader reader;
+        reader = comm.ExecuteReader();
+        List<string> answer = new List<string>();
+        while (reader.Read())
+        {
+            try
+            {
+                answer.Add(reader.GetInt32(0).ToString());
+                answer.Add(reader.GetString(1));
+            }
+            catch
+            {
+                answer.Add("0");
+                answer.Add("Ошибка");
+            }
+        }
+
+        string[] res = new string[answer.Count];
+
+        for (int i = 0; i < answer.Count; i++)
+        {
+            res[i] = answer[i];
+        }
+
         return res;
     }
 
     public string[] GiveAllFloor()
     {
-        string[] res = new string[1];
+        string sql = "SELECT id_floor, name FROM floors;";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        conn.Open();
+        NpgsqlDataReader reader;
+        reader = comm.ExecuteReader();
+        List<string> answer = new List<string>();
+        while (reader.Read())
+        {
+            try
+            {
+                answer.Add(reader.GetInt32(0).ToString());
+                answer.Add(reader.GetString(1));
+            }
+            catch
+            {
+                answer.Add("0");
+                answer.Add("Ошибка");
+            }
+        }
+
+        string[] res = new string[answer.Count];
+
+        for (int i = 0; i < answer.Count; i++)
+        {
+            res[i] = answer[i];
+        }
+        
         return res;
     }
 
@@ -309,7 +367,33 @@ public class DataBase
     }
     public string[] GiveAllManager()
     {
-        string[] res = new string[1];
+        string sql = "SELECT login FROM users WHERE root = 1;";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        conn.Open();
+        NpgsqlDataReader reader;
+        reader = comm.ExecuteReader();
+        List<string> answer = new List<string>();
+        while (reader.Read())
+        {
+            try
+            {
+                answer.Add(reader.GetString(0));
+            }
+            catch
+            {
+                answer.Add("Ошибка");
+            }
+        }
+
+        if (answer.Count == 0) answer.Add("Отсутствуют");
+
+        string[] res = new string[answer.Count];
+
+        for (int i = 0; i < answer.Count; i++)
+        {
+            res[i] = answer[i];
+        }
+
         return res;
     }
 
