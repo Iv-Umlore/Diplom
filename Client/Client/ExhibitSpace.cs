@@ -7,6 +7,7 @@ public class ExhibitSpace
     int pointID;
     List<int> _exhibit_ids;
     List<string> _exhibit_names;
+    int floorid;
     int XCoord, YCoord;
 	public ExhibitSpace(int id)
 	{
@@ -16,8 +17,9 @@ public class ExhibitSpace
         string[] res = ResiveExhibitSpace(id);
         XCoord = int.Parse(res[0]);
         YCoord = int.Parse(res[1]);
-        
-        int position = 2;
+        floorid = int.Parse(res[2]);
+
+        int position = 3;
 
         while (position < res.Length )                                 // запрашиваем экспонаты
         {
@@ -30,8 +32,9 @@ public class ExhibitSpace
 
     }
 
-    public ExhibitSpace(int x, int y)
+    public ExhibitSpace(int x, int y, int floor_id)
     {
+        floorid = floor_id;
         XCoord = x;
         YCoord = y;
     }
@@ -46,9 +49,10 @@ public class ExhibitSpace
         return res;
     }
     public void SendExhibitSpace() {
-            string[] parameters = new string[2];
+            string[] parameters = new string[3];
             parameters[0] = XCoord.ToString();
             parameters[1] = YCoord.ToString();
+            parameters[2] = floorid.ToString();
             Speaker.Send(Bridge.GetCorrectComandStrings((int)Commands.AddNewExhibitSpace, parameters));
         // true/false
     }    

@@ -229,31 +229,67 @@ public class DataBase
 
     public bool AddExponatToDataBase(string[] Exhib)
     {
-        /*string sql = "INSERT INTO exhibits (name, description, isused) AS (" + Exhib[1] + ", " + Exhib[2] + ", " + "FALSE)" + ";";
-        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        string command = "INSERT INTO exhibits (name, description, isused) VALUES ('" + Exhib[1] + "', '" + Exhib[2] + "', false);";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
         conn.Open();
-        NpgsqlDataReader reader;
-        reader = comm.ExecuteReader();*/
+        cmd3.ExecuteNonQuery();
+        conn.Close();
         return true;
     }
 
     public bool DeleteExhibitFromDataBase(int ExhID)
     {
+        string command = "DELETE FROM exhibits WHERE id = " + ExhID + ";";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+
+        command = "DELETE FROM existingexhibits WHERE id_exhib = " + ExhID + ";";
+        cmd3 = new NpgsqlCommand(command, conn);
+        cmd3.ExecuteNonQuery();
+
+        conn.Close();
         return true;
     }
 
     public bool ChangeExhibit(string[] Exhib)
     {
+        string command = "UPDATE exhibits SET name = '" + Exhib[2] + "' discription = '" + Exhib[3] + "' WHERE id = " + Exhib[1] +" ;";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+
         return true;
     }
 
     public bool SetExhibit(int ExhibSpaceID, int ExhibID)
     {
+        string command = "INSERT INTO existingexhibits VALUES (" + ExhibID + ", " + ExhibSpaceID + ");";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+        /* change EXHIBIT for true */
+        command = "UPDATE exhibits SET isused = TRUE WHERE id = " + ExhibID + ";";
+        cmd3 = new NpgsqlCommand(command, conn);
+        cmd3.ExecuteNonQuery();
+
+        conn.Close();
+
         return true;
     }
 
     public bool ResetExhibit(int ExhibID)
     {
+        string command = "DELETE FROM existingexhibits WHERE id_exhib = " + ExhibID + ";";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+
+        command = "UPDATE exhibits SET isused = FALSE WHERE id = " + ExhibID + ";";
+        cmd3 = new NpgsqlCommand(command, conn);
+        cmd3.ExecuteNonQuery();
+
+        conn.Close();
         return true;
     }
 
@@ -261,13 +297,48 @@ public class DataBase
     {
 
     }*/
-    public bool AddNewExhibitSpace(int ExhibSpaceID, int x, int y)
+
+    public bool AddNewExhibitSpace(int x, int y, int floorID)
     {
+        string command = "INSERT INTO exhibitspace (x, y, floor_id) VALUES (" + x + ", " + y + ", " + floorID +");";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+        conn.Close();
+
         return true;
     }
 
     public bool DeleteExhibitSpace(int ExhibSpaceID)
     {
+
+        List<int> hisExhib = new List<int>();
+        string command = "SELECT id_exhib FROM existingexhibits WHERE id_point = " + ExhibSpaceID + ";";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        NpgsqlDataReader reader = cmd3.ExecuteReader();
+
+        while (reader.Read())
+        {
+            try
+            {
+                hisExhib.Add(reader.GetInt32(0));       // all id
+            }
+            catch
+            {
+                hisExhib.Add(0);
+            }
+        }
+        conn.Close();
+        for (int i = 0; i < hisExhib.Count; i++)
+            ResetExhibit(hisExhib[i]);          // Снимаем все экспонаты принадлежавшие ему
+                
+        command = "DELETE FROM exhibitspace WHERE id = " + ExhibSpaceID + ";";
+        cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+
+        conn.Close();
         return true;
     }
 
@@ -278,6 +349,11 @@ public class DataBase
 
     public bool DeleteSchem(int SchemeID)
     {
+        string command = "DELETE FROM exhibitspace WHERE id_scheme = " + SchemeID + ");";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+        conn.Close();
         return true;
     }
 
@@ -298,7 +374,6 @@ public class DataBase
 
     public string[] GiveAllValidFloor()
     {
-
         string sql = "SELECT id_floor, name FROM floors WHERE isused = TRUE;";
         NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
         conn.Open();
@@ -363,8 +438,14 @@ public class DataBase
 
     public bool CreateManager(string login, string pass)
     {
+        string command = "INSERT INTO users VALUES ('" + login + "', '" + pass + "', 1);";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+
         return true;
     }
+
     public string[] GiveAllManager()
     {
         string sql = "SELECT login FROM users WHERE root = 1;";
@@ -402,23 +483,45 @@ public class DataBase
 
     }*/
 
-    public bool AddFloorToValid(int FloorID)
+    public bool AddFloorToValid(int FloorID, int number_floor)
     {
+        string command = "UPDATE floors number_of_floor = " + number_floor + " isused = TRUE WHERE id_floor = '" + FloorID + "';";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+        conn.Close();
+
         return true;
     }
 
     public bool DeleteFloorFromValid(int FloorID)
     {
+        string command = "UPDATE floors number_of_floor = 0 isused = FALSE WHERE id_floor = '" + FloorID + "';";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+        conn.Close();
         return true;
     }
 
     public bool DeleteManager(string login)
     {
+        string command = "DELETE FROM users WHERE login = '" + login + "';";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+        conn.Close();
         return true;
     }
 
     public bool ChangePassword(string login, string pass)
     {
+
+        string command = "UPDATE users password = '" + pass + "' WHERE login = '" + login + "';";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+        conn.Close();
         return true;
     }
 

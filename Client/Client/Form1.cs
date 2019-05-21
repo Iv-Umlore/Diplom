@@ -47,11 +47,6 @@ namespace Client
 
         private void AddExponat_Click(object sender, EventArgs e)
         {
-            List<string> links = new List<string>();
-            string link = "https:\\link_one.php";
-            links.Add(link);
-            link = "https:\\link_two.php";
-            links.Add(link);
             string name = "Экспонат 1";
             string description = "Это тестовый экспонат, чтобы протестировать работоспособность приложения";
             bridge.AddExhibit(name, description);
@@ -77,10 +72,7 @@ namespace Client
 
         private void SetExponat_Click(object sender, EventArgs e)
         {
-            /* Повесить экспонат
-             * Здесь будет реализация
-             * 
-            */
+            bridge.SetExhibit(1, 1);
             Console.Write("Завершено.\n");
         }
 

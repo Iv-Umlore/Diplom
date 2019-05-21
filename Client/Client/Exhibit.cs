@@ -51,7 +51,7 @@ public class Exhibit
         string[] parameters = new string[2];
         parameters[0] = _name;
         parameters[1] = _description;
-        Speaker.Send(Bridge.GetCorrectComandStrings((int)Commands.AddNewExhibitSpace, parameters));
+        Speaker.Send(Bridge.GetCorrectComandStrings((int)Commands.AddExponatToDataBase, parameters));
     }
 
     public void ChangeExhibit()

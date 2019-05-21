@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    public partial class Autorization : Form
+    public partial class AutorizationLogin : Form
     {
-        public Autorization()
+        public AutorizationLogin()
         {
             InitializeComponent();
+        }
+
+        private void Autorization_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

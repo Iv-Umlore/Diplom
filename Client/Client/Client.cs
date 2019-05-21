@@ -27,6 +27,9 @@ namespace Client
 
         private void Autorization_Click(object sender, EventArgs e)
         {
+            AutorizationLogin AL = new AutorizationLogin();
+            AL.Activate();
+            
             UseRoot(2);
         }
 
