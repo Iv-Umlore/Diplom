@@ -49,6 +49,8 @@
             this.DeleteManager = new System.Windows.Forms.Button();
             this.CreateManager = new System.Windows.Forms.Button();
             this.GoodFloorList = new System.Windows.Forms.ComboBox();
+            this.MousePosition = new System.Windows.Forms.Label();
+            this.LB = new System.Windows.Forms.ListBox();
             this.Scheme_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Floore_Scheme)).BeginInit();
             this.ManagerPanel.SuspendLayout();
@@ -58,6 +60,7 @@
             // Scheme_Panel
             // 
             this.Scheme_Panel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.Scheme_Panel.Controls.Add(this.LB);
             this.Scheme_Panel.Controls.Add(this.Floore_Scheme);
             this.Scheme_Panel.Location = new System.Drawing.Point(0, 38);
             this.Scheme_Panel.Name = "Scheme_Panel";
@@ -71,6 +74,8 @@
             this.Floore_Scheme.Size = new System.Drawing.Size(574, 339);
             this.Floore_Scheme.TabIndex = 0;
             this.Floore_Scheme.TabStop = false;
+            this.Floore_Scheme.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Floore_Scheme_MouseClick);
+            this.Floore_Scheme.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Floore_Scheme_MouseMove);
             // 
             // Floor_Name
             // 
@@ -245,11 +250,30 @@
             this.GoodFloorList.Size = new System.Drawing.Size(121, 21);
             this.GoodFloorList.TabIndex = 7;
             // 
+            // MousePosition
+            // 
+            this.MousePosition.AutoSize = true;
+            this.MousePosition.Location = new System.Drawing.Point(269, 419);
+            this.MousePosition.Name = "MousePosition";
+            this.MousePosition.Size = new System.Drawing.Size(35, 13);
+            this.MousePosition.TabIndex = 8;
+            this.MousePosition.Text = "label2";
+            // 
+            // LB
+            // 
+            this.LB.FormattingEnabled = true;
+            this.LB.Location = new System.Drawing.Point(455, -1);
+            this.LB.Name = "LB";
+            this.LB.Size = new System.Drawing.Size(120, 95);
+            this.LB.TabIndex = 1;
+            this.LB.SelectedIndexChanged += new System.EventHandler(this.LB_SelectedIndexChanged);
+            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.MousePosition);
             this.Controls.Add(this.GoodFloorList);
             this.Controls.Add(this.AdministratorPanel);
             this.Controls.Add(this.ManagerPanel);
@@ -292,5 +316,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox AllFloorList;
         private System.Windows.Forms.Button Exit;
+        private System.Windows.Forms.Label MousePosition;
+        private System.Windows.Forms.ListBox LB;
     }
 }

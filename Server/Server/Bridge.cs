@@ -195,7 +195,7 @@ public class Bridge
             case (int)Commands.AddFloorToValid:
                 {
                     result = new string[1];
-                    result[0] = DB.AddFloorToValid(int.Parse(split[1])).ToString();
+                    result[0] = DB.AddFloorToValid(int.Parse(split[1]),int.Parse(split[2])).ToString();
                     break;
                 }
 

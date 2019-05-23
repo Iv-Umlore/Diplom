@@ -2,32 +2,38 @@
 using SocketTcpClient;
 using System.Collections.Generic;
 
+public struct exh
+{
+    public int exhibit_id;
+    public string exhibit_name;
+}
+
 public class ExhibitSpace
 {
     int pointID;
-    List<int> _exhibit_ids;
-    List<string> _exhibit_names;
+    List<exh> myExhib;
     int floorid;
-    int XCoord, YCoord;
+    public int XCoord, YCoord;
 	public ExhibitSpace(int id)
 	{
         pointID = id;
-        _exhibit_ids = new List<int>();
-        _exhibit_names = new List<string>();
+        myExhib = new List<exh>();
         string[] res = ResiveExhibitSpace(id);
         XCoord = int.Parse(res[0]);
         YCoord = int.Parse(res[1]);
-        floorid = int.Parse(res[2]);
 
         int position = 3;
-
+        exh temp;
+        
         while (position < res.Length )                                 // запрашиваем экспонаты
         {
+            
             if (int.Parse(res[position]) == 0) break;
-            _exhibit_ids.Add(int.Parse(res[position]));
+            temp.exhibit_id = int.Parse(res[position]);
             position++;
-            _exhibit_names.Add(res[position]);
+            temp.exhibit_name = res[position];
             position++;
+            myExhib.Add(temp);
         }
 
     }
@@ -48,6 +54,7 @@ public class ExhibitSpace
         string[] res = Bridge.ParseStr(answ, Bridge.separator);
         return res;
     }
+
     public void SendExhibitSpace() {
             string[] parameters = new string[3];
             parameters[0] = XCoord.ToString();
@@ -56,5 +63,15 @@ public class ExhibitSpace
             Speaker.Send(Bridge.GetCorrectComandStrings((int)Commands.AddNewExhibitSpace, parameters));
         // true/false
     }    
+
+    public List<exh> GetExhibits()
+    {
+        return myExhib;
+    }
+
+    public int GetId()
+    {
+        return pointID;
+    }
 
 }

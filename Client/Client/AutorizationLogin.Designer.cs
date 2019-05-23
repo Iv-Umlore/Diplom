@@ -31,13 +31,13 @@
             this.Autorization = new System.Windows.Forms.Button();
             this.Логин = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.Login = new System.Windows.Forms.TextBox();
             this.Password = new System.Windows.Forms.TextBox();
+            this.Login = new System.Windows.Forms.TextBox();
+            this.Result = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Autorization
             // 
-            this.Autorization.Enabled = false;
             this.Autorization.Location = new System.Drawing.Point(91, 80);
             this.Autorization.Name = "Autorization";
             this.Autorization.Size = new System.Drawing.Size(122, 23);
@@ -58,11 +58,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 48);
+            this.label1.Location = new System.Drawing.Point(13, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Пароль";
+            // 
+            // Password
+            // 
+            this.Password.Location = new System.Drawing.Point(81, 37);
+            this.Password.Name = "Password";
+            this.Password.Size = new System.Drawing.Size(205, 20);
+            this.Password.TabIndex = 4;
+            this.Password.UseSystemPasswordChar = true;
             // 
             // Login
             // 
@@ -71,13 +79,13 @@
             this.Login.Size = new System.Drawing.Size(205, 20);
             this.Login.TabIndex = 3;
             // 
-            // Password
+            // Result
             // 
-            this.Password.Location = new System.Drawing.Point(81, 48);
-            this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(205, 20);
-            this.Password.TabIndex = 4;
-            this.Password.UseSystemPasswordChar = true;
+            this.Result.AutoSize = true;
+            this.Result.Location = new System.Drawing.Point(33, 62);
+            this.Result.Name = "Result";
+            this.Result.Size = new System.Drawing.Size(0, 13);
+            this.Result.TabIndex = 5;
             // 
             // AutorizationLogin
             // 
@@ -85,15 +93,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(298, 115);
+            this.Controls.Add(this.Result);
             this.Controls.Add(this.Password);
             this.Controls.Add(this.Login);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Логин);
             this.Controls.Add(this.Autorization);
-            this.Enabled = false;
             this.Name = "AutorizationLogin";
             this.Text = "Авторизация";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.Load += new System.EventHandler(this.AutorizationLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -104,7 +113,8 @@
         private System.Windows.Forms.Button Autorization;
         private System.Windows.Forms.Label Логин;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox Login;
         private System.Windows.Forms.TextBox Password;
+        private System.Windows.Forms.TextBox Login;
+        private System.Windows.Forms.Label Result;
     }
 }

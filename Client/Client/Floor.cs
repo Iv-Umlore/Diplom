@@ -33,5 +33,10 @@ public class Floor
     {
         return floor;
     }
+
+    public int GetId()
+    {
+        return id;
+    }
     
 }

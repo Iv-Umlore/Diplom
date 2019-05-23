@@ -215,6 +215,7 @@ public class DataBase
             {
                 flag = true;
                 if (pass.Equals(reader.GetString(1))) root = reader.GetInt32(2);
+                else root = 0;
             }
             catch
             {

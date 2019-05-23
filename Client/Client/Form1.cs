@@ -41,7 +41,7 @@ namespace Client
 
         private void Autorization_Click(object sender, EventArgs e)
         {
-            int root = bridge.Autorization("admin", "admin");
+            int root = Bridge.Autorization("admin", "admin");
             Console.Write("Завершено.\n");
         }
 

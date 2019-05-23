@@ -88,7 +88,7 @@ public class Bridge
 
     }*/
 
-    public int Autorization(string login, string pass)
+    static public int Autorization(string login, string pass)
     {
         Console.Write("Авторизация...\n");
         string[] parameters = new string[2];
@@ -149,9 +149,9 @@ public class Bridge
 
     }*/
 
-    public void AddNewExhibitSpace(int x, int y)
+    public void AddNewExhibitSpace(int x, int y, int floor)
     {
-        ExhibitSpace ES = new ExhibitSpace(x, y);
+        ExhibitSpace ES = new ExhibitSpace(x, y, floor);
         ES.SendExhibitSpace();
         // true/false
     }
