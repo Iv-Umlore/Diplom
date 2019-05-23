@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class Exhibit
 {
-    private int _id;                    // Exponat id
-    private string _name;               // Exponat name
-    private string _description;        // Exponat description
-    private List<int> images_id;        // may be it's image (Bitmap)
+    private int _id;                   // Exponat id
+    public string _name;               // Exponat name
+    public string _description;        // Exponat description
+    private List<int> images_id;       
     
     public Exhibit(int id)                    // For download from server
 	{

@@ -13,6 +13,8 @@ namespace Client
     public partial class AutorizationLogin : Form
     {
         public int root;
+        public string _login;
+        public string _pass;
         public AutorizationLogin()
         {
             root = 0;
@@ -42,7 +44,12 @@ namespace Client
             if ( code1 == 0 && code2 == 0)
             {
                 root = Bridge.Autorization(login, pass);
-                if (root == 1 || root == 2) this.Close();
+                if (root == 1 || root == 2)
+                {
+                    _login = login;
+                    _pass = pass;
+                    this.Close();
+                }
                 else
                 {
                     if (root == 0) Result.Text = "Неверная пара Логин - Пароль";    // Пароль неверный

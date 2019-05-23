@@ -8,7 +8,7 @@ public class Floor
     private int id;
     private int SchemeId;
     //public Scheme
-    string FloorName;
+    public string FloorName;
     private List<ExhibitSpace> floor;                  // Список точек экспонатов
     private int _NumberOfFloor;                        // Номер текущего этажа
     public Floor() { }

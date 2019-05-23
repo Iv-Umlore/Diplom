@@ -121,7 +121,6 @@
             this.Controls.Add(this.DescriptionLabel);
             this.Controls.Add(this.Name);
             this.Controls.Add(this.LoginLabel);
-            //this.Name = "CreateExhibit";
             this.Text = "Создание экспоната";
             this.ResumeLayout(false);
             this.PerformLayout();

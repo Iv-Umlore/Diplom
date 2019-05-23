@@ -238,12 +238,12 @@ public class Bridge
         // true/false
     }
 
-    public void ChangePassword(string login, string pass)
+    static public void ChangePassword(string login, string pass)
     {
         string[] parameters = new string[2];
         parameters[0] = login;
         parameters[1] = pass;
-        Speaker.Send(GetCorrectComandStrings((int)Commands.CreateManager, parameters));
+        Speaker.Send(GetCorrectComandStrings((int)Commands.ChangePassword, parameters));
     }
 
     static public exh[] GetFreeExh()

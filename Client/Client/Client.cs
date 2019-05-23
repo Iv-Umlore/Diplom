@@ -10,7 +10,11 @@ using System.Windows.Forms;
 
 namespace Client
 {
-   
+   struct User
+    {
+        public string login;
+        public string pass;
+    }
 
     public partial class Client : Form
     {
@@ -21,11 +25,16 @@ namespace Client
         const int PointSize = 7;
         bool isManager;
         bool isAdmin;
+        bool isChange = false;
+        int root;
+
+        User client;
 
         ExhibitSpace currentSpace;
         Floor currentFloor = null;
         Bridge bridge;
         //Bitmap Default;
+        Bitmap OriginalScheme;
         Bitmap Scheme;
 
         private void RefreshFloor()
@@ -38,15 +47,19 @@ namespace Client
                 {
                     Scheme.SetPixel(i, j, Color.Pink);
                 }
+            OriginalScheme = Scheme;
             DrawScheme();
+            Floor_Name.Text = currentFloor.FloorName;
         }
 
         public Client()
-        {
+        {            
+            root = 0;
             bridge = new Bridge();
             isManager = false;
             isAdmin = false;
             InitializeComponent();
+            Cansel.Hide();
             LB.Hide();
             ManagerPanel.Hide();
             AdministratorPanel.Hide();
@@ -61,7 +74,11 @@ namespace Client
             this.Hide();
             AL.ShowDialog();
             this.Show();
-            UseRoot(AL.root);
+            root = AL.root;
+            client = new User();
+            client.login = AL._login;
+            client.pass = AL._pass;
+            UseRoot(root);
         }
 
         private void UseRoot(int root)
@@ -115,6 +132,7 @@ namespace Client
 
         private void Exit_Click(object sender, EventArgs e)
         {
+            root = 0;
             UseRoot(0);
         }        
 
@@ -159,60 +177,141 @@ namespace Client
         
         private void Floore_Scheme_MouseClick(object sender, MouseEventArgs e)
         {
-            LB.Items.Clear();
-            if (isManager) LB.Items.Add(DeletePoint);
-            if (currentSpace != null)
+            if (!isChange)
             {
-                LB.SetBounds(currentSpace.XCoord, currentSpace.YCoord, 150, 65);
-                for (int pos = 0; pos < currentSpace.GetExhibits().Count; pos++)
+                LB.Items.Clear();
+                if (isManager) LB.Items.Add(DeletePoint);
+                if (currentSpace != null)
                 {
-                    LB.Items.Add(currentSpace.GetExhibits()[pos].exhibit_name);
-                }
-                if (isManager)
-                {
-                    if (LB.Items.Count == 1) LB.Items.Add(empty);
-                }
-                else
-                    if (LB.Items.Count == 0) LB.Items.Add(empty);
+                    LB.SetBounds(currentSpace.XCoord, currentSpace.YCoord, 150, 65);
+                    for (int pos = 0; pos < currentSpace.GetExhibits().Count; pos++)
+                    {
+                        LB.Items.Add(currentSpace.GetExhibits()[pos].exhibit_name);
+                    }
+                    if (isManager)
+                    {
+                        if (LB.Items.Count == 1) LB.Items.Add(empty);
+                    }
+                    else
+                        if (LB.Items.Count == 0) LB.Items.Add(empty);
 
-                if (isManager)
-                {
-                    LB.Items.Add(AddExhibit);
-                    LB.Items.Add(ResetExhibit);
-                }
+                    if (isManager)
+                    {
+                        LB.Items.Add(AddExhibit);
+                        LB.Items.Add(ResetExhibit);
+                    }
 
-                Scheme_Panel.Controls.Add(LB);
-                LB.Show();
-                LB.BringToFront();
-                System.Threading.Thread.Sleep(1000);
+                    Scheme_Panel.Controls.Add(LB);
+                    LB.Show();
+                    LB.BringToFront();
+                    System.Threading.Thread.Sleep(1000);
+                }
+                else LB.Hide();
             }
-            else LB.Hide();
+            else
+            {
+                bridge.AddNewExhibitSpace(e.X, e.Y, currentFloor.GetId());
+                CanselFunction();
+                RefreshFloor();
+            }
+        }
+
+        private int GetSelectedItemID(string name)
+        {
+            for (int i=0; i < currentSpace.GetExhibits().Count; i++)
+                if (currentSpace.GetExhibits()[i].exhibit_name == name) return currentSpace.GetExhibits()[i].exhibit_id;
+            return -1;
         }
 
         private void LB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (LB.SelectedItem.ToString().Equals(empty)) { LB.Hide(); }
-            if (LB.SelectedItem.ToString().Equals(DeletePoint))
+            switch (LB.SelectedItem.ToString())
             {
-                bridge.DeleteExhibitSpase(currentSpace.GetId());
-                RefreshFloor();
+                case empty:
+                    {
+                        LB.Hide();
+                        break;
+                    }
+                case DeletePoint:
+                    {
+                        bridge.DeleteExhibitSpase(currentSpace.GetId());
+                        LB.Hide();
+                        RefreshFloor();
+                        break;
+                    }
+                case AddExhibit:
+                    {
+                        SetExhibit SE = new SetExhibit(currentSpace.GetId());
+                        this.Hide();
+                        SE.ShowDialog();
+                        this.Show();
+                        RefreshFloor();
+                        break;
+                    }
+                case ResetExhibit:
+                    {
+                        ResetExhibit RE = new ResetExhibit(currentSpace);
+                        this.Hide();
+                        RE.ShowDialog();
+                        this.Show();
+                        RefreshFloor();
+                        break;
+                    }
+                default:
+                    {
+                        int id = GetSelectedItemID(LB.SelectedItem.ToString());
+                        if (id == -1) MessageBox.Show("Возникла ошибка!");
+                        else
+                        {
+                            Exponat exhib = new Exponat(new Exhibit(id));
+                            this.Hide();
+                            exhib.ShowDialog();
+                            this.Show();
+                        }
+                        break;
+                    }
             }
-            if (LB.SelectedItem.ToString().Equals(AddExhibit))
-            {
-                SetExhibit SE = new SetExhibit(currentSpace.GetId());
-                this.Hide();
-                SE.ShowDialog();
-                this.Show();
-                RefreshFloor();
-            }
-            if (LB.SelectedItem.ToString().Equals(ResetExhibit))
-            {
-                ResetExhibit RE = new ResetExhibit(currentSpace);
-                this.Hide();
-                RE.ShowDialog();
-                this.Show();
-                RefreshFloor();
-            }
+             
+
+        }
+
+        private void CreateNewExhibit_Click(object sender, EventArgs e)
+        {
+            CreateExhibit CE = new CreateExhibit();
+            this.Hide();
+            CE.ShowDialog();
+            this.Show();
+        }
+
+        private void AddExhibitSpase_Click(object sender, EventArgs e)
+        {
+            Floore_Scheme.Image = OriginalScheme;
+            isChange = true;
+            Floor_Name.Text = "Выберите позицию новой точки на схеме";
+            AdministratorPanel.Hide();
+            ManagerPanel.Hide();
+            Cansel.Show();
+        }
+
+        private void Cansel_Click(object sender, EventArgs e)
+        {
+            CanselFunction();
+        }
+
+        private void CanselFunction()
+        {
+            UseRoot(root);
+            isChange = false;
+            Cansel.Hide();
+            Floor_Name.Text = currentFloor.FloorName;
+        }
+
+        private void ChangePass_Click(object sender, EventArgs e)
+        {
+            ChangePass CP = new ChangePass(client.login,client.pass);
+            this.Hide();
+            CP.ShowDialog();
+            this.Show();
         }
     }
 }

@@ -525,7 +525,7 @@ public class DataBase
 
     public bool AddFloorToValid(int FloorID, int number_floor)
     {
-        string command = "UPDATE floors number_of_floor = " + number_floor + " isused = TRUE WHERE id_floor = '" + FloorID + "';";
+        string command = "UPDATE floors SET number_of_floor = " + number_floor + " isused = TRUE WHERE id_floor = '" + FloorID + "';";
         NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
         conn.Open();
         cmd3.ExecuteNonQuery();
@@ -536,7 +536,7 @@ public class DataBase
 
     public bool DeleteFloorFromValid(int FloorID)
     {
-        string command = "UPDATE floors number_of_floor = 0 isused = FALSE WHERE id_floor = '" + FloorID + "';";
+        string command = "UPDATE floors SET number_of_floor = 0 isused = FALSE WHERE id_floor = '" + FloorID + "';";
         NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
         conn.Open();
         cmd3.ExecuteNonQuery();
@@ -557,7 +557,7 @@ public class DataBase
     public bool ChangePassword(string login, string pass)
     {
 
-        string command = "UPDATE users password = '" + pass + "' WHERE login = '" + login + "';";
+        string command = "UPDATE users SET password = '" + pass + "' WHERE login = '" + login + "';";
         NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
         conn.Open();
         cmd3.ExecuteNonQuery();
