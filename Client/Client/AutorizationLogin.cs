@@ -55,7 +55,6 @@ namespace Client
                 if (code1 == 1 || code2 == 1) Result.Text = "Логин и пароль не должны превышать 100 символов.";
                 if (code1 == 2 || code2 == 2) Result.Text = "Нельзя использовать &&*&& в логине или пароле";
             }
-                /*проверки*/
         }
 
         private void AutorizationLogin_Load(object sender, EventArgs e)

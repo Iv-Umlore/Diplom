@@ -22,7 +22,7 @@ public class ExhibitSpace
         XCoord = int.Parse(res[0]);
         YCoord = int.Parse(res[1]);
 
-        int position = 3;
+        int position = 2;
         exh temp;
         
         while (position < res.Length )                                 // запрашиваем экспонаты

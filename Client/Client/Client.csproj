@@ -56,29 +56,41 @@
     <Compile Include="Exhibit.cs" />
     <Compile Include="ExhibitSpace.cs" />
     <Compile Include="Floor.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="AutorizationLogin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AutorizationLogin.Designer.cs">
       <DependentUpon>AutorizationLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreateExhibit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateExhibit.Designer.cs">
+      <DependentUpon>CreateExhibit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResetExhibit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResetExhibit.Designer.cs">
+      <DependentUpon>ResetExhibit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SetExhibit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetExhibit.Designer.cs">
+      <DependentUpon>SetExhibit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Speaker.cs" />
     <EmbeddedResource Include="Client.resx">
       <DependentUpon>Client.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AutorizationLogin.resx">
       <DependentUpon>AutorizationLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateExhibit.resx">
+      <DependentUpon>CreateExhibit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,6 +101,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ResetExhibit.resx">
+      <DependentUpon>ResetExhibit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetExhibit.resx">
+      <DependentUpon>SetExhibit.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -168,7 +168,12 @@ namespace Client
                 {
                     LB.Items.Add(currentSpace.GetExhibits()[pos].exhibit_name);
                 }
-                if (LB.Items.Count <= 1) LB.Items.Add(empty);
+                if (isManager)
+                {
+                    if (LB.Items.Count == 1) LB.Items.Add(empty);
+                }
+                else
+                    if (LB.Items.Count == 0) LB.Items.Add(empty);
 
                 if (isManager)
                 {
@@ -192,8 +197,22 @@ namespace Client
                 bridge.DeleteExhibitSpase(currentSpace.GetId());
                 RefreshFloor();
             }
-            if (LB.SelectedItem.ToString().Equals(AddExhibit)) Console.Write("плюс экспонат");
-            if (LB.SelectedItem.ToString().Equals(ResetExhibit)) Console.Write("минус экспонат");
+            if (LB.SelectedItem.ToString().Equals(AddExhibit))
+            {
+                SetExhibit SE = new SetExhibit(currentSpace.GetId());
+                this.Hide();
+                SE.ShowDialog();
+                this.Show();
+                RefreshFloor();
+            }
+            if (LB.SelectedItem.ToString().Equals(ResetExhibit))
+            {
+                ResetExhibit RE = new ResetExhibit(currentSpace);
+                this.Hide();
+                RE.ShowDialog();
+                this.Show();
+                RefreshFloor();
+            }
         }
     }
 }

@@ -225,6 +225,7 @@ public class DataBase
 
         if (!flag) return -2;   // login is not correct
 
+        conn.Close();
         return root;
     }
 
@@ -259,7 +260,7 @@ public class DataBase
         NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
         conn.Open();
         cmd3.ExecuteNonQuery();
-
+        conn.Close();
         return true;
     }
 
@@ -373,6 +374,40 @@ public class DataBase
         return 1;
     }*/
 
+    public string[] GiveAllFreeExhibit()
+    {
+        string sql = "SELECT id, name FROM exhibits WHERE isused = FALSE;";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        conn.Open();
+        NpgsqlDataReader reader;
+        reader = comm.ExecuteReader();
+        List<string> answer = new List<string>();
+        while (reader.Read())
+        {
+            try
+            {
+                answer.Add(reader.GetInt32(0).ToString());
+                answer.Add(reader.GetString(1));
+            }
+            catch
+            {
+                answer.Add("0");
+                answer.Add("Ошибка");
+            }
+        }
+
+        string[] res = new string[answer.Count];
+
+        for (int i = 0; i < answer.Count; i++)
+        {
+            res[i] = answer[i];
+        }
+
+        conn.Close();
+
+        return res;
+    }
+
     public string[] GiveAllValidFloor()
     {
         string sql = "SELECT id_floor, name FROM floors WHERE isused = TRUE;";
@@ -401,6 +436,8 @@ public class DataBase
         {
             res[i] = answer[i];
         }
+
+        conn.Close();
 
         return res;
     }
@@ -433,7 +470,9 @@ public class DataBase
         {
             res[i] = answer[i];
         }
-        
+
+        conn.Close();
+
         return res;
     }
 
@@ -443,7 +482,7 @@ public class DataBase
         NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
         conn.Open();
         cmd3.ExecuteNonQuery();
-
+        conn.Close();
         return true;
     }
 
@@ -475,7 +514,7 @@ public class DataBase
         {
             res[i] = answer[i];
         }
-
+        conn.Close();
         return res;
     }
 

@@ -17,9 +17,9 @@ enum Commands
     DeleteExhibitSpace = 13,    // Удалить точку                        | + | + |
     AddNewSchem = 14,           // Добавить новую схему этажа           | ???
     DeleteSchem = 15,           // Удалить                              | + | + |
-    //GiveFreeExhibitID = 16,     // Выдать свободный id экспоната      
+    //GiveFreeExhibitID = 16,   // Выдать свободный id экспоната      
     //GiveFreeExhibitSpaceID = 17,//                                    
-    //GiveFreeFloorID = 18,       //                                    
+    GiveAllFreeExhibit = 18,    // Выдать все свободные экспонаты       |   |   |
     GiveAllValidFloor = 19,     // Выдать все действующие этажи         | + | + |
     GiveAllFloor = 20,          // Выдать все этажи                     | + | + |
     CreateManager = 21,         // Запись нового менеджера в БД         | + | + |
@@ -153,12 +153,11 @@ public class Bridge
                         break;
                 }*/
 
-           /* case (int)Commands.GiveFreeFloorID:
+            case (int)Commands.GiveAllFreeExhibit:
                 {
-                    result = new string[1];
-                    result[0] = DB.GiveFreeFloorID().ToString();
+                    result = DB.GiveAllFreeExhibit();
                         break;
-                }*/
+                }
 
             case (int)Commands.GiveAllValidFloor:
                 {

@@ -99,7 +99,7 @@ public class Bridge
         return int.Parse(answer);
     }
 
-    public void AddExhibit(string name, string description)
+    static public void AddExhibit(string name, string description)
     {
         Console.Write("Создаю используя полученные параметры...\n");
         Exhibit exh = new Exhibit(name, description);
@@ -127,7 +127,7 @@ public class Bridge
         // true/false
     }
 
-    public void SetExhibit(int SpaceId, int ExhibitID)
+    static public void SetExhibit(int SpaceId, int ExhibitID)
     {
         string[] parameters = new string[2];
         parameters[0] = SpaceId.ToString();
@@ -136,11 +136,11 @@ public class Bridge
         // true/false
     }
     
-    public void ResetExhibit(int ExhibitID)
+    static public void ResetExhibit(int ExhibitID)
     {
         string[] parameters = new string[1];
         parameters[0] = ExhibitID.ToString();
-        string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.SetExhibit, parameters));
+        string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.ResetExhibit, parameters));
         // true/false
     }
 
@@ -244,6 +244,22 @@ public class Bridge
         parameters[0] = login;
         parameters[1] = pass;
         Speaker.Send(GetCorrectComandStrings((int)Commands.CreateManager, parameters));
+    }
+
+    static public exh[] GetFreeExh()
+    {
+        string command = ((int)(Commands.GiveAllFreeExhibit)).ToString();
+        command = Speaker.Send(command);
+        string[] parseAnsw = ParseStr(command);
+        exh[] res = new exh[parseAnsw.Length / 2];
+        exh tmp;
+        for (int i = 0; i < parseAnsw.Length / 2; i++)
+        {
+            tmp.exhibit_id = int.Parse(parseAnsw[i * 2]);
+            tmp.exhibit_name = parseAnsw[i * 2 + 1];
+            res[i] = tmp;
+        }
+        return res;
     }
 
 }
