@@ -607,4 +607,36 @@ public class DataBase
         return true;
     }
 
+    public void DeleteFloor(int FloorID)
+    {
+        string sql = "SELECT id FROM exhibitspace WHERE floor_id = " + FloorID + ";";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        List<int> answer = new List<int>();
+
+        conn.Open();
+
+        NpgsqlDataReader reader = comm.ExecuteReader();
+        
+        while (reader.Read())
+        {
+            try
+            {
+                answer.Add(reader.GetInt32(0));    // id_space
+            }
+            catch
+            {
+                answer.Add(-1);
+            }
+        }
+
+        for (int i = 0; i < answer.Count; i++)
+            DeleteExhibitSpace(answer[i]);
+
+        sql = "DELETE FROM floors WHERE id_floor = " + FloorID + ";";
+        comm = new NpgsqlCommand(sql, conn);
+        comm.ExecuteNonQuery();
+
+        conn.Close();
+
+    }
 }

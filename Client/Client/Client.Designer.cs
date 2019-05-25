@@ -92,9 +92,9 @@
             this.Floor_Name.AutoSize = true;
             this.Floor_Name.Location = new System.Drawing.Point(13, 13);
             this.Floor_Name.Name = "Floor_Name";
-            this.Floor_Name.Size = new System.Drawing.Size(263, 13);
+            this.Floor_Name.Size = new System.Drawing.Size(265, 13);
             this.Floor_Name.TabIndex = 1;
-            this.Floor_Name.Text = "Очень длинное название этажа размерос со штат";
+            this.Floor_Name.Text = "Очень длинное название этажа размером со штат";
             // 
             // Autorization
             // 
