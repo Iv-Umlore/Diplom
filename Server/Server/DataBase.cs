@@ -410,7 +410,43 @@ public class DataBase
 
     public string[] GiveAllValidFloor()
     {
-        string sql = "SELECT id_floor, name FROM floors WHERE isused = TRUE;";
+        string sql = "SELECT id_floor, number_of_floor, name FROM floors WHERE isused = TRUE;";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        conn.Open();
+        NpgsqlDataReader reader;
+        reader = comm.ExecuteReader();
+        List<string> answer = new List<string>();
+        while (reader.Read())
+        {
+            try
+            {
+                answer.Add(reader.GetInt32(0).ToString());
+                answer.Add(reader.GetInt32(1).ToString());
+                answer.Add(reader.GetString(2));
+            }
+            catch
+            {
+                answer.Add("0");
+                answer.Add("0");
+                answer.Add("Ошибка");
+            }
+        }
+
+        string[] res = new string[answer.Count];
+
+        for (int i = 0; i < answer.Count; i++)
+        {
+            res[i] = answer[i];
+        }
+
+        conn.Close();
+
+        return res;
+    }
+
+    public string[] GiveUnvalidFloor()
+    {
+        string sql = "SELECT id_floor, name FROM floors WHERE isused = FALSE;";
         NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
         conn.Open();
         NpgsqlDataReader reader;
@@ -428,6 +464,12 @@ public class DataBase
                 answer.Add("0");
                 answer.Add("Ошибка");
             }
+        }
+
+        if (answer.Count == 0)
+        {
+            answer.Add("0");
+            answer.Add("Создайте новый этаж для отображения его в списке");
         }
 
         string[] res = new string[answer.Count];

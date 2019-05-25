@@ -9,8 +9,11 @@ D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.exe
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.pdb
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.Client.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.AutorizationLogin.resources
-D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.CreateExhibit.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.SetExhibit.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.ResetExhibit.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.ChangePass.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.Exponat.resources
+D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.CreateUser.resources
+D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.CreateExhibitWindows.resources
+D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.DeleteManager.resources
+D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.AddFloor.resources

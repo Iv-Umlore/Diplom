@@ -58,6 +58,7 @@
             // Password2
             // 
             this.Password2.Location = new System.Drawing.Point(107, 37);
+            this.Password2.MaxLength = 100;
             this.Password2.Name = "Password2";
             this.Password2.Size = new System.Drawing.Size(179, 20);
             this.Password2.TabIndex = 4;
@@ -74,6 +75,7 @@
             // Password1
             // 
             this.Password1.Location = new System.Drawing.Point(107, 11);
+            this.Password1.MaxLength = 100;
             this.Password1.Name = "Password1";
             this.Password1.Size = new System.Drawing.Size(179, 20);
             this.Password1.TabIndex = 3;

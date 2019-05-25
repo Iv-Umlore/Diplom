@@ -114,6 +114,7 @@
             this.GoToNextFloor.TabIndex = 4;
             this.GoToNextFloor.Text = "Перейти";
             this.GoToNextFloor.UseVisualStyleBackColor = true;
+            this.GoToNextFloor.Click += new System.EventHandler(this.GoToNextFloor_Click);
             // 
             // ManagerPanel
             // 
@@ -244,6 +245,7 @@
             this.DeleteManager.TabIndex = 1;
             this.DeleteManager.Text = "Удалить менеджера";
             this.DeleteManager.UseVisualStyleBackColor = true;
+            this.DeleteManager.Click += new System.EventHandler(this.DeleteManager_Click);
             // 
             // CreateManager
             // 
@@ -253,6 +255,7 @@
             this.CreateManager.TabIndex = 0;
             this.CreateManager.Text = "Создать нового менеджера";
             this.CreateManager.UseVisualStyleBackColor = true;
+            this.CreateManager.Click += new System.EventHandler(this.CreateManager_Click);
             // 
             // GoodFloorList
             // 
@@ -262,6 +265,7 @@
             this.GoodFloorList.Name = "GoodFloorList";
             this.GoodFloorList.Size = new System.Drawing.Size(121, 21);
             this.GoodFloorList.TabIndex = 7;
+            this.GoodFloorList.SelectedIndexChanged += new System.EventHandler(this.GoodFloorList_SelectedIndexChanged);
             // 
             // MousePosition
             // 

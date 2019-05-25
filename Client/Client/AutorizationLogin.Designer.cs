@@ -67,6 +67,7 @@
             // Password
             // 
             this.Password.Location = new System.Drawing.Point(81, 37);
+            this.Password.MaxLength = 100;
             this.Password.Name = "Password";
             this.Password.Size = new System.Drawing.Size(205, 20);
             this.Password.TabIndex = 4;
@@ -75,6 +76,7 @@
             // Login
             // 
             this.Login.Location = new System.Drawing.Point(81, 11);
+            this.Login.MaxLength = 100;
             this.Login.Name = "Login";
             this.Login.Size = new System.Drawing.Size(205, 20);
             this.Login.TabIndex = 3;

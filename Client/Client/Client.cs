@@ -23,6 +23,10 @@ namespace Client
         const string AddExhibit = "Повесить экспонат";
         const string ResetExhibit = "Снять экспонат";
         const int PointSize = 7;
+
+        const string SetFloo = "Добавить этаж";
+        const string ResetFloo = "Убрать этаж";
+
         bool isManager;
         bool isAdmin;
         bool isChange = false;
@@ -37,6 +41,8 @@ namespace Client
         Bitmap OriginalScheme;
         Bitmap Scheme;
 
+        List<floore> floors;
+
         private void RefreshFloor()
         {
             if (currentFloor == null)
@@ -50,6 +56,20 @@ namespace Client
             OriginalScheme = Scheme;
             DrawScheme();
             Floor_Name.Text = currentFloor.FloorName;
+            floors = Bridge.GiveValidFloor();
+            SetAllUseableFloor();
+        }
+
+        private void SetAllUseableFloor()
+        {
+            GoodFloorList.Items.Clear();
+            if (isManager) GoodFloorList.Items.Add(SetFloo);
+            if ( floors == null) floors = Bridge.GiveValidFloor();
+            for (int i = 0; i < floors.Count; i++)
+                GoodFloorList.Items.Add(floors[i].name);
+            if (isManager) GoodFloorList.Items.Add(ResetFloo);
+            if (isManager) GoodFloorList.SelectedItem = GoodFloorList.Items[1];
+            else GoodFloorList.SelectedItem = GoodFloorList.Items[0];
         }
 
         public Client()
@@ -63,7 +83,7 @@ namespace Client
             LB.Hide();
             ManagerPanel.Hide();
             AdministratorPanel.Hide();
-            GoodFloorList.Items.Add("тестовая строка");
+            SetAllUseableFloor();
             Scheme = new Bitmap(Floore_Scheme.Width, Floore_Scheme.Height);
             RefreshFloor();    
         }
@@ -122,7 +142,7 @@ namespace Client
                         break;
                     }
             }
-
+            RefreshFloor();
         }
 
         private void DeleteFloor_Click(object sender, EventArgs e)
@@ -277,7 +297,7 @@ namespace Client
 
         private void CreateNewExhibit_Click(object sender, EventArgs e)
         {
-            CreateExhibit CE = new CreateExhibit();
+            CreateExhibitWindows CE = new CreateExhibitWindows();
             this.Hide();
             CE.ShowDialog();
             this.Show();
@@ -312,6 +332,66 @@ namespace Client
             this.Hide();
             CP.ShowDialog();
             this.Show();
+        }
+
+        private void CreateManager_Click(object sender, EventArgs e)
+        {
+            CreateUser CU = new CreateUser();
+            this.Hide();
+            CU.ShowDialog();
+            this.Show();
+        }
+
+        private void DeleteManager_Click(object sender, EventArgs e)
+        {
+            DeleteManager DM = new DeleteManager();
+            this.Hide();
+            DM.ShowDialog();
+            this.Show();
+        }
+
+        private void GoToNextFloor_Click(object sender, EventArgs e)
+        {
+            int selectedflooreID = currentFloor._NumberOfFloor;
+            for (int i = 0; i < floors.Count; i++)
+            {
+                if (floors[i].name == GoodFloorList.SelectedItem.ToString())
+                {
+                    selectedflooreID = floors[i].id;
+                    break;
+                }
+            }
+            currentFloor = bridge.DownloadFloor(selectedflooreID);
+            RefreshFloor();
+        }
+
+        private int GetNextNumberOfFloor()
+        {
+            for (int i = 0; i < floors.Count; i++)
+            {
+                if (floors[i].number_of_floor != i + 1) return i + 1;
+            }
+            return floors.Count + 1;
+        }
+
+        private void GoodFloorList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool flag = false;
+            if (GoodFloorList.SelectedItem.ToString() == SetFloo) {
+                AddFloor AF = new AddFloor(GetNextNumberOfFloor());
+                this.Hide();
+                AF.ShowDialog();
+                this.Show();
+                flag = true;
+            };
+            if (GoodFloorList.SelectedItem.ToString() == ResetFloo) {
+                DeleteFloor DF = new DeleteFloor();
+                this.Hide();
+                DF.ShowDialog();
+                this.Show();
+                flag = true;
+            };
+            if (flag) RefreshFloor();
         }
     }
 }

@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using SocketTcpClient;
 using System.Drawing;
 
+public struct floore
+{
+    public int number_of_floor;
+    public int id;    
+    public string name;
+}
+
 public class Bridge
 {
-    public Floor floor;
+    //public Floor floor;
     static public char[] separator = { '&','*','&'};
 
     static public string[] ParseStr(string str, char[] sep = null)
@@ -18,40 +25,18 @@ public class Bridge
     {
         string result = "";
         result += code;
-        for (int i = 0; i < parameters.Length; i++)
+        if (parameters != null)
         {
-            result += "&*&" + parameters[i];
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                result += "&*&" + parameters[i];
+            }
         }
-        //result += '\0';
+        
         return result;
     }
-
-    /*static public int GetNextExhibitId()                    // Выдать свободный id Экспоната
-    {
-        string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GiveFreeExhibitID, null));
-        return int.Parse(answer);
-    }*/
-
-   /* static public int GetNextExhibitSpaceId()               // Выдать свободный id точки расположения
-    {
-        string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GiveFreeExhibitSpaceID, null));
-        return int.Parse(answer);
-    }*/
-
-    /*static public int GetNextFloorId()                      // Выдать свободный id Этажа
-    {
-        string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GiveFreeFloorID, null));
-        return int.Parse(answer);
-    }*/
-
     
-
-    public Bridge() {
-        floor = new Floor();
-        /*separator = new char[3];
-        separator[0] = separator[2] = '&';
-        separator[0] = '*';*/
-    }
+    public Bridge() { }
 
     public Floor DownloadFloor(int FloorNumber = 1)
     {
@@ -61,7 +46,7 @@ public class Bridge
 
         string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GetFloor, parameters));
         
-        floor = new Floor(ParseStr(answer));
+        Floor floor = new Floor(ParseStr(answer));
         Console.Write("Этаж получен.\n");
         return floor;
     }
@@ -177,11 +162,47 @@ public class Bridge
         // true/false
     }
 
-    public string[] GiveValidFloor()
+   /* private bool Comparate(floore first, floore second)
+    {
+        return first.number_of_floor < second.number_of_floor;
+    }*/ 
+
+        // think about it
+
+    static public List<floore> GiveValidFloor()
     {
         string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GiveAllValidFloor, null));
         string[] res = ParseStr(answer);
-        return res;
+        floore tmp = new floore();
+        List<floore> result = new List<floore>();
+        for (int i = 0; i < res.Length; i += 3)
+        {
+            tmp.id = int.Parse(res[i]);
+            tmp.number_of_floor = int.Parse(res[i+1]);
+            tmp.name = res[i + 2];
+            result.Add(tmp);
+        }
+
+        result.Sort();
+
+        return result;
+    }
+
+    static public List<floore> GiveUnvalidFloor()
+    {
+        string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GiveUnvalidFloor, null));
+        string[] res = ParseStr(answer);
+        floore tmp = new floore();
+        List<floore> result = new List<floore>();
+        for (int i = 0; i < res.Length; i += 2)
+        {
+            tmp.id = int.Parse(res[i]);
+            tmp.name = res[i + 1];
+            tmp.number_of_floor = 0;
+            result.Add(tmp);
+        }
+        
+        return result;
     }
 
     public string[] GiveAllFloor()
@@ -191,18 +212,16 @@ public class Bridge
         return res;
     }
 
-    public void CreateManager(string login, string pass)
+    static public void CreateManager(string login, string pass)
     {
-        // проверка на качество
         string[] parameters = new string[2];
         parameters[0] = login;
         parameters[1] = pass;
         Speaker.Send(GetCorrectComandStrings((int)Commands.CreateManager, parameters));
-
-        // true/false
+        
     }
 
-    public string[] GiveAllManager()
+    static public string[] GiveAllManager()
     {
         string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GiveAllManager, null));
         string[] res = ParseStr(answer);
@@ -214,15 +233,16 @@ public class Bridge
 
     }*/
 
-    public void AddFloorToValid(int FloorID)
+    static public void AddFloorToValid(int FloorID, int number_of_floor)
     {
-        string[] parameters = new string[1];
+        string[] parameters = new string[2];
         parameters[0] = FloorID.ToString();
+        parameters[1] = number_of_floor.ToString();
         Speaker.Send(GetCorrectComandStrings((int)Commands.AddFloorToValid, parameters));
         // true/false
     }
 
-    public void UnvalidFloor(int FloorID)
+    static public void UnvalidFloor(int FloorID)
     {
         string[] parameters = new string[1];
         parameters[0] = FloorID.ToString();
@@ -230,10 +250,10 @@ public class Bridge
         // true/false
     }
 
-    public void DeleteManager(int ManagerID)
+    static public void DeleteManager(string login)
     {
         string[] parameters = new string[1];
-        parameters[0] = ManagerID.ToString();
+        parameters[0] = login;
         Speaker.Send(GetCorrectComandStrings((int)Commands.DeleteManager, parameters));
         // true/false
     }

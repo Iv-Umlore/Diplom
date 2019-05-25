@@ -26,8 +26,7 @@ namespace Client
 
         private int IsCorrect(string str)
         {
-            if (str.Length == 0) return 3;
-            if (str.Length >= 100) return 1; // строка слишком длинная
+            if (str.Length == 0) return 1;
             for (int i = 0; i < str.Length-2; i++)
             {
                 if (str[i] == '&' && str[i + 1] == '*' && str[i + 2] == '&') return 2; // запрещённые символы
@@ -56,9 +55,8 @@ namespace Client
                 }
                 else
                 {
-                    if (code == 1) Result.Text = "Логин и пароль не должны превышать 100 символов.";
+                    if (code == 1) Result.Text = "Пароль должен содержать хоть что-то";
                     if (code == 2) Result.Text = "Нельзя использовать &&*&& в логине или пароле";
-                    if (code == 3) Result.Text = "Пароль должен содержать хоть что-то";
                 }
             }
             else

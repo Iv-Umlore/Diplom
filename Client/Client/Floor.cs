@@ -10,7 +10,7 @@ public class Floor
     //public Scheme
     public string FloorName;
     private List<ExhibitSpace> floor;                  // Список точек экспонатов
-    private int _NumberOfFloor;                        // Номер текущего этажа
+    public int _NumberOfFloor;                        // Номер текущего этажа
     public Floor() { }
 	public Floor(string[] answer)
 	{

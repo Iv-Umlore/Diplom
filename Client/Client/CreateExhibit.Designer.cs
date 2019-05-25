@@ -1,6 +1,6 @@
 ﻿namespace Client
 {
-    partial class CreateExhibit
+    partial class CreateExhibitWindows
     {
         /// <summary>
         /// Required designer variable.
@@ -50,6 +50,7 @@
             // Name
             // 
             this.Name.Location = new System.Drawing.Point(133, 5);
+            this.Name.MaxLength = 100;
             this.Name.Name = "Name";
             this.Name.Size = new System.Drawing.Size(222, 20);
             this.Name.TabIndex = 1;
@@ -57,7 +58,7 @@
             // DescriptionLabel
             // 
             this.DescriptionLabel.AutoSize = true;
-            this.DescriptionLabel.Location = new System.Drawing.Point(12, 39);
+            this.DescriptionLabel.Location = new System.Drawing.Point(14, 68);
             this.DescriptionLabel.Name = "DescriptionLabel";
             this.DescriptionLabel.Size = new System.Drawing.Size(113, 13);
             this.DescriptionLabel.TabIndex = 2;
@@ -66,8 +67,10 @@
             // Descript
             // 
             this.Descript.Location = new System.Drawing.Point(133, 36);
+            this.Descript.MaxLength = 900;
+            this.Descript.Multiline = true;
             this.Descript.Name = "Descript";
-            this.Descript.Size = new System.Drawing.Size(222, 20);
+            this.Descript.Size = new System.Drawing.Size(222, 76);
             this.Descript.TabIndex = 3;
             // 
             // Create
@@ -82,7 +85,7 @@
             // 
             // SearchAndDownloadImage
             // 
-            this.SearchAndDownloadImage.Location = new System.Drawing.Point(279, 63);
+            this.SearchAndDownloadImage.Location = new System.Drawing.Point(280, 118);
             this.SearchAndDownloadImage.Name = "SearchAndDownloadImage";
             this.SearchAndDownloadImage.Size = new System.Drawing.Size(75, 23);
             this.SearchAndDownloadImage.TabIndex = 5;
@@ -93,7 +96,7 @@
             // DownloadLabel
             // 
             this.DownloadLabel.AutoSize = true;
-            this.DownloadLabel.Location = new System.Drawing.Point(16, 72);
+            this.DownloadLabel.Location = new System.Drawing.Point(12, 123);
             this.DownloadLabel.Name = "DownloadLabel";
             this.DownloadLabel.Size = new System.Drawing.Size(130, 13);
             this.DownloadLabel.TabIndex = 6;
@@ -102,13 +105,13 @@
             // Result
             // 
             this.Result.AutoSize = true;
-            this.Result.Location = new System.Drawing.Point(19, 169);
+            this.Result.Location = new System.Drawing.Point(12, 165);
             this.Result.Name = "Result";
             this.Result.Size = new System.Drawing.Size(88, 13);
             this.Result.TabIndex = 7;
             this.Result.Text = "Заполните поля";
             // 
-            // CreateExhibit
+            // CreateExhibitWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -121,6 +124,7 @@
             this.Controls.Add(this.DescriptionLabel);
             this.Controls.Add(this.Name);
             this.Controls.Add(this.LoginLabel);
+            //this.Name = "CreateExhibitWindows";
             this.Text = "Создание экспоната";
             this.ResumeLayout(false);
             this.PerformLayout();

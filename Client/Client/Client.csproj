@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddFloor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddFloor.Designer.cs">
+      <DependentUpon>AddFloor.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChangePass.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,24 @@
     </Compile>
     <Compile Include="Client.Designer.cs">
       <DependentUpon>Client.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateUser.Designer.cs">
+      <DependentUpon>CreateUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteFloor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteFloor.Designer.cs">
+      <DependentUpon>DeleteFloor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteManager.Designer.cs">
+      <DependentUpon>DeleteManager.cs</DependentUpon>
     </Compile>
     <Compile Include="Exhibit.cs" />
     <Compile Include="ExhibitSpace.cs" />
@@ -95,6 +119,9 @@
       <DependentUpon>SetExhibit.cs</DependentUpon>
     </Compile>
     <Compile Include="Speaker.cs" />
+    <EmbeddedResource Include="AddFloor.resx">
+      <DependentUpon>AddFloor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChangePass.resx">
       <DependentUpon>ChangePass.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +133,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateExhibit.resx">
       <DependentUpon>CreateExhibit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateUser.resx">
+      <DependentUpon>CreateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteManager.resx">
+      <DependentUpon>DeleteManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Exponat.resx">
       <DependentUpon>Exponat.cs</DependentUpon>

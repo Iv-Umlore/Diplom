@@ -10,16 +10,15 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    public partial class CreateExhibit : Form
+    public partial class CreateExhibitWindows : Form
     {
-        public CreateExhibit()
+        public CreateExhibitWindows()
         {
             InitializeComponent();
         }
 
-        private int IsCorrect(string str, int maxsize)
+        private int IsCorrect(string str)
         {
-            if (str.Length >= maxsize) return 1; // строка слишком длинная
             for (int i = 0; i < str.Length - 2; i++)
             {
                 if (str[i] == '&' && str[i + 1] == '*' && str[i + 2] == '&') return 2; // запрещённые символы
@@ -37,11 +36,11 @@ namespace Client
             string name = Name.Text;
             string description = Descript.Text;
 
-            int code1 = IsCorrect(name,100);
-            int code2 = IsCorrect(description,900);
+            int code1 = IsCorrect(name);
+            int code2 = IsCorrect(description);
 
             if (name == "" || description == "")
-                Result.Text = "заполните все поля";
+                Result.Text = "Заполните все поля";
             else
             {
                 if (code1 == 0 && code2 == 0)
@@ -52,7 +51,6 @@ namespace Client
                 }
                 else
                 {
-                    if (code1 == 1 || code2 == 1) Result.Text = "Название не должно превышать 100 символов, а описание 900";
                     if (code1 == 2 || code2 == 2) Result.Text = "Нельзя использовать &&*&& в названии и описании";
                 }
             }
