@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SocketTcpClient;
 using System.Drawing;
+using System.Threading;
 
 public struct floore
 {
@@ -19,6 +20,34 @@ public class Bridge
     {
         if (sep == null) sep = separator;
         return str.Split(sep,StringSplitOptions.RemoveEmptyEntries);
+    }
+
+    static private byte[] ConvertToByte(Bitmap image, int width, int height)
+    {
+        byte[] result = new byte[width * height * 3];
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++)
+            {
+                result[3 * (i * width + j)] = image.GetPixel(i, j).R;
+                result[3 * (i * width + j) + 1] = image.GetPixel(i, j).G;
+                result[3 * (i * width + j) + 2] = image.GetPixel(i, j).B;
+            }
+        return result;
+    }
+
+    static public Bitmap ConvertToBitmap(byte[] image, int width, int height)
+    {
+        Bitmap result = new Bitmap(width, height);
+        int count = 0;
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++)
+            {
+                result.SetPixel(i,j,Color.FromArgb(image[3 * (i * width + j)], image[3 * (i * width + j) + 1], image[3 * (i * width + j) + 2]));
+                count++;
+            }
+        }
+
+        return result;
     }
 
     static public string GetCorrectComandStrings(int code, string[] parameters)
@@ -68,10 +97,25 @@ public class Bridge
 
     }
 
-    /*public Bitmap GiveImage(int ImageId)
+    static public void SendImage(Bitmap image, int width, int heigth)
     {
 
-    }*/
+        byte[] b = ConvertToByte(image, width, heigth);
+        string[] parameters = new string[2];
+        parameters[0] = width.ToString();
+        parameters[1] = heigth.ToString();
+
+        Speaker.SendImage(GetCorrectComandStrings((int)Commands.SendImage,parameters),b);
+    }
+
+    static public Bitmap GiveImage(int ImageId)
+    {
+        string[] param = new string[1];
+        param[0] = ImageId.ToString();
+        Bitmap result = Speaker.ResiveImage(GetCorrectComandStrings((int)Commands.GetImage, param));
+        
+        return result;
+    }
 
     static public int Autorization(string login, string pass)
     {

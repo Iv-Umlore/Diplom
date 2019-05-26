@@ -55,7 +55,7 @@ namespace SocketTcpServer
                         Console.Write(command); // - наша строка
                         
                         // отправляем ответ
-                        string message = bridge.ExecuteTheCommand(command);
+                        string message = bridge.ExecuteTheCommand(command, handler);
                         data = Encoding.Unicode.GetBytes(message);
                         handler.Send(data);
                         // закрываем сокет

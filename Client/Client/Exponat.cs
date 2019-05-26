@@ -17,7 +17,13 @@ namespace Client
             InitializeComponent();
             Name.Text = exh._name;
             Description.Text = exh._description;
-            // image
+            for (int i = 0; i < exh.images_id.Count; i++)
+            {
+                Bitmap tmp = Bridge.GiveImage(exh.images_id[i]);
+                pictureBox1.Height = tmp.Height;
+                pictureBox1.Width = tmp.Width;
+                pictureBox1.Image = tmp;
+            }
         }
     }
 }

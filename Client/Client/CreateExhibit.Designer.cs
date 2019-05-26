@@ -36,6 +36,7 @@
             this.SearchAndDownloadImage = new System.Windows.Forms.Button();
             this.DownloadLabel = new System.Windows.Forms.Label();
             this.Result = new System.Windows.Forms.Label();
+            this.AllDownloadFiles = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // LoginLabel
@@ -85,7 +86,7 @@
             // 
             // SearchAndDownloadImage
             // 
-            this.SearchAndDownloadImage.Location = new System.Drawing.Point(280, 118);
+            this.SearchAndDownloadImage.Location = new System.Drawing.Point(280, 94);
             this.SearchAndDownloadImage.Name = "SearchAndDownloadImage";
             this.SearchAndDownloadImage.Size = new System.Drawing.Size(75, 23);
             this.SearchAndDownloadImage.TabIndex = 5;
@@ -96,7 +97,7 @@
             // DownloadLabel
             // 
             this.DownloadLabel.AutoSize = true;
-            this.DownloadLabel.Location = new System.Drawing.Point(12, 123);
+            this.DownloadLabel.Location = new System.Drawing.Point(12, 99);
             this.DownloadLabel.Name = "DownloadLabel";
             this.DownloadLabel.Size = new System.Drawing.Size(130, 13);
             this.DownloadLabel.TabIndex = 6;
@@ -111,11 +112,21 @@
             this.Result.TabIndex = 7;
             this.Result.Text = "Заполните поля";
             // 
+            // AllDownloadFiles
+            // 
+            this.AllDownloadFiles.Location = new System.Drawing.Point(15, 116);
+            this.AllDownloadFiles.Multiline = true;
+            this.AllDownloadFiles.Name = "AllDownloadFiles";
+            this.AllDownloadFiles.ReadOnly = true;
+            this.AllDownloadFiles.Size = new System.Drawing.Size(340, 38);
+            this.AllDownloadFiles.TabIndex = 8;
+            // 
             // CreateExhibitWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(367, 195);
+            this.Controls.Add(this.AllDownloadFiles);
             this.Controls.Add(this.Result);
             this.Controls.Add(this.DownloadLabel);
             this.Controls.Add(this.SearchAndDownloadImage);
@@ -141,5 +152,6 @@
         private System.Windows.Forms.Button SearchAndDownloadImage;
         private System.Windows.Forms.Label DownloadLabel;
         private System.Windows.Forms.Label Result;
+        private System.Windows.Forms.TextBox AllDownloadFiles;
     }
 }

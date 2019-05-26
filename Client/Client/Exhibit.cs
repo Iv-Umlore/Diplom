@@ -7,7 +7,7 @@ public class Exhibit
     private int _id;                   // Exponat id
     public string _name;               // Exponat name
     public string _description;        // Exponat description
-    private List<int> images_id;       
+    public List<int> images_id;
     
     public Exhibit(int id)                    // For download from server
 	{
@@ -26,7 +26,7 @@ public class Exhibit
             if (int.Parse(image_id[count]) == 0) break;
             images_id.Add(int.Parse(image_id[count]));
         }       
-       
+        
     }
 
     public Exhibit(string name, string description)

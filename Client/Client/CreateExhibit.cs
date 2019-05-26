@@ -12,9 +12,11 @@ namespace Client
 {
     public partial class CreateExhibitWindows : Form
     {
+        List<Bitmap> BitList;
         public CreateExhibitWindows()
         {
             InitializeComponent();
+            BitList = new List<Bitmap>();
         }
 
         private int IsCorrect(string str)
@@ -28,7 +30,23 @@ namespace Client
         
         private void SearchAndDownloadImage_Click(object sender, EventArgs e)
         {
-            // Поиск и загрука изображений в Bitmap[]
+            OpenFileDialog openFile = new OpenFileDialog();// Поиск и загрука изображений в Bitmap[]
+
+            openFile.Filter = "Image Files(*.JPG;*.PNG;*.BMP)|*.JPG;*.PNG;*.BMP|All files (*.*)|*.*";            
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Bitmap result = new Bitmap(openFile.FileName);
+                    BitList.Add(result);
+                    AllDownloadFiles.Text += openFile.FileName + ";\n";
+                    Console.Write(result.ToString());
+                }
+                catch { MessageBox.Show("Не удалось открыть файл", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+            }                        
+            
         }
 
         private void Create_Click(object sender, EventArgs e)
@@ -46,7 +64,10 @@ namespace Client
                 if (code1 == 0 && code2 == 0)
                 {
                     Bridge.AddExhibit(name, description);
-                    // Загрузка изображений
+                    for (int i = 0; i < BitList.Count; i++)
+                    {
+                        Bridge.SendImage(BitList[i],BitList[i].Width, BitList[i].Height);
+                    }
                     this.Close();
                 }
                 else

@@ -35,6 +35,7 @@ namespace Client
         User client;
 
         ExhibitSpace currentSpace;
+        ExhibitSpace mainSpace;
         Floor currentFloor = null;
         Bridge bridge;
         //Bitmap Default;
@@ -58,6 +59,7 @@ namespace Client
             Floor_Name.Text = currentFloor.FloorName;
             floors = Bridge.GiveValidFloor();
             SetAllUseableFloor();
+            LB.Hide();
         }
 
         private void SetAllUseableFloor()
@@ -197,6 +199,7 @@ namespace Client
         
         private void Floore_Scheme_MouseClick(object sender, MouseEventArgs e)
         {
+            mainSpace = currentSpace;
             if (!isChange)
             {
                 LB.Items.Clear();
@@ -238,8 +241,8 @@ namespace Client
 
         private int GetSelectedItemID(string name)
         {
-            for (int i=0; i < currentSpace.GetExhibits().Count; i++)
-                if (currentSpace.GetExhibits()[i].exhibit_name == name) return currentSpace.GetExhibits()[i].exhibit_id;
+            for (int i=0; i < mainSpace.GetExhibits().Count; i++)
+                if (mainSpace.GetExhibits()[i].exhibit_name == name) return mainSpace.GetExhibits()[i].exhibit_id;
             return -1;
         }
 

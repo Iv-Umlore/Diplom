@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.Drawing;
+using System.IO;
+using System.Threading;
 
 enum Commands { GetFloor = 1,   //                                      | +
     GetESpace = 2,              //                                      | +
@@ -31,7 +34,8 @@ enum Commands { GetFloor = 1,   //                                      | +
     AddFloorToValid = 24,       // Добавить этаж как действующий        | +
     DeleteFloorFromValid = 25,  // Удалить                              | +
     DeleteManager = 26,         // Удалить менеджера                    | +
-    ChangePassword = 27         // изменить пароль учётной записи       | +
+    ChangePassword = 27,        // изменить пароль учётной записи       | +
+    SendImage = 28              // Отправить изображение
 };
 
 namespace SocketTcpClient
@@ -47,7 +51,6 @@ namespace SocketTcpClient
         static public string Send(string args)
         {            
             string answer = "";
-            Console.Write("\n\n" + args + "\n\n");
             try
             {
                 IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
@@ -75,7 +78,7 @@ namespace SocketTcpClient
                 socket.Close();
 
                 answer = builder.ToString();
-                Console.Write(answer);
+                Console.Write(answer + '\n');
             }
             catch (Exception ex)
             {
@@ -83,6 +86,94 @@ namespace SocketTcpClient
             }
             Console.Read();
             return answer;
+        }
+
+        static public void SendImage(string command, byte[] bitmap)
+        {
+            IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
+
+            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            // подключаемся к удаленному хосту
+            socket.Connect(ipPoint);
+
+            byte[] data = Encoding.Unicode.GetBytes(command);
+            socket.Send(data);
+            Thread.Sleep(20);
+            data = bitmap;
+            socket.Send(data);
+
+            data = new byte[BufferSize]; // буфер для ответа
+            StringBuilder builder = new StringBuilder();
+            int bytes = 0; // количество полученных байт
+
+            do
+            {
+                bytes = socket.Receive(data, data.Length, 0);
+                builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
+            }
+            while (socket.Available > 0);
+
+            // закрываем сокет
+            socket.Shutdown(SocketShutdown.Both);
+            socket.Close();
+        }
+
+        static public Bitmap ResiveImage(string command)
+        {
+
+            IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
+
+            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            // подключаемся к удаленному хосту
+            socket.Connect(ipPoint);
+
+            byte[] data = Encoding.Unicode.GetBytes(command);
+            socket.Send(data);
+
+            // получаю размер
+            
+            data = new byte[BufferSize]; // буфер для ответа
+            StringBuilder builder = new StringBuilder();
+            int bytes = 0; // количество полученных байт
+
+            do
+            {
+                bytes = socket.Receive(data, data.Length, 0);
+                builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
+            }
+            while (socket.Available > 0);
+
+            string answer = builder.ToString();
+            builder.Clear();
+            string[] split = Bridge.ParseStr(answer);
+
+            int width = int.Parse(split[0]);
+            int heigth = int.Parse(split[1]);
+
+            data = new byte[width*heigth*3];
+
+            socket.Receive(data);
+
+            Bitmap BM = Bridge.ConvertToBitmap(data, width, heigth);
+
+            data = new byte[BufferSize]; // буфер для ответа
+            
+            bytes = 0; // количество полученных байт
+
+            do
+            {
+                bytes = socket.Receive(data, data.Length, 0);
+                builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
+            }
+            while (socket.Available > 0);
+            answer = builder.ToString();
+            builder.Clear();
+            // закрываем сокет
+            socket.Shutdown(SocketShutdown.Both);
+            socket.Close();
+
+            return BM;
+
         }
 
     }

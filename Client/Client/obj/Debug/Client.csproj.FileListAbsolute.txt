@@ -17,3 +17,4 @@ D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.CreateUser.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.CreateExhibitWindows.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.DeleteManager.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.AddFloor.resources
+D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.DeleteFloor.resources

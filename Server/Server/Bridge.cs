@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
 
 enum Commands
 {
@@ -28,7 +31,8 @@ enum Commands
     AddFloorToValid = 24,       // Добавить этаж как действующий        | + | + |
     DeleteFloorFromValid = 25,  // Удалить                              | + | + |
     DeleteManager = 26,         // Удалить менеджера                    | + | + |
-    ChangePassword = 27         // изменить пароль учётной записи       | + | + |
+    ChangePassword = 27,        // изменить пароль учётной записи       | + | + |
+    SaveImage = 28              // Принять изображение                  | + | + |
 };
 
 public class Bridge
@@ -53,7 +57,7 @@ public class Bridge
         return result;
     }
 
-    public string ExecuteTheCommand(string command)
+    public string ExecuteTheCommand(string command, Socket handler = null)
     {
         string[] split = command.Split(separator,StringSplitOptions.RemoveEmptyEntries);
         string[] result = null;
@@ -71,11 +75,22 @@ public class Bridge
                     result = DB.GetExhibit(int.Parse(split[1]));
                     break;
                 }
-            /*case (int)Commands.GetImage:
+            case (int)Commands.GetImage:
                 {
-                    result = DB.GetImage(int.Parse(split[1]));
+                    
+                    result = new string[1];
+                    result[0] = true.ToString();
+
+                    byte[] image = DB.GetImage(int.Parse(split[1]));
+
+                    string message = DB.width + "&*&" + DB.height;
+                    byte[] data = Encoding.Unicode.GetBytes(message);
+                    handler.Send(data);
+                    Thread.Sleep(20);
+                    handler.Send(image);
+
                     break;
-                }*/
+                }
             case (int)Commands.Autorization: {
                     result = new string[1];
                     result[0] = DB.Autorization(split[1], split[2]).ToString();
@@ -218,6 +233,19 @@ public class Bridge
                     break;
                 }
 
+            case (int)Commands.SaveImage:
+                {
+                    byte[] data = new byte[int.Parse(split[1]) * int.Parse(split[2]) * 3]; // буфер для получаемых данных
+
+                    do
+                    {
+                        handler.Receive(data);
+                    }
+                    while (handler.Available > 0);
+                    result = new string[1];
+                    result[0] = DB.SaveImage(data, int.Parse(split[1]), int.Parse(split[2])).ToString();
+                    break;
+                }
             default: {
                     Console.Write("Такой команды не существует");
                     break;

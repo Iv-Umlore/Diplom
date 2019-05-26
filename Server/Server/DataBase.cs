@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using Npgsql;
+using NpgsqlTypes;
 
 public class DataBase
 {
     private string conn_param;
     private NpgsqlConnection conn;
+
+    public int width;
+    public int height;
+
+    private int lastExhibID;
 
     public DataBase()
     {
@@ -164,7 +170,7 @@ public class DataBase
                 res[1] = "Ошибка";
             };
         }
-        sql = "select id_image from image where exhib_id = " + number.ToString() + ";";
+        sql = "SELECT id_image FROM image WHERE exhib_id = " + number.ToString() + ";";
         comm = new NpgsqlCommand(sql, conn);
         reader = comm.ExecuteReader();
         string AllImage = "";
@@ -175,11 +181,11 @@ public class DataBase
             {
                 if (flag)
                 {
-                    AllImage += "|||" + reader.GetString(0);
+                    AllImage += "|||" + reader.GetInt32(0).ToString();
                 }
                 else
                 {
-                    AllImage += reader.GetString(0);
+                    AllImage += reader.GetInt32(0).ToString();
                 }
             }
             catch {
@@ -194,10 +200,27 @@ public class DataBase
         return res;
     }
 
-    /*static Bitmap GetImage(int ImageID)
+    public byte[] GetImage(int ImageID)
     {
-        return
-    }*/
+        NpgsqlCommand comm = new NpgsqlCommand("SELECT image, width, height FROM image WHERE id_image = " + ImageID + ";", conn);
+        conn.Open();
+        NpgsqlDataReader reader = comm.ExecuteReader();
+        byte[] result;
+
+        if (reader.Read())
+        {
+            result = (byte[])reader[0];
+            width = reader.GetInt32(1);
+            height = reader.GetInt32(2);
+        }
+        else
+        {
+            result = null;
+            Console.Write("Ошибка загрузки");
+        }
+        conn.Close();
+        return result;
+    }
 
     public int Autorization(string login, string pass)
     {
@@ -235,6 +258,25 @@ public class DataBase
         NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
         conn.Open();
         cmd3.ExecuteNonQuery();
+
+        command = "SELECT id FROM exhibits WHERE name = '" + Exhib[1] + "';";
+        cmd3 = new NpgsqlCommand(command, conn);
+
+        NpgsqlDataReader reader = cmd3.ExecuteReader();
+
+        while (reader.Read())
+        {
+            try
+            {
+                lastExhibID = reader.GetInt32(0);       // all id
+            }
+            catch
+            {
+                Console.Write("\nНе удалось запомнить последний экспонат\n");
+                lastExhibID = 0;
+            }
+        }
+
         conn.Close();
         return true;
     }
@@ -639,4 +681,30 @@ public class DataBase
         conn.Close();
 
     }
+
+    public bool SaveImage(byte[] image, int width, int height, int exhibitID = 0 )
+    {
+        try
+        {
+            
+            string sql;
+            if (exhibitID == 0)
+                sql = "INSERT INTO image (image, exhib_id, width, height) VALUES (:binaryData, " + lastExhibID + ", " + width +", " + height + ");";
+            else
+                sql = "INSERT INTO image (image, exhib_id, width, height) VALUES (:binaryData, " + exhibitID + ", " + width + ", " + height + ");";
+            NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+            NpgsqlParameter param = new NpgsqlParameter("binaryData", NpgsqlDbType.Bytea);
+            param.Value = image;
+            comm.Parameters.Add(param);
+            conn.Open();
+            comm.ExecuteNonQuery();
+            conn.Close();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    
 }
