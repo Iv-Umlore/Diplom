@@ -12,6 +12,7 @@ public class DataBase
     public int height;
 
     private int lastExhibID;
+    private int lastScheme;
 
     public DataBase()
     {
@@ -35,11 +36,13 @@ public class DataBase
                 answer.Add(reader.GetInt32(0).ToString());  // id
                 answer.Add(reader.GetString(1));            // name
                 answer.Add(reader.GetInt32(2).ToString());  // scheme_id
+                answer.Add(reader.GetInt32(3).ToString());  // number_of_floor 
             }
             catch
             {
                 answer.Add("-1");
                 answer.Add("Ошибка");
+                answer.Add("-1");
                 answer.Add("-1");
             }
         }
@@ -216,6 +219,8 @@ public class DataBase
         else
         {
             result = null;
+            width = 0;
+            height = 0;
             Console.Write("Ошибка загрузки");
         }
         conn.Close();
@@ -393,11 +398,15 @@ public class DataBase
 
     public bool DeleteSchem(int SchemeID)
     {
-        string command = "DELETE FROM exhibitspace WHERE id_scheme = " + SchemeID + ");";
+        // Удаление самих точек происходит при удалении этажа
+        string command = "DELETE FROM schems WHERE id = " + SchemeID + ";";
         NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
         conn.Open();
+
         cmd3.ExecuteNonQuery();
+
         conn.Close();
+
         return true;
     }
 
@@ -511,7 +520,7 @@ public class DataBase
         if (answer.Count == 0)
         {
             answer.Add("0");
-            answer.Add("Создайте новый этаж для отображения его в списке");
+            answer.Add("Недействующие этажи отсутсвуют");
         }
 
         string[] res = new string[answer.Count];
@@ -570,6 +579,16 @@ public class DataBase
         return true;
     }
 
+    public bool AddFloor(string name)
+    {
+        string command = "INSERT INTO floors (name, id_scheme, number_of_floor,isused) VALUES ('" + name + "', "+ lastScheme + ", 0, FALSE);";
+        NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
+        conn.Open();
+        cmd3.ExecuteNonQuery();
+        conn.Close();
+        return true;
+    }
+
     public string[] GiveAllManager()
     {
         string sql = "SELECT login FROM users WHERE root = 1;";
@@ -602,14 +621,33 @@ public class DataBase
         return res;
     }
 
-    /*static public Bitmap DownloadSheme(int SchemeID)
+    public byte[] DownloadSheme(int SchemeID)
     {
+        NpgsqlCommand comm = new NpgsqlCommand("SELECT scheme, width, height FROM schems WHERE id = " + SchemeID + ";", conn);
+        conn.Open();
+        NpgsqlDataReader reader = comm.ExecuteReader();
+        byte[] result;
 
-    }*/
+        if (reader.Read())
+        {
+            result = (byte[])reader[0];
+            width = reader.GetInt32(1);
+            height = reader.GetInt32(2);
+        }
+        else
+        {
+            result = null;
+            width = 0;
+            height = 0;
+            Console.Write("Ошибка загрузки");
+        }
+        conn.Close();
+        return result;
+    }
 
     public bool AddFloorToValid(int FloorID, int number_floor)
     {
-        string command = "UPDATE floors SET number_of_floor = " + number_floor + " isused = TRUE WHERE id_floor = '" + FloorID + "';";
+        string command = "UPDATE floors SET number_of_floor = " + number_floor + " , isused = TRUE WHERE id_floor = " + FloorID + ";";
         NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
         conn.Open();
         cmd3.ExecuteNonQuery();
@@ -620,7 +658,7 @@ public class DataBase
 
     public bool DeleteFloorFromValid(int FloorID)
     {
-        string command = "UPDATE floors SET number_of_floor = 0 isused = FALSE WHERE id_floor = '" + FloorID + "';";
+        string command = "UPDATE floors SET number_of_floor = 0 , isused = FALSE WHERE id_floor = '" + FloorID + "';";
         NpgsqlCommand cmd3 = new NpgsqlCommand(command, conn);
         conn.Open();
         cmd3.ExecuteNonQuery();
@@ -670,10 +708,32 @@ public class DataBase
                 answer.Add(-1);
             }
         }
-
+        conn.Close();
         for (int i = 0; i < answer.Count; i++)
             DeleteExhibitSpace(answer[i]);
+        conn.Open();
+        answer.Clear();
+        sql = "SELECT id_scheme FROM floors WHERE id_floor = " + FloorID + ";";
+        comm = new NpgsqlCommand(sql, conn);
+        answer = new List<int>();
 
+        reader = comm.ExecuteReader();
+
+        while (reader.Read())
+        {
+            try
+            {
+                answer.Add(reader.GetInt32(0));    // id_scheme
+            }
+            catch
+            {
+                answer.Add(-1);
+            }
+        }
+        conn.Close();
+        for (int i = 0; i < answer.Count; i++)
+            DeleteSchem(answer[i]);
+        conn.Open();
         sql = "DELETE FROM floors WHERE id_floor = " + FloorID + ";";
         comm = new NpgsqlCommand(sql, conn);
         comm.ExecuteNonQuery();
@@ -682,11 +742,45 @@ public class DataBase
 
     }
 
+    public bool AddScheme(byte[] image, int width, int height)
+    {
+        string sql;
+        sql = "INSERT INTO schems (scheme, width, height) VALUES (:binaryData, " + width + ", " + height + ");";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        NpgsqlParameter param = new NpgsqlParameter("binaryData", NpgsqlDbType.Bytea);
+        param.Value = image;
+        comm.Parameters.Add(param);
+        conn.Open();
+        comm.ExecuteNonQuery();
+
+        sql = "SELECT id FROM schems WHERE scheme = :binaryData;";
+        comm = new NpgsqlCommand(sql, conn);
+        param = new NpgsqlParameter("binaryData", NpgsqlDbType.Bytea);
+        param.Value = image;
+        comm.Parameters.Add(param);
+        NpgsqlDataReader reader = comm.ExecuteReader();
+
+        while (reader.Read())
+        {
+            try
+            {
+                lastScheme = reader.GetInt32(0);       // all id
+            }
+            catch
+            {
+                Console.Write("\nНе удалось запомнить последний экспонат\n");
+                lastScheme = 0;
+            }
+        }
+
+        conn.Close();
+        return true;
+    }
+
     public bool SaveImage(byte[] image, int width, int height, int exhibitID = 0 )
     {
         try
-        {
-            
+        {            
             string sql;
             if (exhibitID == 0)
                 sql = "INSERT INTO image (image, exhib_id, width, height) VALUES (:binaryData, " + lastExhibID + ", " + width +", " + height + ");";

@@ -81,7 +81,7 @@
             // 
             this.Floore_Scheme.Location = new System.Drawing.Point(13, 13);
             this.Floore_Scheme.Name = "Floore_Scheme";
-            this.Floore_Scheme.Size = new System.Drawing.Size(574, 339);
+            this.Floore_Scheme.Size = new System.Drawing.Size(580, 340);
             this.Floore_Scheme.TabIndex = 0;
             this.Floore_Scheme.TabStop = false;
             this.Floore_Scheme.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Floore_Scheme_MouseClick);
@@ -207,6 +207,7 @@
             this.ShowThisFloor.TabIndex = 1;
             this.ShowThisFloor.Text = "Показать этаж";
             this.ShowThisFloor.UseVisualStyleBackColor = true;
+            this.ShowThisFloor.Click += new System.EventHandler(this.ShowThisFloor_Click);
             // 
             // CreateNewFloor
             // 
@@ -216,6 +217,7 @@
             this.CreateNewFloor.TabIndex = 0;
             this.CreateNewFloor.Text = "Создать новый этаж";
             this.CreateNewFloor.UseVisualStyleBackColor = true;
+            this.CreateNewFloor.Click += new System.EventHandler(this.CreateNewFloor_Click);
             // 
             // AdministratorPanel
             // 

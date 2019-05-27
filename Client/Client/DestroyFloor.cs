@@ -10,14 +10,12 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    public partial class AddFloor : Form
+    public partial class DestroyFloor : Form
     {
         List<floore> unvFloors;
-        int _NN;
-        public AddFloor(int NextNumber)
+        public DestroyFloor()
         {
             InitializeComponent();
-            _NN = NextNumber;
             unvFloors = Bridge.GiveUnvalidFloor();
             for (int i = 0; i < unvFloors.Count; i++)
             {
@@ -25,7 +23,7 @@ namespace Client
             }
         }
 
-        private void Add_Click(object sender, EventArgs e)
+        private void DeleteFloor_Click(object sender, EventArgs e)
         {
             string value = UnvalidFloors.SelectedItem.ToString();
             if (value != "Создайте новый этаж для отображения его в списке")
@@ -34,7 +32,7 @@ namespace Client
                 {
                     if (unvFloors[i].name == value)
                     {
-                        Bridge.AddFloorToValid(unvFloors[i].id, _NN);
+                        Bridge.DeleteFloor(unvFloors[i].id);
                         break;
                     }
                 }

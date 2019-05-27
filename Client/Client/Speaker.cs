@@ -21,10 +21,10 @@ enum Commands { GetFloor = 1,   //                                      | +
     ChangeSchem = 11,           // Изменить схему                       | ???
     AddNewExhibitSpace = 12,    // Добавть новую точку                  | +
     DeleteExhibitSpace = 13,    // Удалить точку                        | +
-    AddNewSchem = 14,        // Создать новую схему этажа               | ???
+    AddNewSchem = 14,           // Создать новую схему этажа               | ???
     DeleteSchem = 15,           // Удалить                              | +
-    //GiveFreeExhibitID = 16,     // Выдать свободный id экспоната      | +
-    GiveUnvalidFloor = 17,      //                                      | +
+    AddFloor = 16,              // Выдать свободный id экспоната        | +
+    GiveUnvalidFloor = 17,      //  Выдать неиспользуемые этажи         | +
     GiveAllFreeExhibit = 18,    //                                      | +
     GiveAllValidFloor = 19,     // Выдать все действующие этажи         | +
     GiveAllFloor = 20,          // Выдать все этажи                     | +
@@ -35,7 +35,8 @@ enum Commands { GetFloor = 1,   //                                      | +
     DeleteFloorFromValid = 25,  // Удалить                              | +
     DeleteManager = 26,         // Удалить менеджера                    | +
     ChangePassword = 27,        // изменить пароль учётной записи       | +
-    SendImage = 28              // Отправить изображение
+    SendImage = 28,              // Отправить изображение
+    DeleteFloor = 29
 };
 
 namespace SocketTcpClient

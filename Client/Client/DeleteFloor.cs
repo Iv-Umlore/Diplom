@@ -29,8 +29,11 @@ namespace Client
             
                 for (int i = 0; i < unvFloors.Count; i++)
                 {
-                    if (unvFloors[i].name == value) Bridge.UnvalidFloor(unvFloors[i].id);
+                if (unvFloors[i].name == value)
+                {
+                    Bridge.UnvalidFloor(unvFloors[i].id);
                     break;
+                }
                     
                 }
             this.Close();

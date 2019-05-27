@@ -20,8 +20,8 @@ enum Commands
     DeleteExhibitSpace = 13,    // Удалить точку                        | + | + |
     AddNewSchem = 14,           // Добавить новую схему этажа           | ???
     DeleteSchem = 15,           // Удалить                              | + | + |
-    //GiveFreeExhibitID = 16,   // Выдать свободный id экспоната      
-    GiveUnvalidFloor = 17,//                                            | + | + |
+    AddFloor = 16,              // Создать новый этаж     
+    GiveUnvalidFloor = 17,      //                                      | + | + |
     GiveAllFreeExhibit = 18,    // Выдать все свободные экспонаты       | + | + |
     GiveAllValidFloor = 19,     // Выдать все действующие этажи         | + | + |
     GiveAllFloor = 20,          // Выдать все этажи                     | + | + |
@@ -32,7 +32,8 @@ enum Commands
     DeleteFloorFromValid = 25,  // Удалить                              | + | + |
     DeleteManager = 26,         // Удалить менеджера                    | + | + |
     ChangePassword = 27,        // изменить пароль учётной записи       | + | + |
-    SaveImage = 28              // Принять изображение                  | + | + |
+    SaveImage = 28,             // Принять изображение                  | + | + |
+    DeleteFloor = 29
 };
 
 public class Bridge
@@ -141,12 +142,19 @@ public class Bridge
                     break;
                 }
 
-            /*case (int)Commands.AddNewSchem:
+            case (int)Commands.AddNewSchem:
                 {
+                    byte[] data = new byte[int.Parse(split[1]) * int.Parse(split[2]) * 3]; // буфер для получаемых данных
+
+                    do
+                    {
+                        handler.Receive(data);
+                    }
+                    while (handler.Available > 0);
                     result = new string[1];
-                    result[0] = DB.AddScheme(int.Parse(split[1])).ToString();
-                        break;
-                }*/
+                    result[0] = DB.AddScheme(data, int.Parse(split[1]), int.Parse(split[2])).ToString();
+                    break;
+                }
 
             case (int)Commands.DeleteSchem:
                 {
@@ -154,12 +162,12 @@ public class Bridge
                     result[0] = DB.DeleteSchem(int.Parse(split[1])).ToString();
                         break;
                 }
-            /*case (int)Commands.GiveFreeExhibitID:
+            case (int)Commands.AddFloor:
                 {
                     result = new string[1];
-                    result[0] = DB.GiveFreeExhibitID().ToString();
+                    result[0] = DB.AddFloor(split[1]).ToString();
                     break;
-                }*/
+                }
 
             case (int)Commands.GiveUnvalidFloor:
                 {
@@ -198,12 +206,22 @@ public class Bridge
                         break;
                 }
 
-            /*case (int)Commands.DownloadSheme:
+            case (int)Commands.DownloadSheme:
                 {
+
                     result = new string[1];
-                    result[0] = DB.GiveScheme(int.Parse(split[1])).ToString();
-                        break;
-                }*/
+                    result[0] = true.ToString();
+
+                    byte[] image = DB.DownloadSheme(int.Parse(split[1]));
+
+                    string message = DB.width + "&*&" + DB.height;
+                    byte[] data = Encoding.Unicode.GetBytes(message);
+                    handler.Send(data);
+                    Thread.Sleep(20);
+                    handler.Send(image);
+
+                    break;
+                }
 
             case (int)Commands.AddFloorToValid:
                 {
@@ -246,6 +264,16 @@ public class Bridge
                     result[0] = DB.SaveImage(data, int.Parse(split[1]), int.Parse(split[2])).ToString();
                     break;
                 }
+
+            case (int)Commands.DeleteFloor:
+                {
+                    result = new string[1];
+                    DB.DeleteFloor(int.Parse(split[1]));
+                    result[0] = true.ToString();
+                    break;
+                }
+
+
             default: {
                     Console.Write("Такой команды не существует");
                     break;

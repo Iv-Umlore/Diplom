@@ -22,10 +22,12 @@ namespace Client
         const string DeletePoint = "Удалить точку";
         const string AddExhibit = "Повесить экспонат";
         const string ResetExhibit = "Снять экспонат";
-        const int PointSize = 7;
+        const int PointSize = 8;
 
         const string SetFloo = "Добавить этаж";
         const string ResetFloo = "Убрать этаж";
+
+        const string EmptyUnvalidFloor = "Недействующие этажи отсутсвуют";
 
         bool isManager;
         bool isAdmin;
@@ -43,26 +45,39 @@ namespace Client
         Bitmap Scheme;
 
         List<floore> floors;
+        List<floore> unvalidfloors;
 
         private void RefreshFloor()
         {
             if (currentFloor == null)
-                currentFloor = bridge.DownloadFloor(1);
+                currentFloor = bridge.DownloadFloor(2);
             else currentFloor = bridge.DownloadFloor(currentFloor.GetId());
-            for (int i = 0; i < Scheme.Width; i++)
-                for (int j = 0; j < Scheme.Height; j++)
-                {
-                    Scheme.SetPixel(i, j, Color.Pink);
-                }
+            
+            Scheme = currentFloor.Scheme;
             OriginalScheme = Scheme;
+            Floore_Scheme.Image = Scheme;
             DrawScheme();
             Floor_Name.Text = currentFloor.FloorName;
             floors = Bridge.GiveValidFloor();
-            SetAllUseableFloor();
+            RefreshAllUseableFloor();
             LB.Hide();
+            RefreshAllFloorList();
+        }
+        
+        private void RefreshAllFloorList()
+        {
+            if (isManager)
+            {
+                AllFloorList.Items.Clear();
+                unvalidfloors = Bridge.GiveUnvalidFloor();
+                for (int i = 0; i < unvalidfloors.Count; i++)
+                    AllFloorList.Items.Add(unvalidfloors[i].name);
+                if (AllFloorList.Items.Count == 0) AllFloorList.Items.Add(EmptyUnvalidFloor);
+                AllFloorList.SelectedItem = AllFloorList.Items[0];
+            }
         }
 
-        private void SetAllUseableFloor()
+        private void RefreshAllUseableFloor()
         {
             GoodFloorList.Items.Clear();
             if (isManager) GoodFloorList.Items.Add(SetFloo);
@@ -85,7 +100,7 @@ namespace Client
             LB.Hide();
             ManagerPanel.Hide();
             AdministratorPanel.Hide();
-            SetAllUseableFloor();
+            RefreshAllUseableFloor();
             Scheme = new Bitmap(Floore_Scheme.Width, Floore_Scheme.Height);
             RefreshFloor();    
         }
@@ -102,7 +117,7 @@ namespace Client
             client.pass = AL._pass;
             UseRoot(root);
         }
-
+        
         private void UseRoot(int root)
         {
             switch (root)
@@ -144,12 +159,17 @@ namespace Client
                         break;
                     }
             }
+            RefreshAllFloorList();
             RefreshFloor();
         }
 
         private void DeleteFloor_Click(object sender, EventArgs e)
         {
-
+            DestroyFloor DF = new DestroyFloor();
+            this.Hide();
+            DF.ShowDialog();
+            this.Show();
+            RefreshAllFloorList();
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -163,7 +183,7 @@ namespace Client
             ExhibitSpace ex = IsPoint(e);
             currentSpace = ex;
             if (ex != null)
-                DrawPoint(ex, Color.Red);
+                DrawPoint(ex, Color.Violet);
             else
             {
                 DrawScheme();
@@ -174,15 +194,19 @@ namespace Client
         private void DrawPoint(ExhibitSpace ES, Color pointColor)
         {
             for (int i = -PointSize; i <= PointSize; i++)
-                for (int j = -PointSize; j <= PointSize; j++)
-                    Scheme.SetPixel(ES.XCoord + i, ES.YCoord + j, pointColor);
+                for (int j = -PointSize; j <= PointSize; j++) {
+                    int a = i * i;
+                    int b = j * j;
+                    if (a + b < PointSize * PointSize)
+                        Scheme.SetPixel(ES.XCoord + i, ES.YCoord + j, pointColor);
+                }
             Floore_Scheme.Image = Scheme;
         }
 
         private void DrawScheme()
         {
             for (int currPos = 0; currPos < currentFloor.GetFloore().Count; currPos++)
-                DrawPoint(currentFloor.GetFloore()[currPos], Color.Aquamarine);
+                DrawPoint(currentFloor.GetFloore()[currPos], Color.Blue);
         }
 
         private ExhibitSpace IsPoint(MouseEventArgs e)
@@ -191,7 +215,11 @@ namespace Client
             for (int i = 0; i < currentFloor.GetFloore().Count; i++)
             {
                 ex = currentFloor.GetFloore()[i];
-                if (e.X < ex.XCoord + PointSize && e.X > ex.XCoord - PointSize && e.Y < ex.YCoord + PointSize && e.Y > ex.YCoord - PointSize)
+                int a = ex.XCoord - e.X;
+                a *= a;
+                int b = ex.YCoord - e.Y;
+                b *= b;
+                if (a + b < PointSize * PointSize)
                     return ex;
             }
             return null;
@@ -395,6 +423,33 @@ namespace Client
                 flag = true;
             };
             if (flag) RefreshFloor();
+        }
+
+        private void ShowThisFloor_Click(object sender, EventArgs e)
+        {
+            if (AllFloorList.SelectedItem.ToString() != EmptyUnvalidFloor)
+            {
+                int selectedflooreID = currentFloor._NumberOfFloor;
+                for (int i = 0; i < unvalidfloors.Count; i++)
+                {
+                    if (unvalidfloors[i].name == AllFloorList.SelectedItem.ToString())
+                    {
+                        selectedflooreID = unvalidfloors[i].id;
+                        break;
+                    }
+                }
+                currentFloor = bridge.DownloadFloor(selectedflooreID);
+                RefreshFloor();
+            }
+        }
+
+        private void CreateNewFloor_Click(object sender, EventArgs e)
+        {
+            CreateFloor CF = new CreateFloor();
+            this.Hide();
+            CF.ShowDialog();
+            this.Show();
+            RefreshFloor();
         }
     }
 }

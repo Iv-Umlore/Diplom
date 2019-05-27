@@ -13,7 +13,6 @@ public struct floore
 
 public class Bridge
 {
-    //public Floor floor;
     static public char[] separator = { '&','*','&'};
 
     static public string[] ParseStr(string str, char[] sep = null)
@@ -28,9 +27,9 @@ public class Bridge
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++)
             {
-                result[3 * (i * width + j)] = image.GetPixel(i, j).R;
-                result[3 * (i * width + j) + 1] = image.GetPixel(i, j).G;
-                result[3 * (i * width + j) + 2] = image.GetPixel(i, j).B;
+                result[3 * (i * height + j)] = image.GetPixel(i, j).R;
+                result[3 * (i * height + j) + 1] = image.GetPixel(i, j).G;
+                result[3 * (i * height + j) + 2] = image.GetPixel(i, j).B;
             }
         return result;
     }
@@ -42,7 +41,11 @@ public class Bridge
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++)
             {
-                result.SetPixel(i,j,Color.FromArgb(image[3 * (i * width + j)], image[3 * (i * width + j) + 1], image[3 * (i * width + j) + 2]));
+                if (j == 160)
+                {
+                    Console.Write("hello");
+                }
+                result.SetPixel(i,j,Color.FromArgb(image[3 * (i * height + j)], image[3 * (i * height + j) + 1], image[3 * (i * height + j) + 2]));
                 count++;
             }
         }
@@ -193,10 +196,21 @@ public class Bridge
         // true/false
     }
     
-    /*public int CreateNewScheme(Bitmap Scheme)
+    static public void AddNewFloor(string name)
     {
+        string[] parameters = new string[1];
+        parameters[0] = name;
+        Speaker.Send(GetCorrectComandStrings((int)Commands.AddFloor, parameters));
+    }
 
-    }*/
+    static public void CreateNewScheme(Bitmap Scheme, int width, int heigth)
+    {
+        string[] parameters = new string[2];
+        parameters[0] = width.ToString();
+        parameters[1] = heigth.ToString();
+        byte[] scheme = ConvertToByte(Scheme, width, heigth);
+        Speaker.SendImage(GetCorrectComandStrings((int)Commands.AddNewSchem, parameters), scheme);
+    }
 
     public void DeleteScheme(int SchemeID)
     {
@@ -205,14 +219,7 @@ public class Bridge
         Speaker.Send(GetCorrectComandStrings((int)Commands.DeleteSchem, parameters));
         // true/false
     }
-
-   /* private bool Comparate(floore first, floore second)
-    {
-        return first.number_of_floor < second.number_of_floor;
-    }*/ 
-
-        // think about it
-
+    
     static public List<floore> GiveValidFloor()
     {
         string answer = Speaker.Send(GetCorrectComandStrings((int)Commands.GiveAllValidFloor, null));
@@ -226,9 +233,7 @@ public class Bridge
             tmp.name = res[i + 2];
             result.Add(tmp);
         }
-
-        result.Sort();
-
+        
         return result;
     }
 
@@ -272,10 +277,13 @@ public class Bridge
         return res;
     }
     
-    /*public Scheme DownloadScheme(int SchemeID)
+    static public Bitmap DownloadScheme(int SchemeID)
     {
-
-    }*/
+        string[] parameters = new string[1];
+        parameters[0] = SchemeID.ToString();
+        Bitmap res = Speaker.ResiveImage(GetCorrectComandStrings((int)Commands.DownloadSheme, parameters));
+        return res;
+    }
 
     static public void AddFloorToValid(int FloorID, int number_of_floor)
     {
@@ -292,6 +300,13 @@ public class Bridge
         parameters[0] = FloorID.ToString();
         Speaker.Send(GetCorrectComandStrings((int)Commands.DeleteFloorFromValid, parameters));
         // true/false
+    }
+
+    static public void DeleteFloor(int floorID)
+    {
+        string[] parameters = new string[1];
+        parameters[0] = floorID.ToString();
+        Speaker.Send(GetCorrectComandStrings((int)Commands.DeleteFloor, parameters));
     }
 
     static public void DeleteManager(string login)
