@@ -20,3 +20,4 @@ D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.AddFloor.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.DeleteFloor.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.CreateFloor.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.DestroyFloor.resources
+D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.ShowImage.resources

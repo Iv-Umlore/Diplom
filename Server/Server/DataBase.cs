@@ -71,7 +71,6 @@ public class DataBase
         }
 
         conn.Close();
-        Console.Write("Выдаю этаж\n");
         return res;
     }
 
@@ -147,7 +146,6 @@ public class DataBase
         }
 
         conn.Close();
-        Console.Write("Выдаю Точку\n");
         return res;
     }
 
@@ -189,6 +187,7 @@ public class DataBase
                 else
                 {
                     AllImage += reader.GetInt32(0).ToString();
+                    flag = true;
                 }
             }
             catch {
@@ -199,7 +198,6 @@ public class DataBase
         res[2] = AllImage;
 
         conn.Close();
-        Console.Write("Выдаю экспонат\n");
         return res;
     }
 
@@ -221,7 +219,6 @@ public class DataBase
             result = null;
             width = 0;
             height = 0;
-            Console.Write("Ошибка загрузки");
         }
         conn.Close();
         return result;
@@ -342,10 +339,19 @@ public class DataBase
         return true;
     }
 
-    /*static public bool ChangeSchem(Bitmap BM)
+    public bool ChangeSchem(byte[] schem, int schemID)
     {
-
-    }*/
+        string sql;
+        sql = "UPDATE schems SET scheme = :binaryData WHERE id = " + schemID + ";";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        NpgsqlParameter param = new NpgsqlParameter("binaryData", NpgsqlDbType.Bytea);
+        param.Value = schem;
+        comm.Parameters.Add(param);
+        conn.Open();
+        comm.ExecuteNonQuery();
+        conn.Close();
+        return true;
+    }
 
     public bool AddNewExhibitSpace(int x, int y, int floorID)
     {
@@ -391,11 +397,6 @@ public class DataBase
         return true;
     }
 
-    /*static public bool AddNewSchem(Bitmap BM)
-    {
-
-    }*/
-
     public bool DeleteSchem(int SchemeID)
     {
         // Удаление самих точек происходит при удалении этажа
@@ -409,22 +410,7 @@ public class DataBase
 
         return true;
     }
-
-    /*public int GiveFreeExhibitID()
-    {
-        return 1;
-    }*/
-
-    /*public int GiveFreeExhibitSpaceID()
-    {
-        return 1;
-    }*/
-
-    /*public int GiveFreeFloorID()
-    {
-        return 1;
-    }*/
-
+    
     public string[] GiveAllFreeExhibit()
     {
         string sql = "SELECT id, name FROM exhibits WHERE isused = FALSE;";
@@ -801,4 +787,13 @@ public class DataBase
         }
     }
     
+    public void ChangeFloor(int floorID, string name)
+    {
+        string sql = "UPDATE floors SET name = '" + name + "' WHERE id_floor = " + floorID + ";";
+        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+        conn.Open();
+        comm.ExecuteNonQuery();
+        conn.Close();
+    }
+
 }

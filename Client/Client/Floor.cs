@@ -7,7 +7,7 @@ using System.Drawing;
 public class Floor
 {
     private int id;
-    private int SchemeId;
+    public int SchemeId;
     public Bitmap Scheme;
     public string FloorName;
     private List<ExhibitSpace> floor;                  // Список точек экспонатов

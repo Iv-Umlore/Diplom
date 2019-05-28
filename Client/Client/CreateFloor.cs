@@ -22,7 +22,7 @@ namespace Client
 
         const int linewidth = 3;
 
-        public CreateFloor(Floor Floor = null)
+        public CreateFloor(Floor Floor = null, Bitmap scheme = null)
         {
             InitializeComponent();
             curfloor = Floor;
@@ -34,7 +34,12 @@ namespace Client
                     for (int j = 0; j < 340; j++)
                         image.SetPixel(i, j, Color.Black);
             }
-            else image = Floor.Scheme;
+            else
+            {
+                image = scheme;
+                textBox1.Text = Floor.FloorName;
+                Result.Text = "Вы можете отредактировать \n схему и название.";
+            }
             currentimage = image;
             pictureBox1.Image = currentimage;
         }
@@ -55,9 +60,18 @@ namespace Client
                 int value = IsCorrect(text);
                 if (value == 0)
                 {
-                    Bridge.CreateNewScheme(currentimage, currentimage.Width, currentimage.Height);
-                    Bridge.AddNewFloor(text);
-                    this.Close();
+                    if (curfloor == null)
+                    {
+                        Bridge.CreateNewScheme(currentimage, currentimage.Width, currentimage.Height);
+                        Bridge.AddNewFloor(text);
+                        this.Close();
+                    }
+                    else
+                    {
+                        Bridge.ChangeFloor(curfloor.GetId(), text);
+                        Bridge.ChangeScheme(currentimage, curfloor.SchemeId);
+                        this.Close();
+                    }
                 }
                 else Result.Text = "Нельзя использовать \nсочетание &&*&& в названии";
             }

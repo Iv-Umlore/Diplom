@@ -41,10 +41,6 @@ public class Bridge
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++)
             {
-                if (j == 160)
-                {
-                    Console.Write("hello");
-                }
                 result.SetPixel(i,j,Color.FromArgb(image[3 * (i * height + j)], image[3 * (i * height + j) + 1], image[3 * (i * height + j) + 2]));
                 count++;
             }
@@ -176,10 +172,15 @@ public class Bridge
         // true/false
     }
 
-    /*public void ChangeScheme(Scheme schem)
+    static public void ChangeScheme(Bitmap schem, int SchemeID)
     {
-
-    }*/
+        string[] parameters = new string[3];
+        parameters[0] = schem.Width.ToString();
+        parameters[1] = schem.Height.ToString(); ;
+        parameters[2] = SchemeID.ToString();
+        byte[] b = ConvertToByte(schem, schem.Width, schem.Height);
+        Speaker.SendImage(GetCorrectComandStrings((int)Commands.ChangeSchem, parameters),b);
+    }
 
     public void AddNewExhibitSpace(int x, int y, int floor)
     {
@@ -339,6 +340,14 @@ public class Bridge
             res[i] = tmp;
         }
         return res;
+    }
+
+    static public void ChangeFloor(int floorID, string name)
+    {
+        string[] parameters = new string[2];
+        parameters[0] = floorID.ToString();
+        parameters[1] = name;
+        Speaker.Send(GetCorrectComandStrings((int)Commands.ChangeFloor, parameters));
     }
 
 }

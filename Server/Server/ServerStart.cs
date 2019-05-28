@@ -51,9 +51,7 @@ namespace SocketTcpServer
                         while (handler.Available > 0);
 
                         string command = builder.ToString();
-
-                        Console.Write(command); // - наша строка
-                        
+                                            
                         // отправляем ответ
                         string message = bridge.ExecuteTheCommand(command, handler);
                         data = Encoding.Unicode.GetBytes(message);

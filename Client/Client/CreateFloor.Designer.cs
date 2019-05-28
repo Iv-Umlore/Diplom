@@ -30,11 +30,11 @@
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ToolsPanel = new System.Windows.Forms.Panel();
+            this.button = new System.Windows.Forms.Button();
             this.EnterValue = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Create = new System.Windows.Forms.Button();
             this.Result = new System.Windows.Forms.Label();
-            this.button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.ToolsPanel.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +60,16 @@
             this.ToolsPanel.Size = new System.Drawing.Size(580, 61);
             this.ToolsPanel.TabIndex = 1;
             // 
+            // button
+            // 
+            this.button.Location = new System.Drawing.Point(19, 3);
+            this.button.Name = "button";
+            this.button.Size = new System.Drawing.Size(178, 55);
+            this.button.TabIndex = 0;
+            this.button.Text = "Стереть";
+            this.button.UseVisualStyleBackColor = true;
+            this.button.Click += new System.EventHandler(this.button_Click);
+            // 
             // EnterValue
             // 
             this.EnterValue.AutoSize = true;
@@ -84,7 +94,7 @@
             this.Create.Name = "Create";
             this.Create.Size = new System.Drawing.Size(188, 61);
             this.Create.TabIndex = 4;
-            this.Create.Text = "Создать";
+            this.Create.Text = "Сохранить";
             this.Create.UseVisualStyleBackColor = true;
             this.Create.Click += new System.EventHandler(this.Create_Click);
             // 
@@ -96,16 +106,6 @@
             this.Result.Size = new System.Drawing.Size(166, 13);
             this.Result.TabIndex = 5;
             this.Result.Text = "Нарисуйте схему нового этажа";
-            // 
-            // button
-            // 
-            this.button.Location = new System.Drawing.Point(19, 3);
-            this.button.Name = "button";
-            this.button.Size = new System.Drawing.Size(178, 55);
-            this.button.TabIndex = 0;
-            this.button.Text = "Стереть";
-            this.button.UseVisualStyleBackColor = true;
-            this.button.Click += new System.EventHandler(this.button_Click);
             // 
             // CreateFloor
             // 

@@ -36,7 +36,8 @@ enum Commands { GetFloor = 1,   //                                      | +
     DeleteManager = 26,         // Удалить менеджера                    | +
     ChangePassword = 27,        // изменить пароль учётной записи       | +
     SendImage = 28,              // Отправить изображение
-    DeleteFloor = 29
+    DeleteFloor = 29,
+    ChangeFloor = 30
 };
 
 namespace SocketTcpClient

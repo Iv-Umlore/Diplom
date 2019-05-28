@@ -116,6 +116,12 @@
     <Compile Include="CreateExhibit.Designer.cs">
       <DependentUpon>CreateExhibit.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShowImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowImage.Designer.cs">
+      <DependentUpon>ShowImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResetExhibit.cs">
@@ -164,6 +170,9 @@
     <EmbeddedResource Include="Exponat.resx">
       <DependentUpon>Exponat.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ShowImage.resx">
+      <DependentUpon>ShowImage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -191,6 +200,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="1436029898_1190099444.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

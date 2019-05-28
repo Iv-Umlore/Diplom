@@ -33,7 +33,8 @@ enum Commands
     DeleteManager = 26,         // Удалить менеджера                    | + | + |
     ChangePassword = 27,        // изменить пароль учётной записи       | + | + |
     SaveImage = 28,             // Принять изображение                  | + | + |
-    DeleteFloor = 29
+    DeleteFloor = 29,
+    ChangeFloor = 30
 };
 
 public class Bridge
@@ -54,7 +55,7 @@ public class Bridge
         {
             result += sep + DBanswer[i];
         }
-        Console.Write(result);
+
         return result;
     }
 
@@ -62,6 +63,7 @@ public class Bridge
     {
         string[] split = command.Split(separator,StringSplitOptions.RemoveEmptyEntries);
         string[] result = null;
+        Console.Write("\nCommand code: " + split[0]);
         switch (int.Parse(split[0]))
         {
             case (int)Commands.GetFloor:  {
@@ -123,11 +125,18 @@ public class Bridge
                     break;
                 }
 
-            /*case (int)Commands.ChangeSchem: {
+            case (int)Commands.ChangeSchem: {
+                    byte[] data = new byte[int.Parse(split[1]) * int.Parse(split[2]) * 3]; // буфер для получаемых данных
+
+                    do
+                    {
+                        handler.Receive(data);
+                    }
+                    while (handler.Available > 0);
                     result = new string[1];
-                    result[0] = DB.ChangeScheme(int.Parse(split[1])).ToString()
+                    result[0] = DB.ChangeSchem(data, int.Parse(split[3])).ToString();
                     break;
-                }*/
+                }
 
             case (int)Commands.AddNewExhibitSpace: {
                     result = new string[1];
@@ -273,6 +282,14 @@ public class Bridge
                     break;
                 }
 
+
+            case (int)Commands.ChangeFloor:
+                {                 
+                    DB.ChangeFloor(int.Parse(split[1]), split[2]);
+                    result = new string[1];
+                    result[0] = true.ToString();
+                    break;
+                }
 
             default: {
                     Console.Write("Такой команды не существует");

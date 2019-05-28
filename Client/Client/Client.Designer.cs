@@ -60,12 +60,13 @@
             // 
             // Scheme_Panel
             // 
-            this.Scheme_Panel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.Scheme_Panel.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.Scheme_Panel.Controls.Add(this.LB);
             this.Scheme_Panel.Controls.Add(this.Floore_Scheme);
+            this.Scheme_Panel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Scheme_Panel.Location = new System.Drawing.Point(0, 38);
             this.Scheme_Panel.Name = "Scheme_Panel";
-            this.Scheme_Panel.Size = new System.Drawing.Size(603, 368);
+            this.Scheme_Panel.Size = new System.Drawing.Size(608, 368);
             this.Scheme_Panel.TabIndex = 0;
             // 
             // LB
@@ -90,9 +91,11 @@
             // Floor_Name
             // 
             this.Floor_Name.AutoSize = true;
-            this.Floor_Name.Location = new System.Drawing.Point(13, 13);
+            this.Floor_Name.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.Floor_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.64F);
+            this.Floor_Name.Location = new System.Drawing.Point(24, 14);
             this.Floor_Name.Name = "Floor_Name";
-            this.Floor_Name.Size = new System.Drawing.Size(265, 13);
+            this.Floor_Name.Size = new System.Drawing.Size(362, 18);
             this.Floor_Name.TabIndex = 1;
             this.Floor_Name.Text = "Очень длинное название этажа размером со штат";
             // 
@@ -198,6 +201,7 @@
             this.EditFloor.TabIndex = 3;
             this.EditFloor.Text = "Редактировать этаж";
             this.EditFloor.UseVisualStyleBackColor = true;
+            this.EditFloor.Click += new System.EventHandler(this.EditFloor_Click);
             // 
             // ShowThisFloor
             // 
@@ -280,7 +284,7 @@
             // 
             // Cansel
             // 
-            this.Cansel.Location = new System.Drawing.Point(384, 9);
+            this.Cansel.Location = new System.Drawing.Point(480, 9);
             this.Cansel.Name = "Cansel";
             this.Cansel.Size = new System.Drawing.Size(123, 23);
             this.Cansel.TabIndex = 9;
@@ -292,6 +296,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.Cansel);
             this.Controls.Add(this.MousePosition);

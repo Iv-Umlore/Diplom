@@ -54,7 +54,7 @@ namespace Client
             else currentFloor = bridge.DownloadFloor(currentFloor.GetId());
             
             Scheme = currentFloor.Scheme;
-            OriginalScheme = Scheme;
+            OriginalScheme = new Bitmap(currentFloor.Scheme);
             Floore_Scheme.Image = Scheme;
             DrawScheme();
             Floor_Name.Text = currentFloor.FloorName;
@@ -180,15 +180,18 @@ namespace Client
 
         private void Floore_Scheme_MouseMove(object sender, MouseEventArgs e)
         {
-            ExhibitSpace ex = IsPoint(e);
-            currentSpace = ex;
-            if (ex != null)
-                DrawPoint(ex, Color.Violet);
-            else
+            if (!isChange)
             {
-                DrawScheme();
+                ExhibitSpace ex = IsPoint(e);
+                currentSpace = ex;
+                if (ex != null)
+                    DrawPoint(ex, Color.Violet);
+                else
+                {
+                    DrawScheme();
+                }
+                MousePosition.Text = "Текущая позиция : " + (e.X + e.Y);
             }
-            MousePosition.Text = "Текущая позиция : " + (e.X + e.Y);
         }
 
         private void DrawPoint(ExhibitSpace ES, Color pointColor)
@@ -446,6 +449,15 @@ namespace Client
         private void CreateNewFloor_Click(object sender, EventArgs e)
         {
             CreateFloor CF = new CreateFloor();
+            this.Hide();
+            CF.ShowDialog();
+            this.Show();
+            RefreshFloor();
+        }
+
+        private void EditFloor_Click(object sender, EventArgs e)
+        {
+            CreateFloor CF = new CreateFloor(currentFloor,OriginalScheme);
             this.Hide();
             CF.ShowDialog();
             this.Show();
