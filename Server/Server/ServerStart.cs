@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace SocketTcpServer
 {
@@ -12,11 +13,14 @@ namespace SocketTcpServer
     {
         static int port = 1024; // порт для приема входящих запросов
         const int BufferSize = 256;
+        // const string address = "25.76.240.222";
+        const string address = "127.0.0.1";
+
 
         static void Main(string[] args)
         {
             // получаем адреса для запуска сокета
-            IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
+            IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
 
             // создаем сокет
             Socket listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -55,7 +59,9 @@ namespace SocketTcpServer
                         // отправляем ответ
                         string message = bridge.ExecuteTheCommand(command, handler);
                         data = Encoding.Unicode.GetBytes(message);
+
                         handler.Send(data);
+
                         // закрываем сокет
                         handler.Shutdown(SocketShutdown.Both);
                         handler.Close();

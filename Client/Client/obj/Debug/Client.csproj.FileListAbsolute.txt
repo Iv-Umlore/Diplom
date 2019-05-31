@@ -1,7 +1,6 @@
 D:\PROGRAMS\Diplom\Client\Client\bin\Debug\Client.exe.config
 D:\PROGRAMS\Diplom\Client\Client\bin\Debug\Client.exe
 D:\PROGRAMS\Diplom\Client\Client\bin\Debug\Client.pdb
-D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.csprojAssemblyReference.cache
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.Properties.Resources.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.csproj.GenerateResource.cache
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
@@ -21,3 +20,4 @@ D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.DeleteFloor.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.CreateFloor.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.DestroyFloor.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.ShowImage.resources
+D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.csprojAssemblyReference.cache
