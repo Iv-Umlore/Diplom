@@ -48,8 +48,8 @@ namespace SocketTcpClient
         // адрес и порт сервера, к которому будем подключаться
         static int port = 1024;                         // порт сервера
         //static string address = "192.168.0.104";        // Адрес внутри сети
-        //static string address = "109.201.126.140";        // подключение по внешнему ip
-        static string address = "127.0.0.1";           // localhost
+        static string address = "109.201.126.140";        // подключение по внешнему ip
+        // static string address = "127.0.0.1";           // localhost
         const int BufferSize = 256;                     // Размер буфера обмена
         
         static public string Send(string args)
@@ -154,33 +154,24 @@ namespace SocketTcpClient
 
             int width = int.Parse(split[0]);
             int heigth = int.Parse(split[1]);
-            int packets = int.Parse(split[2]);
-            data = new byte[8196]; // буфер для ответа
 
-            builder = new StringBuilder();
-
+            data = new byte[2048];
             byte[] image = new byte[width * heigth * 3];
-            data = new byte[4096];
             int pos = 0;
-            while (packets > 0)
+            do
             {
-                do
+                socket.Receive(data, data.Length, 0);
+                for (int i = 0; i < data.Length; i++)
                 {
-                    socket.Receive(data, data.Length, 0);
-                    for (int i = 0; i < data.Length; i++)
-                    {
-                        if (pos < image.Length) image[pos] = data[i];
-                        pos++;
-                    }
+                    if (pos < image.Length) image[pos] = data[i];
+                    pos++;
                 }
-                while (socket.Available > 0);
-                packets--;
-            }
-            for (int i = 0; i < image.Length; i++)
-                if (image[i] == 0) bytes++;
+                Thread.Sleep(1);
+
+            } while (socket.Available > 0);
 
             Bitmap BM = Bridge.ConvertToBitmap(image, width, heigth);
-            // попробовать передавать пакетами по 2048 байт
+
             data = new byte[BufferSize]; // буфер для ответа
             
             bytes = 0; // количество полученных байт
@@ -193,7 +184,6 @@ namespace SocketTcpClient
             while (socket.Available > 0);
             answer = builder.ToString();
             builder.Clear();
-            Console.Write(answer);
             // закрываем сокет
             socket.Shutdown(SocketShutdown.Both);
             socket.Close();

@@ -39,7 +39,7 @@ public class Bridge
         Color[] palitra = new Color[width * height];
         for (int i = 0; i < palitra.Length; i++)
         {
-            palitra[i] = Color.FromArgb(255, image[3*i], image[ 3*i + 1], image[ 3*i + 2]);
+            palitra[i] = Color.FromArgb(image[3 * i], image[ 3 * i + 1], image[ 3 * i + 2]);
             if (i == 2725)
             {
                 Color that = palitra[i];
