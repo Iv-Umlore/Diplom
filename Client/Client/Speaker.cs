@@ -47,8 +47,9 @@ namespace SocketTcpClient
     {
         // адрес и порт сервера, к которому будем подключаться
         static int port = 1024;                         // порт сервера
-        static string address = "25.76.240.222";     // адрес сервера
-        //static string address = "127.0.0.1";
+        // static string address = "192.168.0.104";        // адрес сервера
+        //static string address = "109.201.126.140";      // подключение по внешнему ip
+        static string address = "127.0.0.1";
         const int BufferSize = 256;                     // Размер буфера обмена
         
         static public string Send(string args)
