@@ -85,13 +85,22 @@ public class Bridge
                     result[0] = true.ToString();
 
                     byte[] image = DB.GetImage(int.Parse(split[1]));
-
-                    string message = DB.width + "&*&" + DB.height;
+                    byte[][] data2 = new byte[image.Length / 4096 + 1][];
+                    for (int i = 0; i < image.Length / 4096 + 1; i++)
+                        data2[i] = new byte[4096];
+                    for (int i = 0; i < image.Length; i++)
+                    {
+                        data2[i/4096][i % 4096] = image[i];
+                    }
+                    string message = DB.width + "&*&" + DB.height + "&*&" + data2.Length;
                     byte[] data = Encoding.Unicode.GetBytes(message);
                     handler.Send(data);
                     Thread.Sleep(20);
-                    handler.Send(image);
-
+                    for (int i = 0; i < data2.Length; i++)
+                    {
+                        handler.Send(data2[i]);
+                        Thread.Sleep(4);
+                    }
                     break;
                 }
             case (int)Commands.Autorization: {
@@ -222,12 +231,22 @@ public class Bridge
                     result[0] = true.ToString();
 
                     byte[] image = DB.DownloadSheme(int.Parse(split[1]));
-
-                    string message = DB.width + "&*&" + DB.height;
+                    byte[][] data2 = new byte[image.Length / 4096 + 1][];
+                    for (int i = 0; i < image.Length / 4096 + 1; i++)
+                        data2[i] = new byte[4096];
+                    for (int i = 0; i < image.Length; i++)
+                    {
+                        data2[i / 4096][i % 4096] = image[i];
+                    }
+                    string message = DB.width + "&*&" + DB.height + "&*&" + data2.Length;
                     byte[] data = Encoding.Unicode.GetBytes(message);
                     handler.Send(data);
                     Thread.Sleep(20);
-                    handler.Send(image);
+                    for (int i = 0; i < data2.Length; i++)
+                    {
+                        handler.Send(data2[i]);
+                        Thread.Sleep(4);
+                    }
 
                     break;
                 }

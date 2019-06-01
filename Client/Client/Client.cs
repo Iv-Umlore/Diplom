@@ -47,11 +47,13 @@ namespace Client
         List<floore> floors;
         List<floore> unvalidfloors;
 
-        private void RefreshFloor()
+        private void RefreshFloor(int id = 0)
         {
             if (currentFloor == null)
                 currentFloor = bridge.DownloadFloor(2);
-            else currentFloor = bridge.DownloadFloor(currentFloor.GetId());
+            else if (id == 0)
+                currentFloor = bridge.DownloadFloor(currentFloor.GetId());
+            else { currentFloor = bridge.DownloadFloor(id); }
             
             Scheme = currentFloor.Scheme;
             OriginalScheme = new Bitmap(currentFloor.Scheme);
@@ -395,8 +397,7 @@ namespace Client
                     break;
                 }
             }
-            currentFloor = bridge.DownloadFloor(selectedflooreID);
-            RefreshFloor();
+            RefreshFloor(selectedflooreID);
         }
 
         private int GetNextNumberOfFloor()
