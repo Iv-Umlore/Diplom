@@ -102,7 +102,7 @@ namespace SocketTcpClient
 
             byte[] data = Encoding.Unicode.GetBytes(command);
             socket.Send(data);
-            Thread.Sleep(20);
+            Thread.Sleep(10);
             data = bitmap;
             socket.Send(data);
 
@@ -159,16 +159,16 @@ namespace SocketTcpClient
             byte[] image = new byte[width * heigth * 3];
             int pos = 0;
             do
-            {
-                socket.Receive(data, data.Length, 0);
-                for (int i = 0; i < data.Length; i++)
                 {
-                    if (pos < image.Length) image[pos] = data[i];
-                    pos++;
-                }
-                Thread.Sleep(1);
-
+                    socket.Receive(data, data.Length, 0);
+                    for (int i = 0; i < data.Length; i++)
+                    {
+                        if (pos < image.Length) image[pos] = data[i];
+                        pos++;
+                    }
+                Thread.Sleep(4);
             } while (socket.Available > 0);
+               
 
             Bitmap BM = Bridge.ConvertToBitmap(image, width, heigth);
 

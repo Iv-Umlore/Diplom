@@ -29,7 +29,7 @@ namespace Client
             if (images.Count == 0)
             {
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox1.Image = Image.FromFile("D:\\PROGRAMS\\Diplom\\Client\\Client\\1436029898_1190099444.jpg");
+                pictureBox1.Image = Image.FromFile("1436029898_1190099444.jpg");
             }
             else
             {
