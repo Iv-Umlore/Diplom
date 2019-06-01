@@ -89,7 +89,7 @@ public class Bridge
                     string message = DB.width + "&*&" + DB.height;
                     byte[] data = Encoding.Unicode.GetBytes(message);
                     handler.Send(data);
-                    Thread.Sleep(4);
+                    Thread.Sleep(10);
                     handler.Send(image);
 
                     break;
@@ -232,7 +232,7 @@ public class Bridge
                     string message = DB.width + "&*&" + DB.height;
                     byte[] data = Encoding.Unicode.GetBytes(message);
                     handler.Send(data);
-                    Thread.Sleep(4);
+                    Thread.Sleep(10);
                     handler.Send(image);
 
                     break;

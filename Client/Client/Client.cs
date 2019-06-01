@@ -192,7 +192,6 @@ namespace Client
                 {
                     DrawScheme();
                 }
-                MousePosition.Text = "Текущая позиция : " + (e.X + e.Y);
             }
         }
 
@@ -464,5 +463,10 @@ namespace Client
             this.Show();
             RefreshFloor();
         }
-    }
+
+		private void Refreshing_Click(object sender, EventArgs e)
+		{
+			RefreshFloor();
+		}
+	}
 }

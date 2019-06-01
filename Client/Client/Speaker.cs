@@ -122,55 +122,68 @@ namespace SocketTcpClient
             socket.Close();
         }
 
-        static public Bitmap ResiveImage(string command)
-        {
+		static public Bitmap ResiveImage(string command)
+		{
 
-            IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
+			IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
 
-            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            // подключаемся к удаленному хосту
-            socket.Connect(ipPoint);
+			Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			// подключаемся к удаленному хосту
+			socket.Connect(ipPoint);
 
-            byte[] data = Encoding.Unicode.GetBytes(command);
-            socket.Send(data);
+			byte[] data = Encoding.Unicode.GetBytes(command);
+			socket.Send(data);
 
-            // получаю размер
-            
-            data = new byte[BufferSize]; // буфер для ответа
-            
-            StringBuilder builder = new StringBuilder();
-            int bytes = 0; // количество полученных байт
+			// получаю размер
 
-            do
-            {
-                bytes = socket.Receive(data, data.Length, 0);
-                builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-            }
-            while (socket.Available > 0);
+			data = new byte[BufferSize]; // буфер для ответа
 
-            string answer = builder.ToString();
-            builder.Clear();
-            string[] split = Bridge.ParseStr(answer);
+			StringBuilder builder = new StringBuilder();
+			int bytes = 0; // количество полученных байт
 
-            int width = int.Parse(split[0]);
-            int heigth = int.Parse(split[1]);
+			do
+			{
+				bytes = socket.Receive(data, data.Length, 0);
+				builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
+			}
+			while (socket.Available > 0);
+
+			string answer = builder.ToString();
+			builder.Clear();
+			string[] split = Bridge.ParseStr(answer);
+
+			int width = int.Parse(split[0]);
+			string str = "";
+			int k = 0;
+			while (k < split[1].Length && split[1][k] <= '9' && split[1][k] >= '0') { 
+				str += split[1][k];
+				k++;
+			}
+
+			int heigth = int.Parse(str);
 
             data = new byte[2048];
             byte[] image = new byte[width * heigth * 3];
+			for (int i = 0; i < image.Length; i++)
+				image[i] = 130;
             int pos = 0;
-            do
-                {
-                    socket.Receive(data, data.Length, 0);
+			int count = 0;
+				do
+				{
+				count = 0;
+					
+					socket.Receive(data, data.Length, 0);
+					
                     for (int i = 0; i < data.Length; i++)
                     {
                         if (pos < image.Length) image[pos] = data[i];
                         pos++;
                     }
-                Thread.Sleep(4);
-            } while (socket.Available > 0);
-               
 
-            Bitmap BM = Bridge.ConvertToBitmap(image, width, heigth);
+						Thread.Sleep(2);
+				} while (socket.Available > 0);
+
+			Bitmap BM = Bridge.ConvertToBitmap(image, width, heigth);
 
             data = new byte[BufferSize]; // буфер для ответа
             
