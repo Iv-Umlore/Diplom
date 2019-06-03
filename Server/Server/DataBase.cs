@@ -294,6 +294,10 @@ public class DataBase
         cmd3 = new NpgsqlCommand(command, conn);
         cmd3.ExecuteNonQuery();
 
+        command = "DELETE FROM image WHERE exhib_id = " + ExhID + ";";
+        cmd3 = new NpgsqlCommand(command, conn);
+        cmd3.ExecuteNonQuery();
+
         conn.Close();
         return true;
     }

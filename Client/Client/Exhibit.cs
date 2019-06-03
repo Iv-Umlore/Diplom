@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Exhibit
 {
-    private int _id;                   // Exponat id
+    public int _id;                   // Exponat id
     public string _name;               // Exponat name
     public string _description;        // Exponat description
     public List<int> images_id;

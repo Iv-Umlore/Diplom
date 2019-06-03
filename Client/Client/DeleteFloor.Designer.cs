@@ -58,7 +58,7 @@
             this.Controls.Add(this.Delete);
             this.Controls.Add(this.ValidFloor);
             this.Name = "DeleteFloor";
-            this.Text = "DeleteFloor";
+            this.Text = "Действующие этажи";
             this.ResumeLayout(false);
 
         }

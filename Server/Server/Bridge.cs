@@ -35,12 +35,14 @@ enum Commands
     SaveImage = 28,             // Принять изображение                  | + | + |
     DeleteFloor = 29,
     ChangeFloor = 30
+
 };
 
 public class Bridge
 {
     char[] separator = { '&', '*', '&' };
     DataBase DB;
+    bool update = false;
     public Bridge()
 	{
         DB = new DataBase();
@@ -164,7 +166,7 @@ public class Bridge
                                 if (pos < image.Length) image[pos] = data[i];
                                 pos++;
                             }
-                            Thread.Sleep(4);
+                            //Thread.Sleep(4);
                         } while (handler.Available > 0);
                     result = new string[1];
                     result[0] = DB.AddScheme(data, int.Parse(split[1]), int.Parse(split[2])).ToString();
@@ -304,6 +306,7 @@ public class Bridge
                     result[0] = true.ToString();
                     break;
                 }
+            
 
             default: {
                     Console.Write("Такой команды не существует");

@@ -147,7 +147,7 @@ public class Bridge
         // true/false
     }
 
-    public void DeleteExhibitNumber(int ExhibitNumber)
+    static public void DeleteExhibitNumber(int ExhibitNumber)
     {
         Console.Write("Удаляю экспонат номер " + ExhibitNumber + "...\n");
         string[] parameters = new string[1];
@@ -359,5 +359,5 @@ public class Bridge
         parameters[1] = name;
         Speaker.Send(GetCorrectComandStrings((int)Commands.ChangeFloor, parameters));
     }
-
+    
 }

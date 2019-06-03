@@ -58,7 +58,7 @@
             this.Controls.Add(this.Reset);
             this.Controls.Add(this.ThisPoint);
             this.Name = "ResetExhibit";
-            this.Text = "ResetExhibit";
+            this.Text = "Текущие экспонаты";
             this.ResumeLayout(false);
 
         }

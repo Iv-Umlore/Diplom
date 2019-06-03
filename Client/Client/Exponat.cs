@@ -14,12 +14,23 @@ namespace Client
     {
         List<Bitmap> images;
         int count = 0;
-        public Exponat(Exhibit exh)
+        int exhibID;
+        bool _isAdmin;
+
+        public Exponat(Exhibit exh, bool isAdmin)
         {
+            exhibID = exh._id;
+            _isAdmin = isAdmin;
             InitializeComponent();
+            label1.Text = "Нажмите на изображение\n      для увеличения";
+            if (!_isAdmin) Delete.Hide();
+            SetExponat(exh);
+        }
+
+        private void SetExponat(Exhibit exh)
+        {
             Name.Text = exh._name;
             Description.Text = exh._description;
-            label1.Text = "Нажмите на изображение\n      для увеличения";
             images = new List<Bitmap>();
             for (int i = 0; i < exh.images_id.Count; i++)
             {
@@ -66,6 +77,18 @@ namespace Client
         {
             ShowImage SI = new ShowImage(pictureBox1.Image);
             SI.ShowDialog();
+        }
+
+        private void Refresh_Click(object sender, EventArgs e)
+        {
+            Exhibit exh = new Exhibit(exhibID);
+            SetExponat(exh);
+        }
+
+        private void Delete_Click(object sender, EventArgs e)
+        {
+            Bridge.DeleteExhibitNumber(exhibID);
+            Close();
         }
     }
 }

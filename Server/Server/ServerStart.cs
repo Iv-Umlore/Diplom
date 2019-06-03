@@ -13,8 +13,8 @@ namespace SocketTcpServer
     {
         static int port = 1024; // порт для приема входящих запросов
         const int BufferSize = 256;
-        const string address = "192.168.0.104";       // local
-        //const string address = "109.201.126.140";
+        const string address = "192.168.0.101";       // local
+        // const string address = "109.201.126.140";
         // const string address = "127.0.0.1";
 
 

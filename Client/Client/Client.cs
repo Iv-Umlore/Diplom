@@ -318,9 +318,10 @@ namespace Client
                         if (id == -1) MessageBox.Show("Возникла ошибка!");
                         else
                         {
-                            Exponat exhib = new Exponat(new Exhibit(id));
+                            Exponat exhib = new Exponat(new Exhibit(id), isAdmin);
                             this.Hide();
                             exhib.ShowDialog();
+                            if (isAdmin) RefreshFloor();
                             this.Show();
                         }
                         break;

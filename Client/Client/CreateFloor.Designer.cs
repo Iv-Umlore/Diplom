@@ -119,7 +119,7 @@
             this.Controls.Add(this.ToolsPanel);
             this.Controls.Add(this.pictureBox1);
             this.Name = "CreateFloor";
-            this.Text = "CreateFloor";
+            this.Text = "Создать этаж";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ToolsPanel.ResumeLayout(false);
             this.ResumeLayout(false);
