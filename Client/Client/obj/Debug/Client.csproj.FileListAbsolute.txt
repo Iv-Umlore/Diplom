@@ -43,3 +43,4 @@ C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.csproj.
 C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
 C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.exe
 C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.pdb
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.csprojAssemblyReference.cache

@@ -15,7 +15,7 @@ namespace SocketTcpServer
         const int BufferSize = 256;
         const string address = "192.168.0.101";       // local
         // const string address = "109.201.126.140";
-        // const string address = "127.0.0.1";
+        //const string address = "127.0.0.1";
 
 
         static void Main(string[] args)

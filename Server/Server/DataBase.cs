@@ -782,6 +782,7 @@ public class DataBase
             comm.Parameters.Add(param);
             conn.Open();
             comm.ExecuteNonQuery();
+            Console.Write("Всё хорошо");
             conn.Close();
             return true;
         }

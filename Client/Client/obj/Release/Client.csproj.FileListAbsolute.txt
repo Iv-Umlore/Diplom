@@ -21,3 +21,26 @@ D:\PROGRAMS\Diplom\Client\Client\obj\Release\Client.csproj.CoreCompileInputs.cac
 D:\PROGRAMS\Diplom\Client\Client\obj\Release\Client.exe
 D:\PROGRAMS\Diplom\Client\Client\obj\Release\Client.pdb
 D:\PROGRAMS\Diplom\Client\Client\obj\Release\Client.csprojAssemblyReference.cache
+C:\Users\usser\Desktop\Exe клиента\Client\Client\bin\Release\Client.exe.config
+C:\Users\usser\Desktop\Exe клиента\Client\Client\bin\Release\Client.exe
+C:\Users\usser\Desktop\Exe клиента\Client\Client\bin\Release\Client.pdb
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.csprojAssemblyReference.cache
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.AddFloor.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.ChangePass.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.Client.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.AutorizationLogin.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.CreateExhibitWindows.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.CreateFloor.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.CreateUser.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.DeleteFloor.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.DeleteManager.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.DestroyFloor.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.Exponat.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.ShowImage.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.Properties.Resources.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.ResetExhibit.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.SetExhibit.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.csproj.GenerateResource.cache
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.csproj.CoreCompileInputs.cache
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.exe
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Release\Client.pdb

@@ -155,9 +155,28 @@ public class Bridge
 
             case (int)Commands.AddNewSchem:
                 {
-                    byte[] image = new byte[int.Parse(split[1]) * int.Parse(split[2]) * 3]; // буфер для получаемых данных
+                    int width = int.Parse(split[1]);
+
+                    string str = "";
+                    int k = 0;
+                    while (k < split[1].Length && split[1][k] <= '9' && split[1][k] >= '0')
+                    {
+                        str += split[1][k];
+                        k++;
+                    }
+
+                    int height = int.Parse(str);
+                    byte[] image = new byte[width * height * 3]; // буфер для получаемых данных
+                    for (int i = 0; i < image.Length; i += 3)
+                    {
+                        image[i] = 100;
+                        image[i + 1] = 255;
+                        image[i + 2] = 100;
+                    }
+
                     byte[] data = new byte[2048];
                     int pos = 0;
+                    Thread.Sleep(image.Length / 6144);
                     do
                         {
                             handler.Receive(data, data.Length, 0);
@@ -166,7 +185,7 @@ public class Bridge
                                 if (pos < image.Length) image[pos] = data[i];
                                 pos++;
                             }
-                            //Thread.Sleep(4);
+                        Thread.Sleep(2);
                         } while (handler.Available > 0);
                     result = new string[1];
                     result[0] = DB.AddScheme(data, int.Parse(split[1]), int.Parse(split[2])).ToString();
@@ -270,20 +289,37 @@ public class Bridge
 
             case (int)Commands.SaveImage:
                 {
-                    byte[] image = new byte[int.Parse(split[1]) * int.Parse(split[2]) * 3]; // буфер для получаемых данных
-                    byte[]data = new byte[2048];
-                    int pos = 0;
-                        do
-                        {
-                            handler.Receive(data, data.Length, 0);
-                            for (int i = 0; i < data.Length; i++)
-                            {
-                                if (pos < image.Length) image[pos] = data[i];
-                                pos++;
-                            }
+                    int width = int.Parse(split[1]);
+                    
+                    string str = "";
+                    int k = 0;
+                    while (k < split[1].Length && split[1][k] <= '9' && split[1][k] >= '0')
+                    {
+                        str += split[1][k];
+                        k++;
+                    }
 
-                            Thread.Sleep(4);
-                        } while (handler.Available > 0);
+                    int height = int.Parse(str);
+                    byte[] image = new byte[width * height * 3]; 
+                    for (int i = 0; i < image.Length; i += 3)
+                    {
+                        image[i] = 100;
+                        image[i + 1] = 255;
+                        image[i + 2] = 100;
+                    }
+                    byte[] data = new byte[2048];   // буфер для получаемых данных
+                    Thread.Sleep(image.Length / 6144);
+                    int pos = 0;
+                    do
+                    {
+                        handler.Receive(data, data.Length, 0);
+                        for (int i = 0; i < data.Length; i++)
+                        {
+                            if (pos < image.Length) image[pos] = data[i];
+                            pos++;
+                        }
+                        Thread.Sleep(2);
+                    } while (handler.Available > 0);
                     
                     result = new string[1];
                     result[0] = DB.SaveImage(image, int.Parse(split[1]), int.Parse(split[2])).ToString();

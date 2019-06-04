@@ -102,10 +102,10 @@ namespace SocketTcpClient
 
             byte[] data = Encoding.Unicode.GetBytes(command);
             socket.Send(data);
-            Thread.Sleep(5);
+            Thread.Sleep(40);
             data = bitmap;
             socket.Send(data);
-            Thread.Sleep(5);
+
             data = new byte[BufferSize]; // буфер для ответа
             StringBuilder builder = new StringBuilder();
             int bytes = 0; // количество полученных байт
@@ -167,6 +167,7 @@ namespace SocketTcpClient
 			for (int i = 0; i < image.Length; i++)
 				image[i] = 130;
             int pos = 0;
+			Thread.Sleep(image.Length/6144);
 			int count = 0;
 				do
 				{
