@@ -21,3 +21,26 @@ D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.CreateFloor.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.DestroyFloor.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.ShowImage.resources
 D:\PROGRAMS\Diplom\Client\Client\obj\Debug\Client.csprojAssemblyReference.cache
+C:\Users\usser\Desktop\Exe клиента\Client\Client\bin\Debug\Client.exe.config
+C:\Users\usser\Desktop\Exe клиента\Client\Client\bin\Debug\Client.exe
+C:\Users\usser\Desktop\Exe клиента\Client\Client\bin\Debug\Client.pdb
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.AddFloor.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.ChangePass.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.Client.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.AutorizationLogin.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.CreateExhibitWindows.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.CreateFloor.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.CreateUser.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.DeleteFloor.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.DeleteManager.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.DestroyFloor.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.Exponat.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.ShowImage.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.Properties.Resources.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.ResetExhibit.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.SetExhibit.resources
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.csproj.GenerateResource.cache
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.exe
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.pdb
+C:\Users\usser\Desktop\Exe клиента\Client\Client\obj\Debug\Client.csprojAssemblyReference.cache

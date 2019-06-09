@@ -46,7 +46,7 @@
             this.Set.Name = "Set";
             this.Set.Size = new System.Drawing.Size(236, 23);
             this.Set.TabIndex = 1;
-            this.Set.Text = "Повесить выбранные экспонаты";
+            this.Set.Text = "Повесить выбранный экспонат";
             this.Set.UseVisualStyleBackColor = true;
             this.Set.Click += new System.EventHandler(this.Set_Click);
             // 
@@ -58,7 +58,7 @@
             this.Controls.Add(this.Set);
             this.Controls.Add(this.FreeExhibits);
             this.Name = "SetExhibit";
-            this.Text = "SetExhibit";
+            this.Text = "Свободные экспонаты";
             this.ResumeLayout(false);
 
         }

@@ -58,7 +58,7 @@
             this.Controls.Add(this.Add);
             this.Controls.Add(this.UnvalidFloors);
             this.Name = "AddFloor";
-            this.Text = "Добавить этаж";
+            this.Text = "Неактивные этажи";
             this.ResumeLayout(false);
 
         }

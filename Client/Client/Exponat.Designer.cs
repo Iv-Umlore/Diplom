@@ -34,6 +34,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.Refresh = new System.Windows.Forms.Button();
+            this.Delete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,18 +96,40 @@
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 5;
             // 
+            // Refresh
+            // 
+            this.Refresh.Location = new System.Drawing.Point(179, 489);
+            this.Refresh.Name = "Refresh";
+            this.Refresh.Size = new System.Drawing.Size(141, 27);
+            this.Refresh.TabIndex = 6;
+            this.Refresh.Text = "Обновить";
+            this.Refresh.UseVisualStyleBackColor = true;
+            this.Refresh.Click += new System.EventHandler(this.Refresh_Click);
+            // 
+            // Delete
+            // 
+            this.Delete.Location = new System.Drawing.Point(370, 488);
+            this.Delete.Name = "Delete";
+            this.Delete.Size = new System.Drawing.Size(114, 28);
+            this.Delete.TabIndex = 7;
+            this.Delete.Text = "Удалить экспонат";
+            this.Delete.UseVisualStyleBackColor = true;
+            this.Delete.Click += new System.EventHandler(this.Delete_Click);
+            // 
             // Exponat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 495);
+            this.ClientSize = new System.Drawing.Size(496, 523);
+            this.Controls.Add(this.Delete);
+            this.Controls.Add(this.Refresh);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Description);
             this.Controls.Add(this.Name);
-            //this.Name = "Exponat";
+            
             this.Text = "Экспонат";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -121,5 +145,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button Refresh;
+        private System.Windows.Forms.Button Delete;
     }
 }

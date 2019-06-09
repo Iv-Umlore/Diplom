@@ -6,7 +6,7 @@ using System.Drawing;
 
 public class Floor
 {
-    private int id;
+    public int id;
     public int SchemeId;
     public Bitmap Scheme;
     public string FloorName;

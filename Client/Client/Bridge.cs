@@ -36,12 +36,22 @@ public class Bridge
 
     static public Bitmap ConvertToBitmap(byte[] image, int width, int height)
     {
+        Color[] palitra = new Color[width * height];
+        for (int i = 0; i < palitra.Length; i++)
+        {
+            palitra[i] = Color.FromArgb(image[3 * i], image[ 3 * i + 1], image[ 3 * i + 2]);
+            if (i == 2725)
+            {
+                Color that = palitra[i];
+            }
+        }
+
         Bitmap result = new Bitmap(width, height);
         int count = 0;
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++)
-            {
-                result.SetPixel(i,j,Color.FromArgb(image[3 * (i * height + j)], image[3 * (i * height + j) + 1], image[3 * (i * height + j) + 2]));
+            {                
+                result.SetPixel(i,j,palitra[count]);                
                 count++;
             }
         }
@@ -137,7 +147,7 @@ public class Bridge
         // true/false
     }
 
-    public void DeleteExhibitNumber(int ExhibitNumber)
+    static public void DeleteExhibitNumber(int ExhibitNumber)
     {
         Console.Write("Удаляю экспонат номер " + ExhibitNumber + "...\n");
         string[] parameters = new string[1];
@@ -349,5 +359,5 @@ public class Bridge
         parameters[1] = name;
         Speaker.Send(GetCorrectComandStrings((int)Commands.ChangeFloor, parameters));
     }
-
+    
 }

@@ -37,6 +37,7 @@ namespace Client
             else
             {
                 image = scheme;
+                this.Text = "Редактировать этаж";
                 textBox1.Text = Floor.FloorName;
                 Result.Text = "Вы можете отредактировать \n схему и название.";
             }

@@ -47,11 +47,13 @@ namespace Client
         List<floore> floors;
         List<floore> unvalidfloors;
 
-        private void RefreshFloor()
+        private void RefreshFloor(int id = 0)
         {
             if (currentFloor == null)
                 currentFloor = bridge.DownloadFloor(2);
-            else currentFloor = bridge.DownloadFloor(currentFloor.GetId());
+            else if (id == 0)
+                currentFloor = bridge.DownloadFloor(currentFloor.GetId());
+            else { currentFloor = bridge.DownloadFloor(id); }
             
             Scheme = currentFloor.Scheme;
             OriginalScheme = new Bitmap(currentFloor.Scheme);
@@ -190,7 +192,6 @@ namespace Client
                 {
                     DrawScheme();
                 }
-                MousePosition.Text = "Текущая позиция : " + (e.X + e.Y);
             }
         }
 
@@ -317,9 +318,10 @@ namespace Client
                         if (id == -1) MessageBox.Show("Возникла ошибка!");
                         else
                         {
-                            Exponat exhib = new Exponat(new Exhibit(id));
+                            Exponat exhib = new Exponat(new Exhibit(id), isAdmin);
                             this.Hide();
                             exhib.ShowDialog();
+                            if (isAdmin) RefreshFloor();
                             this.Show();
                         }
                         break;
@@ -395,8 +397,7 @@ namespace Client
                     break;
                 }
             }
-            currentFloor = bridge.DownloadFloor(selectedflooreID);
-            RefreshFloor();
+            RefreshFloor(selectedflooreID);
         }
 
         private int GetNextNumberOfFloor()
@@ -463,5 +464,10 @@ namespace Client
             this.Show();
             RefreshFloor();
         }
-    }
+
+		private void Refreshing_Click(object sender, EventArgs e)
+		{
+			RefreshFloor();
+		}
+	}
 }
